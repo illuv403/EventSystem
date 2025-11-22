@@ -2,7 +2,7 @@
 
 public class Club : Location
 {
-    public Club(uint capacity, string address, List<Event> eventsAssigned) 
+    public Club(uint capacity, string address, List<Event>? eventsAssigned) 
         : base(capacity, address , eventsAssigned)
     {
         

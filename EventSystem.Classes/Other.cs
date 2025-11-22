@@ -2,11 +2,11 @@
 
 public class Other : Person
 {
-    private string _type;
+    public string Type { get; }
 
     public Other(string name, string surname, string email, string phoneNumber, DateTime birthDate, string type)
         :base(name, surname, email, phoneNumber, birthDate)
     {
-        _type = type;
+        Type = type;
     }
 }

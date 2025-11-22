@@ -2,15 +2,15 @@
 
 public class Location
 {
-    private uint _capacity;
-    private string _address;
-    
-    private List<Event> _eventsAssigned;
+    public uint Capacity { get; }
+    public string Address { get; }
 
-    public Location(uint capacity, string address,  List<Event> eventsAssigned)
+    public List<Event>? EventsAssigned { get; } = new();
+
+    public Location(uint capacity, string address,  List<Event>? eventsAssigned)
     {
-        _capacity = capacity;
-        _address = address;
-        _eventsAssigned = eventsAssigned;
+        Capacity = capacity;
+        Address = address;
+        EventsAssigned = eventsAssigned;
     }
 }

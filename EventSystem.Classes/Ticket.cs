@@ -1,20 +1,20 @@
 ﻿namespace EventSystem.Classes;
 
-public class Ticket
+public abstract class Ticket
 {
-    private string _gateNumber;
-    private decimal _price;
+    public string GateNumber { get; }
+    public decimal Price { get; }
     
-    private Event _eveForTicket;
-    private Order _order;
+    public Event EventForTicket { get; }
+    public Order Order { get; }
 
-    public Ticket(string gateNumber, decimal price, Event eveForTicket, Order order)
+    public Ticket(string gateNumber, decimal price, Event eventForTicket, Order order)
     {
-        _gateNumber = gateNumber;
-        _price = price;
+        GateNumber = gateNumber;
+        Price = price;
         
-        _eveForTicket = eveForTicket;
-        _order = order;
+        EventForTicket = eventForTicket;
+        Order = order;
     }
     
     

@@ -2,10 +2,10 @@
 
 public class Standart : Ticket
 {
-    private string _seatNumber;
+    public string SeatNumber { get; }
 
-    public Standart(string gateNumber, decimal price, string seatNumber, Event eveForTicket, Order order) : base(gateNumber, price, eveForTicket, order)
+    public Standart(string gateNumber, decimal price, string seatNumber, Event eventForTicket, Order order) : base(gateNumber, price, eventForTicket, order)
     {
-        _seatNumber = seatNumber;
+        SeatNumber = seatNumber;
     }
 }

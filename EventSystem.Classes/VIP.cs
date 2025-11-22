@@ -2,10 +2,10 @@
 
 public class VIP : Ticket
 {
-    private string _loungeNumber;
+    public string LoungeNumber { get; }
     
-    public VIP(string gateNumber, decimal price, string loungeNumber, Event eveForTicket, Order order) : base(gateNumber, price, eveForTicket, order)
+    public VIP(string gateNumber, decimal price, string loungeNumber, Event eventForTicket, Order order) : base(gateNumber, price, eventForTicket, order)
     {
-        _loungeNumber = loungeNumber;
+        LoungeNumber = loungeNumber;
     }
 }

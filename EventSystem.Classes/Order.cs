@@ -2,22 +2,20 @@
 
 public class Order
 {
-    private int _isFinalized;
-    private decimal _totalPrice;
-    private int _maxTicketQuantity = 5;
-    
-    private List<Ticket>? _ticketsInOrder; 
+    public int? IsFinalized { get; }
+    public decimal TotalPrice { get; } = 0;
+
+    public int MaxTicketQuantity { get; } = 5;
+
+    public List<Ticket>? TicketsInOrder { get; } = new();
     
     //part of Customer Order association, may need additional fixes
-    private Customer _ownedByCustomer;
+    public Customer OwnedByCustomer { get; }
     
-    public Order(int isFinalized, decimal totalPrice, Customer ownedByCustomer)
+    public Order(int? isFinalized, Customer ownedByCustomer)
     {
-        _isFinalized = isFinalized;
-        _totalPrice = totalPrice;
-        
-        //_ticketsInOrder.add(new Ticket())
-        _ownedByCustomer = ownedByCustomer;
+        IsFinalized = isFinalized;
+        OwnedByCustomer = ownedByCustomer;
     }
 
     

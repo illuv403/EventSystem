@@ -2,25 +2,37 @@
 
 public class Staff : Person
 {
-    private string _role;
-    private Address _address;
-    private decimal _salary;
+    public enum StaffRole 
+    {
+        Security,
+        Cleaner,
+        Bartender,
+        Stagehand,
+        Cameramen,
+        Manager
+    }
+    public StaffRole Role { get; }
+    public Address Address { get; }
+    public decimal Salary { get; }
 
-    private List<Event?> _events;
+    public List<Event>? Events { get; } = new();
 
-    private Organizer _organizer;
-    private Staff _manager;
+    public Organizer Organizer { get; }
+    public Staff? Manager { get; }
+    
+    public List<Staff>? Subordinates { get; } = new();
 
-    public Staff(string name, string surname, string email, string phoneNumber, DateTime birthDate, string role,
-        Address address, decimal salary, List<Event?> events, Organizer organizer, Staff manager)
+    public Staff(string name, string surname, string email, string phoneNumber, DateTime birthDate, int role,
+        Address address, decimal salary, List<Event>? events, Organizer organizer, Staff manager, List<Staff>? subordinates)
         : base(name, surname, email, phoneNumber, birthDate)
     {
-        _role = role;
-        _address = address;
-        _salary = salary;
+        Role = (StaffRole)role;
+        Address = address;
+        Salary = salary;
 
-        _events = events;
-        _organizer = organizer;
-        _manager = manager;
+        Events = events;
+        Organizer = organizer;
+        Manager = manager;
+        Subordinates = subordinates;
     }
 }

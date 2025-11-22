@@ -2,24 +2,24 @@
 
 public class Address
 {
-    private string _country;
-    private string _city;
-    private string _street;
-    private string _appNumber;
-    private string _index;
+    public string Country { get; }
+    public string City { get; }
+    public string Street { get; }
+    public string AppNumber { get; }
+    public string Index { get; }
+
+    private List<Staff>? Staff { get; } = new();
+    private List<Event>? EventsHere { get; } = new();
     
-    private List<Staff?>  _staff;
-    private List<Event?> _eventsHere;
-    
-    public Address(string country, string city, string street, string appNumber, List<Staff?> staff,  List<Event?> eventsHere)
+    public Address(string country, string city, string street, string appNumber, string index, List<Staff>? staff,  List<Event>? eventsHere)
     {
-        _country = country;
-        _city = city;
-        _street = street;
-        _appNumber = appNumber;
-        _index = street;
+        Country = country;
+        City = city;
+        Street = street;
+        AppNumber = appNumber;
+        Index = index;
         
-        _staff = staff;
-        _eventsHere = eventsHere;
+        Staff = staff;
+        EventsHere = eventsHere;
     }
 }

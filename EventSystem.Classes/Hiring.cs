@@ -3,16 +3,16 @@
 public class Hiring
 {
     
-    private Staff _stuff;
-    private Organizer _organizer;
-    private DateTime _dateHired;
-    private int _dateFired;
+    public Staff Stuff;
+    public Organizer Organizer;
+    public DateTime DateHired;
+    public DateTime? DateFired;
     
-    public Hiring(Staff stuff, Organizer organizer, DateTime dateHired, int dateFired)
+    public Hiring(Staff stuff, Organizer organizer, DateTime dateHired, DateTime? dateFired)
     {
-        _stuff = stuff;
-        _organizer = organizer;
-        _dateHired = dateHired;
-        _dateFired = dateFired;
+        Stuff = stuff;
+        Organizer = organizer;
+        DateHired = dateHired;
+        DateFired = dateFired;
     }
 }

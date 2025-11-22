@@ -2,18 +2,27 @@
 
 public class Customer : Person
 {
-    private ushort _age;
-    private string _status;
+    public int Age { get; } = 0;
     
-    //part of Customer Order association, may need additional fixes
-    private List<Order>? _orders;
+    public enum CustomerStatus
+    {
+        Active = 0,
+        Suspended = 1,
+        Deleted = 2
+    }
+    public CustomerStatus Status { get; }
+    
 
-    public Customer(string name, string surname, string email, string phoneNumber, DateTime birthDate, ushort age, string status,  List<Order>? orders) 
+    //part of Customer Order association, may need additional fixes
+    public List<Order>? Orders { get; } = new();
+
+    public Customer(string name, string surname, string email, string phoneNumber, DateTime birthDate, int status,  List<Order>? orders) 
         :base(name, surname, email, phoneNumber, birthDate)
     {
-        _age = age;
-        _status = status;
+        Status = (CustomerStatus)status;
         
-        _orders = orders;
+        Orders = orders;
     }
+
+    
 }

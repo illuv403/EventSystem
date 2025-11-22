@@ -2,18 +2,18 @@
 
 public class Organizer : Person
 {
-    private decimal _profit;
-    private List<Staff> _staff;
+    public decimal Profit { get; }
+    public List<Staff>? Staff { get; } = new();
+
+    public List<Event>? Events { get; } = new();
     
-    private List<Event?> _events;
-    
-    public Organizer(string name, string surname, string email, string phoneNumber, DateTime birthDate, decimal profit,  List<Staff> staff, List<Event?> events) 
+    public Organizer(string name, string surname, string email, string phoneNumber, DateTime birthDate, decimal profit,  List<Staff>? staff, List<Event>? events) 
         :base(name, surname, email, phoneNumber, birthDate)
     {
-        _profit = profit;
-        _staff = staff;
+        Profit = profit;
+        Staff = staff;
         
-        _events = events;
+        Events = events;
     }
     
 }

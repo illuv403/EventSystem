@@ -2,32 +2,32 @@
 
 public class Event
 {
-    private string _title;
-    private DateTime _startDateAndTime;
-    private DateTime _endDateAndTime;
-    private string _description;
-    
-    private List<Organizer> _organizers;
-    private List<Staff?> _staffAssigned;
-    private List<Customer?> _inWishList;
-    private Location _location;
+    public string Title { get; }
+    public DateTime StartDateAndTime{ get; }
+    public DateTime EndDateAndTime{ get; }
+    public string Description{ get; }
+
+    public List<Organizer> Organizers { get; } = new();
+    public List<Staff>? StaffAssigned { get; } = new();
+    public List<Customer>? InWhoseWishList { get; } = new();
+    public Location Location{ get; }
     
     // event ticket association list?
-    private List<Ticket?> _ticketsForEvent;
-    public Event(string title, DateTime startDateAndTime, DateTime endDateAndTime, string description, List<Organizer> organizers, List<Staff?> staffAssigned,
-        List<Customer?> inWishList, Location location, List<Ticket?> ticketsForEvent)
+    public List<Ticket>? TicketsForEvent { get; } = new();
+    public Event(string title, DateTime startDateAndTime, DateTime endDateAndTime, string description, List<Organizer> organizers, List<Staff>? staffAssigned,
+        List<Customer>? inWhoseWishList, Location location, List<Ticket>? ticketsForEvent)
     {
-        _title = title;
-        _startDateAndTime = startDateAndTime;
-        _endDateAndTime = endDateAndTime;
-        _description = description;
+        Title = title;
+        StartDateAndTime = startDateAndTime;
+        EndDateAndTime = endDateAndTime;
+        Description = description;
         
-        _organizers = organizers;
-        _staffAssigned = staffAssigned;
-        _inWishList = inWishList;
-        _location = location;
+        Organizers = organizers;
+        StaffAssigned = staffAssigned;
+        InWhoseWishList = inWhoseWishList;
+        Location = location;
         
-        _ticketsForEvent = ticketsForEvent;
+        TicketsForEvent = ticketsForEvent;
     }
 
     
