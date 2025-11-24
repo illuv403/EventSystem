@@ -2,17 +2,36 @@
 
 public class Address
 {
+    private static readonly List<Address> _addressList = [];
+    public static IReadOnlyList<Address> AddressList => _addressList;
+
     public string Country { get; }
     public string City { get; }
     public string Street { get; }
     public string AppNumber { get; }
     public string Index { get; }
 
-    private List<Staff>? Staff { get; } = new();
-    private List<Event>? EventsHere { get; } = new();
+    public List<Staff> Staff { get; }
     
-    public Address(string country, string city, string street, string appNumber, string index, List<Staff>? staff,  List<Event>? eventsHere)
+    public Address(string country, string city, string street, string appNumber, string index, List<Staff> staff)
     {
+        country = country.Trim();
+        city = city.Trim();
+        street = street.Trim();
+        appNumber = appNumber.Trim();
+        index = index.Trim();
+        
+        if (string.IsNullOrWhiteSpace(country))
+            throw new ArgumentException("Country cannot be empty.");
+        if (string.IsNullOrWhiteSpace(city))
+            throw new ArgumentException("City cannot be empty.");
+        if (string.IsNullOrWhiteSpace(street))
+            throw new ArgumentException("Street cannot be empty.");
+        if (string.IsNullOrWhiteSpace(appNumber))
+            throw new ArgumentException("App number cannot be empty.");
+        if (string.IsNullOrWhiteSpace(index))
+            throw new ArgumentException("Index cannot be empty.");
+        
         Country = country;
         City = city;
         Street = street;
@@ -20,6 +39,7 @@ public class Address
         Index = index;
         
         Staff = staff;
-        EventsHere = eventsHere;
+        
+        _addressList.Add(this);
     }
 }

@@ -2,21 +2,23 @@
 
 public class Order
 {
-    public int? IsFinalized { get; }
-    public decimal TotalPrice { get; } = 0;
-
-    public int MaxTicketQuantity { get; } = 5;
-
-    public List<Ticket>? TicketsInOrder { get; } = new();
+    private static readonly List<Order> _orderList = [];
+    public static IReadOnlyList<Order> List => _orderList;
     
-    //part of Customer Order association, may need additional fixes
-    public Customer OwnedByCustomer { get; }
+    public bool IsFinalized { get; set; } = false;
+    public decimal TotalPrice => TicketsInOrder.Sum(ticket => ticket.Price);
+    public static readonly int MaxTicketQuantity = 5;
+
     
-    public Order(int? isFinalized, Customer ownedByCustomer)
+    // Will be fixed later
+    public List<Ticket> TicketsInOrder { get; }
+    public Customer? CreatedByCustomer { get; }
+    
+    public Order(Customer createdByCustomer, List<Ticket> ticketsInOrder)
     {
-        IsFinalized = isFinalized;
-        OwnedByCustomer = ownedByCustomer;
+        CreatedByCustomer = createdByCustomer;
+        TicketsInOrder = ticketsInOrder;
+        
+        _orderList.Add(this);
     }
-
-    
 }

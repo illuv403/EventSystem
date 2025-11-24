@@ -2,9 +2,12 @@
 
 public class Stadium : Location
 {
-    public Stadium(uint capacity, string address , List<Event>? eventsAssigned) 
+    private static readonly List<Stadium> _stadiumList = [];
+    public static IReadOnlyList<Stadium> StadiumList => _stadiumList;
+    
+    public Stadium(int capacity, string address , List<Event> eventsAssigned) 
         : base(capacity, address, eventsAssigned)
     {
-        
+        _stadiumList.Add(this);
     }
 }
