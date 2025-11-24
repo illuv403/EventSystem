@@ -2,17 +2,21 @@
 
 public class Hiring
 {
+    private static readonly List<Hiring> _hiringList = [];
+    public static IReadOnlyList<Hiring> List => _hiringList;
     
-    public Staff Stuff;
+    public Staff Staff;
     public Organizer Organizer;
-    public DateTime DateHired;
-    public DateTime? DateFired;
+    public DateOnly DateHired;
+    public DateOnly? DateFired;
     
-    public Hiring(Staff stuff, Organizer organizer, DateTime dateHired, DateTime? dateFired)
+    public Hiring(Staff staff, Organizer organizer, DateOnly dateHired, DateOnly? dateFired)
     {
-        Stuff = stuff;
+        Staff = staff;
         Organizer = organizer;
         DateHired = dateHired;
         DateFired = dateFired;
+        
+        _hiringList.Add(this);
     }
 }

@@ -2,26 +2,32 @@
 
 public class Customer : Person
 {
-    public int Age { get; } = 0;
+    private static readonly List<Customer> _customerList = [];
+    public static IReadOnlyList<Customer> CustomerList => _customerList;
     
     public enum CustomerStatus
     {
-        Active = 0,
-        Suspended = 1,
-        Deleted = 2
+        Active,
+        Suspended,
+        Deleted
     }
-    public CustomerStatus Status { get; }
+
+    public int Age => 
+        DateTime.Now.Year - BirthDate.Year - (DateTime.Now.DayOfYear - BirthDate.DayOfYear < 0 ? 1 : 0);
+
+    public CustomerStatus Status { get; } = CustomerStatus.Active;
     
 
-    //part of Customer Order association, may need additional fixes
-    public List<Order>? Orders { get; } = new();
+    // Will be fixed later (should be Map)
+    public List<Order> Orders { get; }
 
-    public Customer(string name, string surname, string email, string phoneNumber, DateTime birthDate, int status,  List<Order>? orders) 
-        :base(name, surname, email, phoneNumber, birthDate)
+    public Customer(string name, string surname, string email, 
+        string phoneNumber, DateOnly birthDate, List<Order> orders) 
+        : base(name, surname, email, phoneNumber, birthDate)
     {
-        Status = (CustomerStatus)status;
-        
         Orders = orders;
+        
+        _customerList.Add(this);
     }
 
     
