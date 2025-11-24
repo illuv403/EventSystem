@@ -50,5 +50,11 @@ public class Event
         _eventList.Add(this);
     }
 
-    
+    public static void LoadExtent(List<Event>? list)
+    {
+        _eventList.Clear();
+        
+        if(list != null)
+            _eventList.AddRange(list);
+    }
 }

@@ -26,4 +26,12 @@ public class Location
         
         _locationList.Add(this);
     }
+    
+    public static void LoadExtent(List<Location>? list)
+    {
+        _locationList.Clear();
+        
+        if(list != null)
+            _locationList.AddRange(list);
+    }
 }

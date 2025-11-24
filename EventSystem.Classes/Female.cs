@@ -17,4 +17,12 @@ public class Female : Person
     {
         return Symbol;
     }
+    
+    public static void LoadExtent(List<Female>? list)
+    {
+        _femaleList.Clear();
+        
+        if(list != null)
+            _femaleList.AddRange(list);
+    }
 }

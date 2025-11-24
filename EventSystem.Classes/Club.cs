@@ -10,4 +10,12 @@ public class Club : Location
     {
         _clubList.Add(this);
     }
+    
+    public static void LoadExtent(List<Club>? list)
+    {
+        _clubList.Clear();
+        
+        if(list != null)
+            _clubList.AddRange(list);
+    }
 }

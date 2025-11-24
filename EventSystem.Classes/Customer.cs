@@ -30,5 +30,11 @@ public class Customer : Person
         _customerList.Add(this);
     }
 
-    
+    public static void LoadExtent(List<Customer>? list)
+    {
+        _customerList.Clear();
+        
+        if(list != null)
+            _customerList.AddRange(list);
+    }
 }

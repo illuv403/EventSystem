@@ -9,4 +9,12 @@ public class FanZone : Ticket
     {
         _fanZoneList.Add(this);
     }
+    
+    public static void LoadExtent(List<FanZone>? list)
+    {
+        _fanZoneList.Clear();
+        
+        if(list != null)
+            _fanZoneList.AddRange(list);
+    }
 }

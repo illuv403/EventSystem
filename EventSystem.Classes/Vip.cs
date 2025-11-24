@@ -14,4 +14,12 @@ public class Vip : Ticket
         
         _vipList.Add(this);
     }
+    
+    public static void LoadExtent(List<Vip>? list)
+    {
+        _vipList.Clear();
+        
+        if(list != null)
+            _vipList.AddRange(list);
+    }
 }

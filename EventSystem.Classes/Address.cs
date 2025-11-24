@@ -42,4 +42,12 @@ public class Address
         
         _addressList.Add(this);
     }
+    
+    public static void LoadExtent(List<Address>? list)
+    {
+        _addressList.Clear();
+        
+        if(list != null)
+            _addressList.AddRange(list);
+    }
 }

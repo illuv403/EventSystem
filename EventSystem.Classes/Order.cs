@@ -21,4 +21,12 @@ public class Order
         
         _orderList.Add(this);
     }
+    
+    public static void LoadExtent(List<Order>? list)
+    {
+        _orderList.Clear();
+        
+        if(list != null)
+            _orderList.AddRange(list);
+    }
 }

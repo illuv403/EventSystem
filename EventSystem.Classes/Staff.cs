@@ -42,4 +42,12 @@ public class Staff : Person
         
         _staffList.Add(this);
     }
+    
+    public static void LoadExtent(List<Staff>? list)
+    {
+        _staffList.Clear();
+        
+        if(list != null)
+            _staffList.AddRange(list);
+    }
 }

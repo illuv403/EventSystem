@@ -15,4 +15,12 @@ public class Other : Person
         
         _otherList.Add(this);
     }
+    
+    public static void LoadExtent(List<Other>? list)
+    {
+        _otherList.Clear();
+        
+        if(list != null)
+            _otherList.AddRange(list);
+    }
 }

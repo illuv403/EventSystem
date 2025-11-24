@@ -20,4 +20,12 @@ public class Organizer : Person
         
         _organizerList.Add(this);
     }
+    
+    public static void LoadExtent(List<Organizer>? list)
+    {
+        _organizerList.Clear();
+        
+        if(list != null)
+            _organizerList.AddRange(list);
+    }
 }

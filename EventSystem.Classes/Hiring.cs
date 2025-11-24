@@ -19,4 +19,12 @@ public class Hiring
         
         _hiringList.Add(this);
     }
+    
+    public static void LoadExtent(List<Hiring>? list)
+    {
+        _hiringList.Clear();
+        
+        if(list != null)
+            _hiringList.AddRange(list);
+    }
 }

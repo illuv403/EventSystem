@@ -14,4 +14,12 @@ public class Standard : Ticket
         
         _standardList.Add(this);
     }
+    
+    public static void LoadExtent(List<Standard>? list)
+    {
+        _standardList.Clear();
+        
+        if(list != null)
+            _standardList.AddRange(list);
+    }
 }
