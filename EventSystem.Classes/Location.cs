@@ -1,4 +1,6 @@
-﻿namespace EventSystem.Classes;
+﻿using System.Xml.Serialization;
+
+namespace EventSystem.Classes;
 
 public class Location
 {
@@ -8,6 +10,7 @@ public class Location
     public int Capacity { get; }
     public string Address { get; }
 
+    [XmlIgnore]
     public List<Event> EventsAssigned { get; }
 
     public Location(int capacity, string address,  List<Event> eventsAssigned)

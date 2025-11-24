@@ -1,4 +1,6 @@
-﻿namespace EventSystem.Classes;
+﻿using System.Xml.Serialization;
+
+namespace EventSystem.Classes;
 
 public class Order
 {
@@ -6,7 +8,11 @@ public class Order
     public static IReadOnlyList<Order> List => _orderList;
     
     public bool IsFinalized { get; set; } = false;
+    
+    [XmlIgnore]
     public decimal TotalPrice => TicketsInOrder.Sum(ticket => ticket.Price);
+
+    [XmlIgnore]
     public static readonly int MaxTicketQuantity = 5;
 
     

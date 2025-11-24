@@ -1,4 +1,6 @@
-﻿namespace EventSystem.Classes;
+﻿using System.Xml.Serialization;
+
+namespace EventSystem.Classes;
 
 public class Organizer : Person
 {
@@ -7,7 +9,10 @@ public class Organizer : Person
     
     public decimal Profit { get; }
     
+    [XmlIgnore]
     public List<Staff> Staff { get; }
+    
+    [XmlIgnore]
     public List<Event> Events { get; }
     
     public Organizer(string name, string surname, string email, string phoneNumber, DateOnly birthDate, decimal profit,  List<Staff> staff, List<Event> events) 

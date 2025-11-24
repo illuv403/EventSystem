@@ -1,4 +1,6 @@
-﻿namespace EventSystem.Classes;
+﻿using System.Xml.Serialization;
+
+namespace EventSystem.Classes;
 
 public class Address
 {
@@ -10,7 +12,8 @@ public class Address
     public string Street { get; }
     public string AppNumber { get; }
     public string Index { get; }
-
+    
+    [XmlIgnore]
     public List<Staff> Staff { get; }
     
     public Address(string country, string city, string street, string appNumber, string index, List<Staff> staff)

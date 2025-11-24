@@ -1,11 +1,15 @@
-﻿namespace EventSystem.Classes;
+﻿using System.Xml.Serialization;
+
+namespace EventSystem.Classes;
 
 public class Hiring
 {
     private static readonly List<Hiring> _hiringList = [];
     public static IReadOnlyList<Hiring> List => _hiringList;
     
+    [XmlIgnore]
     public Staff Staff;
+    [XmlIgnore]
     public Organizer Organizer;
     public DateOnly DateHired;
     public DateOnly? DateFired;

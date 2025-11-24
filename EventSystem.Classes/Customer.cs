@@ -1,4 +1,6 @@
-﻿namespace EventSystem.Classes;
+﻿using System.Xml.Serialization;
+
+namespace EventSystem.Classes;
 
 public class Customer : Person
 {
@@ -11,7 +13,8 @@ public class Customer : Person
         Suspended,
         Deleted
     }
-
+    
+    [XmlIgnore]
     public int Age => 
         DateTime.Now.Year - BirthDate.Year - (DateTime.Now.DayOfYear - BirthDate.DayOfYear < 0 ? 1 : 0);
 

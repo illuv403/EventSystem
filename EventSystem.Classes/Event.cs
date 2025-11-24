@@ -1,4 +1,6 @@
-﻿namespace EventSystem.Classes;
+﻿using System.Xml.Serialization;
+
+namespace EventSystem.Classes;
 
 public class Event
 {
@@ -9,9 +11,12 @@ public class Event
     public DateTime StartDateAndTime{ get; }
     public DateTime EndDateAndTime{ get; }
     public string Description{ get; }
-
+    
+    [XmlIgnore]
     public List<Organizer> Organizers { get; }
+    [XmlIgnore]
     public List<Staff> StaffAssigned { get; }
+    [XmlIgnore]
     public List<Customer> InWhoseWishList { get; }
     public Location Location{ get; }
     
