@@ -24,6 +24,4 @@ public abstract class Ticket
         EventForTicket = eventForTicket;
         Order = order;
     }
-    
-    
 }
