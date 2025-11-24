@@ -12,4 +12,9 @@ public class Male : Person
     {
         _maleList.Add(this);
     }
+    
+    public char GetSymbol()
+    {
+        return Symbol;
+    }
 }

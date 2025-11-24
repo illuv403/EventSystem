@@ -13,5 +13,8 @@ public class Female : Person
         _femaleList.Add(this);
     }
 
-    
+    public char GetSymbol()
+    {
+        return Symbol;
+    }
 }

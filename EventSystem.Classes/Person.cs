@@ -27,12 +27,12 @@ public abstract class Person
         if (!new EmailAddressAttribute().IsValid(email))
             throw new ArgumentException("Invalid email address.");
         
-        if (!new PhoneAttribute().IsValid(phoneNumber))
-            throw new ArgumentException("Phone number is invalid.");
         if (string.IsNullOrWhiteSpace(phoneNumber))
             throw new ArgumentException("Phone number cannot be empty.");
+        if (!new PhoneAttribute().IsValid(phoneNumber))
+            throw new ArgumentException("Phone number is invalid.");
         
-        if (BirthDate > DateOnly.FromDateTime(DateTime.Now))
+        if (birthDate > DateOnly.FromDateTime(DateTime.Now))
             throw new ArgumentException("Birth date is invalid.");
         
         Name = name;

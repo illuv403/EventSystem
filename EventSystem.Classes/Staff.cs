@@ -18,14 +18,14 @@ public class Staff : Person
     public Address Address { get; }
     public decimal Salary { get; }
 
-    public Staff Manager { get; }
+    public Staff? Manager { get; }
     public List<Staff> Subordinates { get; }
     
     public List<Event> Events { get; }
     public Organizer Organizer { get; }
 
     public Staff(string name, string surname, string email, string phoneNumber, DateOnly birthDate, StaffRole role,
-        Address address, decimal salary, List<Event> events, Organizer organizer, Staff manager, List<Staff> subordinates)
+        Address address, decimal salary, List<Event> events, Organizer organizer, Staff? manager, List<Staff> subordinates)
         : base(name, surname, email, phoneNumber, birthDate)
     {
         if (salary < 0)
