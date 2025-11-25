@@ -18,4 +18,9 @@ public class Scene : Location
         if(list != null)
             _sceneList.AddRange(list);
     }
+    
+    public static void ClearExtent()
+    {
+        _sceneList.Clear();   
+    }
 }

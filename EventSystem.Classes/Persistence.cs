@@ -4,28 +4,28 @@ namespace EventSystem.Classes;
 
 public static class Persistence
 {
-    public static void SaveAllData()
+    public static void SaveAllData(string directoryPath)
     {
-        Save("Address.xml", Address.AddressList.ToList());
-        Save("Club.xml", Club.ClubList.ToList());
-        Save("Customer.xml", Customer.CustomerList.ToList());
-        Save("Event.xml", Event.EventList.ToList());
-        Save("FanZone.xml", FanZone.FanZoneList.ToList());
-        Save("Female.xml", Female.List.ToList());
-        Save("Hiring.xml", Hiring.List.ToList());
-        Save("Location.xml", Location.LocationList.ToList());
-        Save("Male.xml", Male.List.ToList());
-        Save("Musical.xml", Musical.MusicalList.ToList());
-        Save("Order.xml", Order.List.ToList());
-        Save("Organizer.xml", Organizer.OrganizerList.ToList());
-        Save("Other.xml", Other.OtherList.ToList());
-        Save("Scene.xml", Scene.SceneList.ToList());
-        Save("Sport.xml", Sport.SportList.ToList());
-        Save("Stadium.xml", Stadium.StadiumList.ToList());
-        Save("Staff.xml", Staff.StaffList.ToList());
-        Save("Standard.xml", Standard.StandardList.ToList());
-        Save("Standup.xml", Standup.StandupList.ToList());
-        Save("Vip.xml", Vip.VipList.ToList());
+        Save(Path.Combine(directoryPath,"Address.xml"), Address.AddressList.ToList());
+        Save(Path.Combine(directoryPath,"Club.xml"), Club.ClubList.ToList());
+        Save(Path.Combine(directoryPath,"Customer.xml"), Customer.CustomerList.ToList());
+        Save(Path.Combine(directoryPath,"Event.xml"), Event.EventList.ToList());
+        Save(Path.Combine(directoryPath,"FanZone.xml"), FanZone.FanZoneList.ToList());
+        Save(Path.Combine(directoryPath,"Female.xml"), Female.List.ToList());
+        Save(Path.Combine(directoryPath,"Hiring.xml"), Hiring.List.ToList());
+        Save(Path.Combine(directoryPath,"Location.xml"), Location.LocationList.ToList());
+        Save(Path.Combine(directoryPath,"Male.xml"), Male.List.ToList());
+        Save(Path.Combine(directoryPath,"Musical.xml"), Musical.MusicalList.ToList());
+        Save(Path.Combine(directoryPath,"Order.xml"), Order.List.ToList());
+        Save(Path.Combine(directoryPath,"Organizer.xml"), Organizer.OrganizerList.ToList());
+        Save(Path.Combine(directoryPath,"Other.xml"), Other.OtherList.ToList());
+        Save(Path.Combine(directoryPath,"Scene.xml"), Scene.SceneList.ToList());
+        Save(Path.Combine(directoryPath,"Sport.xml"), Sport.SportList.ToList());
+        Save(Path.Combine(directoryPath,"Stadium.xml"), Stadium.StadiumList.ToList());
+        Save(Path.Combine(directoryPath,"Staff.xml"), Staff.StaffList.ToList());
+        Save(Path.Combine(directoryPath,"Standard.xml"), Standard.StandardList.ToList());
+        Save(Path.Combine(directoryPath,"Standup.xml"), Standup.StandupList.ToList());
+        Save(Path.Combine(directoryPath,"Vip.xml"), Vip.VipList.ToList());
     }
 
     public static void LoadAllData()

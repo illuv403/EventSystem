@@ -18,4 +18,9 @@ public class Stadium : Location
         if(list != null)
             _stadiumList.AddRange(list);
     }
+    
+    public static void ClearExtent()
+    {
+        _stadiumList.Clear();   
+    }
 }

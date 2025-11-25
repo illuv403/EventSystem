@@ -23,6 +23,12 @@ public class Customer : Person
 
     // Will be fixed later (should be Map)
     public List<Order> Orders { get; }
+    
+    public Customer(string name, string surname, string email,
+        string phoneNumber, DateOnly birthDate)
+        : base(name, surname, email, phoneNumber, birthDate)
+    {
+    }
 
     public Customer(string name, string surname, string email, 
         string phoneNumber, DateOnly birthDate, List<Order> orders) 
@@ -39,5 +45,10 @@ public class Customer : Person
         
         if(list != null)
             _customerList.AddRange(list);
+    }
+    
+    public static void ClearExtent()
+    {
+        _customerList.Clear();
     }
 }

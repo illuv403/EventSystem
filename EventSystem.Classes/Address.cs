@@ -53,4 +53,9 @@ public class Address
         if(list != null)
             _addressList.AddRange(list);
     }
+
+    public static void ClearExtent()
+    {
+        _addressList.Clear();
+    }
 }

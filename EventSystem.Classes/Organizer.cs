@@ -33,4 +33,9 @@ public class Organizer : Person
         if(list != null)
             _organizerList.AddRange(list);
     }
+    
+    public static void ClearExtent()
+    {
+        _organizerList.Clear();   
+    }
 }

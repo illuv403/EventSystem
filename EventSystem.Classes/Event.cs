@@ -22,6 +22,7 @@ public class Event
     
     // event ticket association list?
     public List<Ticket> TicketsForEvent { get; }
+    
     public Event(string title, DateTime startDateAndTime, DateTime endDateAndTime, string description, 
         List<Organizer> organizers, List<Staff> staffAssigned,
         List<Customer> inWhoseWishList, Location location, List<Ticket> ticketsForEvent)
@@ -61,5 +62,10 @@ public class Event
         
         if(list != null)
             _eventList.AddRange(list);
+    }
+    
+    public static void ClearExtent()
+    {
+        _eventList.Clear();   
     }
 }

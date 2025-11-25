@@ -31,4 +31,9 @@ public class Hiring
         if(list != null)
             _hiringList.AddRange(list);
     }
+    
+    public static void ClearExtent()
+    {
+        _hiringList.Clear();   
+    }
 }

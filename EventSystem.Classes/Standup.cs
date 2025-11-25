@@ -19,4 +19,9 @@ public class Standup : Event
         if(list != null)
             _standupList.AddRange(list);
     }
+    
+    public static void ClearExtent()
+    {
+        _standupList.Clear();   
+    }
 }

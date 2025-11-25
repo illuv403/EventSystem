@@ -6,7 +6,7 @@ public class Female : Person
     public static IReadOnlyList<Female> List => _femaleList;
     
     public const char Symbol = '\u2640';
-
+    
     public Female(string name, string surname, string email, string phoneNumber, DateOnly birthDate) 
         :base(name, surname, email, phoneNumber, birthDate)
     {
@@ -24,5 +24,10 @@ public class Female : Person
         
         if(list != null)
             _femaleList.AddRange(list);
+    }
+    
+    public static void ClearExtent()
+    {
+        _femaleList.Clear();   
     }
 }

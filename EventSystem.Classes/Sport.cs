@@ -19,4 +19,9 @@ public class Sport : Event
         if(list != null)
             _sportList.AddRange(list);
     }
+    
+    public static void ClearExtent()
+    {
+        _sportList.Clear();   
+    }
 }

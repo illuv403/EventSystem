@@ -22,4 +22,9 @@ public class Standard : Ticket
         if(list != null)
             _standardList.AddRange(list);
     }
+    
+    public static void ClearExtent()
+    {
+        _standardList.Clear();   
+    }
 }

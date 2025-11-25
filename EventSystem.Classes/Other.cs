@@ -23,4 +23,9 @@ public class Other : Person
         if(list != null)
             _otherList.AddRange(list);
     }
+    
+    public static void ClearExtent()
+    {
+        _otherList.Clear();   
+    }
 }

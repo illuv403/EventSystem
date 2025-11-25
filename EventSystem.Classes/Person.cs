@@ -9,6 +9,7 @@ public abstract class Person
     public string Email {get;}
     public string PhoneNumber {get;}
     public DateOnly BirthDate {get;}
+    
 
     public Person(string name, string surname, string email, string phoneNumber, DateOnly birthDate)
     {
@@ -40,5 +41,10 @@ public abstract class Person
         Email = email;
         PhoneNumber = phoneNumber;
         BirthDate = birthDate;
+    }
+
+    protected Person()
+    {
+        throw new NotImplementedException();
     }
 }

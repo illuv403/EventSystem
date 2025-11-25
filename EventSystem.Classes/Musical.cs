@@ -18,4 +18,9 @@ public class Musical : Event
         if(list != null)
             _musicalList.AddRange(list);
     }
+    
+    public static void ClearExtent()
+    {
+        _musicalList.Clear();   
+    }
 }

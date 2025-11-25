@@ -25,4 +25,9 @@ public class Male : Person
         if(list != null)
             _maleList.AddRange(list);
     }
+    
+    public static void ClearExtent()
+    {
+        _maleList.Clear();   
+    }
 }

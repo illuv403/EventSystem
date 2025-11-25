@@ -22,4 +22,9 @@ public class Vip : Ticket
         if(list != null)
             _vipList.AddRange(list);
     }
+    
+    public static void ClearExtent()
+    {
+        _vipList.Clear();   
+    }
 }

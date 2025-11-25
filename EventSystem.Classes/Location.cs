@@ -12,7 +12,7 @@ public class Location
 
     [XmlIgnore]
     public List<Event> EventsAssigned { get; }
-
+    
     public Location(int capacity, string address,  List<Event> eventsAssigned)
     {
         if (capacity < 1)
@@ -29,12 +29,17 @@ public class Location
         
         _locationList.Add(this);
     }
-    
+
     public static void LoadExtent(List<Location>? list)
     {
         _locationList.Clear();
         
         if(list != null)
             _locationList.AddRange(list);
+    }
+    
+    public static void ClearExtent()
+    {
+        _locationList.Clear();   
     }
 }

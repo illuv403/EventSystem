@@ -56,4 +56,9 @@ public class Staff : Person
         if(list != null)
             _staffList.AddRange(list);
     }
+    
+    public static void ClearExtent()
+    {
+        _staffList.Clear();   
+    }
 }

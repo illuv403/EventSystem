@@ -35,4 +35,9 @@ public class Order
         if(list != null)
             _orderList.AddRange(list);
     }
+    
+    public static void ClearExtent()
+    {
+        _orderList.Clear();   
+    }
 }
