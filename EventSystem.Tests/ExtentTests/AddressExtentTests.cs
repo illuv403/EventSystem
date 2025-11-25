@@ -16,8 +16,6 @@ public class AddressExtentTests : ExtentTestBase
     [Fact]
     public void LoadExtent_ReplaceExistingObjects()
     {
-        Address.ClearExtent();
-        
         var addr = TestData.Address();
 
         var newList = new List<Address>

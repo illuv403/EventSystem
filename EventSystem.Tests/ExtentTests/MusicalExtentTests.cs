@@ -16,8 +16,6 @@ public class MusicalExtentTests : ExtentTestBase
     [Fact]
     public void LoadExtent_ReplaceExistingObjects()
     {
-        Musical.ClearExtent();
-        
         var musical = TestData.Musical();
         
         var newList = new List<Musical>

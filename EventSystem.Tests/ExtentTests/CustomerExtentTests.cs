@@ -16,8 +16,6 @@ public class CustomerExtentTests : ExtentTestBase
     [Fact]
     public void LoadExtent_ReplaceExistingObjects()
     {
-        Customer.ClearExtent();
-        
         var customer = TestData.Customer();
 
         var newList = new List<Customer>

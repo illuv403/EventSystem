@@ -13,6 +13,10 @@ public class Female : Person
         _femaleList.Add(this);
     }
 
+    public Female() : base()
+    {
+    }
+
     public char GetSymbol()
     {
         return Symbol;

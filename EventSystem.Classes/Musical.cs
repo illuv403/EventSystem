@@ -11,7 +11,11 @@ public class Musical : Event
     {
         _musicalList.Add(this);
     }
-    
+
+    public Musical() : base()
+    {
+    }
+
     public static void LoadExtent(List<Musical>? list)
     {
         _musicalList.Clear();

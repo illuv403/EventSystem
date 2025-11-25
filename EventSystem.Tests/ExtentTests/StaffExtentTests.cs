@@ -16,8 +16,6 @@ public class StaffExtentTests : ExtentTestBase
     [Fact]
     public void LoadExtent_ReplaceExistingObjects()
     {
-        Staff.ClearExtent();
-        
         var staff = TestData.Staff();
         
         var newList = new List<Staff>

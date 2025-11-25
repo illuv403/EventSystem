@@ -16,8 +16,6 @@ public class SceneExtentTests : ExtentTestBase
     [Fact]
     public void LoadExtent_ReplaceExistingObjects()
     {
-        Scene.ClearExtent();
-        
         var scene = TestData.Scene();
 
         var newList = new List<Scene>

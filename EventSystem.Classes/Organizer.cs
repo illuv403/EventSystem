@@ -25,13 +25,15 @@ public class Organizer : Person
         
         _organizerList.Add(this);
     }
+
+    public Organizer() : base()
+    {
+    }
     
     public static void LoadExtent(List<Organizer>? list)
     {
         _organizerList.Clear();
-        
-        if(list != null)
-            _organizerList.AddRange(list);
+        if(list != null) _organizerList.AddRange(list);
     }
     
     public static void ClearExtent()

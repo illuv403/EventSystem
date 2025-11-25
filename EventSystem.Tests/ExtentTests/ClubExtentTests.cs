@@ -16,8 +16,6 @@ public class ClubExtentTests : ExtentTestBase
     [Fact]
     public void LoadExtent_ReplaceExistingObjects()
     {
-        Club.ClearExtent();
-        
         var club = TestData.Club();
 
         var newList = new List<Club>

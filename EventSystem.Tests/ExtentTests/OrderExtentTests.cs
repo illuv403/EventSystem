@@ -4,6 +4,7 @@ namespace EventSystem.Tests.ExtentTests;
 
 public class OrderExtentTests : ExtentTestBase
 {
+
     [Fact]
     public void AddingToExtentTest()
     {
@@ -16,8 +17,6 @@ public class OrderExtentTests : ExtentTestBase
     [Fact]
     public void LoadExtent_ReplaceExistingObjects()
     {
-        Order.ClearExtent();
-        
         var order = TestData.Order();
         
         var newList = new List<Order>

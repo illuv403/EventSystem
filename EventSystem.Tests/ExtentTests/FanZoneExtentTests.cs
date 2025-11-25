@@ -16,8 +16,6 @@ public class FanZoneExtentTests : ExtentTestBase
     [Fact]
     public void LoadExtent_ReplaceExistingObjects()
     {
-        FanZone.ClearExtent();
-        
         var fanzone = TestData.FanZone();
         
         var newList = new List<FanZone>

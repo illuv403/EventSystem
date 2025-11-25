@@ -16,8 +16,6 @@ public class StandupExtentTests : ExtentTestBase
     [Fact]
     public void LoadExtent_ReplaceExistingObjects()
     {
-        Standup.ClearExtent();
-        
         var standup = TestData.Standup();
 
         var newList = new List<Standup>

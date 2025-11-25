@@ -16,8 +16,6 @@ public class HiringExtentTests : ExtentTestBase
     [Fact]
     public void LoadExtent_ReplaceExistingObjects()
     {
-        Hiring.ClearExtent();
-        
         var hiring = TestData.Hiring();
 
         var newList = new List<Hiring>

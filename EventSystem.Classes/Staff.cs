@@ -17,6 +17,7 @@ public class Staff : Person
         Manager
     }
     public StaffRole Role { get; }
+    [XmlIgnore]
     public Address Address { get; }
     public decimal Salary { get; }
     
@@ -28,6 +29,7 @@ public class Staff : Person
     
     [XmlIgnore]
     public List<Event> Events { get; }
+    [XmlIgnore]
     public Organizer Organizer { get; }
 
     public Staff(string name, string surname, string email, string phoneNumber, DateOnly birthDate, StaffRole role,
@@ -47,6 +49,10 @@ public class Staff : Person
         Subordinates = subordinates;
         
         _staffList.Add(this);
+    }
+
+    public Staff() : base()
+    {
     }
     
     public static void LoadExtent(List<Staff>? list)

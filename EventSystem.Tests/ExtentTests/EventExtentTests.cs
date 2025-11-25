@@ -16,8 +16,6 @@ public class EventExtentTests : ExtentTestBase
     [Fact]
     public void LoadExtent_ReplaceExistingObjects()
     {
-        Event.ClearExtent();
-        
         var _event = TestData.Event();
         
         var newList = new List<Event>

@@ -2,6 +2,9 @@
 
 namespace EventSystem.Classes;
 
+[XmlInclude(typeof(Club))]
+[XmlInclude(typeof(Stadium))]
+[XmlInclude(typeof(Scene))]
 public class Location
 {
     private static readonly List<Location> _locationList = [];
@@ -28,6 +31,11 @@ public class Location
         EventsAssigned = eventsAssigned;
         
         _locationList.Add(this);
+    }
+
+    public Location()
+    {
+        EventsAssigned = new List<Event>();
     }
 
     public static void LoadExtent(List<Location>? list)

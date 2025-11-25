@@ -1,11 +1,19 @@
-﻿namespace EventSystem.Classes;
+﻿using System.Xml.Serialization;
 
+namespace EventSystem.Classes;
+
+[XmlInclude(typeof(Standard))]
+[XmlInclude(typeof(FanZone))]
+[XmlInclude(typeof(Vip))]
 public abstract class Ticket
 {
     public string GateNumber { get; }
     public decimal Price { get; }
     
+    [XmlIgnore]
     public Event EventForTicket { get; }
+    
+    [XmlIgnore]
     public Order Order { get; }
 
     public Ticket(string gateNumber, decimal price, Event eventForTicket, Order order)
@@ -24,4 +32,10 @@ public abstract class Ticket
         EventForTicket = eventForTicket;
         Order = order;
     }
+
+    public Ticket()
+    {
+        
+    } 
+    
 }

@@ -45,6 +45,11 @@ public class Address
         
         _addressList.Add(this);
     }
+
+    public Address()
+    {
+        Staff = new List<Staff>();
+    }
     
     public static void LoadExtent(List<Address>? list)
     {

@@ -11,6 +11,8 @@ public class Club : Location
         _clubList.Add(this);
     }
     
+    public Club() : base() { }
+    
     public static void LoadExtent(List<Club>? list)
     {
         _clubList.Clear();

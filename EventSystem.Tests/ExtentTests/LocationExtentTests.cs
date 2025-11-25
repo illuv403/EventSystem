@@ -15,9 +15,7 @@ public class LocationExtentTests : ExtentTestBase
     
     [Fact]
     public void LoadExtent_ReplaceExistingObjects()
-    {
-        Location.ClearExtent();
-        
+    {        
         var location = TestData.Location();
         
         var newList = new List<Location>

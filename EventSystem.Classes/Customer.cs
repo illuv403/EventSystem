@@ -24,12 +24,6 @@ public class Customer : Person
     // Will be fixed later (should be Map)
     public List<Order> Orders { get; }
     
-    public Customer(string name, string surname, string email,
-        string phoneNumber, DateOnly birthDate)
-        : base(name, surname, email, phoneNumber, birthDate)
-    {
-    }
-
     public Customer(string name, string surname, string email, 
         string phoneNumber, DateOnly birthDate, List<Order> orders) 
         : base(name, surname, email, phoneNumber, birthDate)
@@ -38,6 +32,10 @@ public class Customer : Person
         
         _customerList.Add(this);
     }
+
+    public Customer() : base()
+    {
+    } 
 
     public static void LoadExtent(List<Customer>? list)
     {

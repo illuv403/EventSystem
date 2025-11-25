@@ -12,7 +12,11 @@ public class Male : Person
     {
         _maleList.Add(this);
     }
-    
+
+    public Male() : base()
+    {
+    }
+
     public char GetSymbol()
     {
         return Symbol;

@@ -16,8 +16,6 @@ public class StadiumExtentTests : ExtentTestBase
     [Fact]
     public void LoadExtent_ReplaceExistingObjects()
     {
-        Stadium.ClearExtent();
-        
         var stadium = TestData.Stadium();
 
         var newList = new List<Stadium>

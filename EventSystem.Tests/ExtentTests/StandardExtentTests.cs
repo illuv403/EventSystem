@@ -16,8 +16,6 @@ public class StandardExtentTests : ExtentTestBase
     [Fact]
     public void LoadExtent_ReplaceExistingObjects()
     {
-        Standard.ClearExtent();
-        
         var standard = TestData.Standard();
 
         var newList = new List<Standard>

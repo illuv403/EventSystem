@@ -16,8 +16,6 @@ public class MaleExtentTests : ExtentTestBase
     [Fact]
     public void LoadExtent_ReplaceExistingObjects()
     {
-        Male.ClearExtent();
-        
         var male = TestData.Male();
         
         var newList = new List<Male>

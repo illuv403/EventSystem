@@ -10,7 +10,11 @@ public class FanZone : Ticket
     {
         _fanZoneList.Add(this);
     }
-    
+
+    public FanZone() : base()
+    {
+    } 
+
     public static void LoadExtent(List<FanZone>? list)
     {
         _fanZoneList.Clear();

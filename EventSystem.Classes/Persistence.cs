@@ -4,52 +4,65 @@ namespace EventSystem.Classes;
 
 public static class Persistence
 {
-    public static void SaveAllData(string directoryPath)
-    {
-        Save(Path.Combine(directoryPath,"Address.xml"), Address.AddressList.ToList());
-        Save(Path.Combine(directoryPath,"Club.xml"), Club.ClubList.ToList());
-        Save(Path.Combine(directoryPath,"Customer.xml"), Customer.CustomerList.ToList());
-        Save(Path.Combine(directoryPath,"Event.xml"), Event.EventList.ToList());
-        Save(Path.Combine(directoryPath,"FanZone.xml"), FanZone.FanZoneList.ToList());
-        Save(Path.Combine(directoryPath,"Female.xml"), Female.List.ToList());
-        Save(Path.Combine(directoryPath,"Hiring.xml"), Hiring.List.ToList());
-        Save(Path.Combine(directoryPath,"Location.xml"), Location.LocationList.ToList());
-        Save(Path.Combine(directoryPath,"Male.xml"), Male.List.ToList());
-        Save(Path.Combine(directoryPath,"Musical.xml"), Musical.MusicalList.ToList());
-        Save(Path.Combine(directoryPath,"Order.xml"), Order.List.ToList());
-        Save(Path.Combine(directoryPath,"Organizer.xml"), Organizer.OrganizerList.ToList());
-        Save(Path.Combine(directoryPath,"Other.xml"), Other.OtherList.ToList());
-        Save(Path.Combine(directoryPath,"Scene.xml"), Scene.SceneList.ToList());
-        Save(Path.Combine(directoryPath,"Sport.xml"), Sport.SportList.ToList());
-        Save(Path.Combine(directoryPath,"Stadium.xml"), Stadium.StadiumList.ToList());
-        Save(Path.Combine(directoryPath,"Staff.xml"), Staff.StaffList.ToList());
-        Save(Path.Combine(directoryPath,"Standard.xml"), Standard.StandardList.ToList());
-        Save(Path.Combine(directoryPath,"Standup.xml"), Standup.StandupList.ToList());
-        Save(Path.Combine(directoryPath,"Vip.xml"), Vip.VipList.ToList());
-    }
+    private static string DataDirectory = "Data";
 
-    public static void LoadAllData()
+    public static void SaveAllData(string directoryPath = null)
     {
-        Address.LoadExtent(Load<List<Address>>("Address.xml"));
-        Club.LoadExtent(Load<List<Club>>("Club.xml"));
-        Customer.LoadExtent(Load<List<Customer>>("Customer.xml"));
-        Event.LoadExtent(Load<List<Event>>("Event.xml"));
-        FanZone.LoadExtent(Load<List<FanZone>>("FanZone.xml"));
-        Female.LoadExtent(Load<List<Female>>("Female.xml"));
-        Hiring.LoadExtent(Load<List<Hiring>>("Hiring.xml"));
-        Location.LoadExtent(Load<List<Location>>("Location.xml"));
-        Male.LoadExtent(Load<List<Male>>("Male.xml"));
-        Musical.LoadExtent(Load<List<Musical>>("Musical.xml"));
-        Order.LoadExtent(Load<List<Order>>("Order.xml"));
-        Organizer.LoadExtent(Load<List<Organizer>>("Organizer.xml"));
-        Other.LoadExtent(Load<List<Other>>("Other.xml"));
-        Scene.LoadExtent(Load<List<Scene>>("Scene.xml"));
-        Sport.LoadExtent(Load<List<Sport>>("Sport.xml"));
-        Stadium.LoadExtent(Load<List<Stadium>>("Stadium.xml"));
-        Staff.LoadExtent(Load<List<Staff>>("Staff.xml"));
-        Standard.LoadExtent(Load<List<Standard>>("Standard.xml"));
-        Standup.LoadExtent(Load<List<Standup>>("Standup.xml"));
-        Vip.LoadExtent(Load<List<Vip>>("Vip.xml"));
+        if (directoryPath != null) DataDirectory = directoryPath;
+        if (!Directory.Exists(DataDirectory)) Directory.CreateDirectory(DataDirectory);
+        
+        Save("addresses.xml", Address.AddressList.ToList());
+        Save("clubs.xml", Club.ClubList.ToList());
+        Save("customers.xml", Customer.CustomerList.ToList());
+        Save("events.xml", Event.EventList.ToList());
+        Save("fanzone.xml", FanZone.FanZoneList.ToList());
+        Save("female.xml", Female.List.ToList());
+        Save("hiring.xml", Hiring.List.ToList());
+        Save("locations.xml", Location.LocationList.ToList());
+        Save("male.xml", Male.List.ToList());
+        Save("musicals.xml", Musical.MusicalList.ToList());
+        Save("orders.xml", Order.List.ToList());
+        Save("organizers.xml", Organizer.OrganizerList.ToList());
+        Save("other.xml", Other.OtherList.ToList());
+        Save("scenes.xml", Scene.SceneList.ToList());
+        Save("sports.xml", Sport.SportList.ToList());
+        Save("stadiums.xml", Stadium.StadiumList.ToList());
+        Save("staff.xml", Staff.StaffList.ToList());
+        Save("standard.xml", Standard.StandardList.ToList());
+        Save("standup.xml", Standup.StandupList.ToList());
+        Save("vip.xml", Vip.VipList.ToList());
+    }
+    
+    public static void LoadAllData(string directoryPath = null)
+    {
+        if (directoryPath != null) DataDirectory = directoryPath;
+        
+        Address.LoadExtent(Load<List<Address>>("addresses.xml") ?? new List<Address>());
+        
+        Location.LoadExtent(Load<List<Location>>("Location.xml") ?? new List<Location>());
+        Club.LoadExtent(Load<List<Club>>("clubs.xml") ?? new List<Club>());
+        Scene.LoadExtent(Load<List<Scene>>("scenes.xml") ?? new List<Scene>());
+        Stadium.LoadExtent(Load<List<Stadium>>("stadiums.xml") ?? new List<Stadium>());
+
+        Female.LoadExtent(Load<List<Female>>("female.xml") ?? new List<Female>());
+        Male.LoadExtent(Load<List<Male>>("male.xml") ?? new List<Male>());
+        Other.LoadExtent(Load<List<Other>>("other.xml") ?? new List<Other>());
+        Customer.LoadExtent(Load<List<Customer>>("customers.xml") ?? new List<Customer>());
+        Organizer.LoadExtent(Load<List<Organizer>>("organizers.xml") ?? new List<Organizer>());
+        Staff.LoadExtent(Load<List<Staff>>("staff.xml") ?? new List<Staff>());
+
+        Event.LoadExtent(Load<List<Event>>("events.xml") ?? new List<Event>());
+        Musical.LoadExtent(Load<List<Musical>>("musicals.xml") ?? new List<Musical>());
+        Sport.LoadExtent(Load<List<Sport>>("sports.xml") ?? new List<Sport>());
+        Standup.LoadExtent(Load<List<Standup>>("standup.xml") ?? new List<Standup>());
+
+        FanZone.LoadExtent(Load<List<FanZone>>("fanzone.xml") ?? new List<FanZone>());
+        Standard.LoadExtent(Load<List<Standard>>("standard.xml") ?? new List<Standard>());
+        Vip.LoadExtent(Load<List<Vip>>("vip.xml") ?? new List<Vip>());
+        
+        Order.LoadExtent(Load<List<Order>>("orders.xml") ?? new List<Order>());
+
+        Hiring.LoadExtent(Load<List<Hiring>>("hiring.xml") ?? new List<Hiring>());
     }
 
     private static void Save<T>(string fileName, T data)

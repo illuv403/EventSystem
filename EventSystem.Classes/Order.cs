@@ -17,7 +17,9 @@ public class Order
 
     
     // Will be fixed later
+    [XmlIgnore]
     public List<Ticket> TicketsInOrder { get; }
+    [XmlIgnore]
     public Customer? CreatedByCustomer { get; }
     
     public Order(Customer createdByCustomer, List<Ticket> ticketsInOrder)
@@ -26,6 +28,11 @@ public class Order
         TicketsInOrder = ticketsInOrder;
         
         _orderList.Add(this);
+    }
+
+    public Order()
+    {
+        TicketsInOrder = new List<Ticket>();
     }
     
     public static void LoadExtent(List<Order>? list)

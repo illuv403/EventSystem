@@ -16,8 +16,6 @@ public class VipExtentTests : ExtentTestBase
     [Fact]
     public void LoadExtent_ReplaceExistingObjects()
     {
-        Vip.ClearExtent();
-        
         var vip = TestData.Vip();
 
         var newList = new List<Vip>

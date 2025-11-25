@@ -16,8 +16,6 @@ public class SportExtentTests : ExtentTestBase
     [Fact]
     public void LoadExtent_ReplaceExistingObjects()
     {
-        Sport.ClearExtent();
-        
         var sport = TestData.Sport();
         
         var newList = new List<Sport>

@@ -24,6 +24,8 @@ public class Hiring
         _hiringList.Add(this);
     }
     
+    public Hiring() {}
+    
     public static void LoadExtent(List<Hiring>? list)
     {
         _hiringList.Clear();
