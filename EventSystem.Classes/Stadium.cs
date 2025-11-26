@@ -10,4 +10,19 @@ public class Stadium : Location
     {
         _stadiumList.Add(this);
     }
+
+    public Stadium() { }
+    
+    public static void LoadExtent(List<Stadium>? list)
+    {
+        _stadiumList.Clear();
+        
+        if(list != null)
+            _stadiumList.AddRange(list);
+    }
+    
+    public static void ClearExtent()
+    {
+        _stadiumList.Clear();   
+    }
 }

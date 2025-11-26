@@ -11,4 +11,19 @@ public class Sport : Event
     {
         _sportList.Add(this);
     }
+
+    public Sport() { }
+    
+    public static void LoadExtent(List<Sport>? list)
+    {
+        _sportList.Clear();
+        
+        if(list != null)
+            _sportList.AddRange(list);
+    }
+    
+    public static void ClearExtent()
+    {
+        _sportList.Clear();   
+    }
 }

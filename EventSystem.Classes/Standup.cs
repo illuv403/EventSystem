@@ -11,4 +11,19 @@ public class Standup : Event
     {
         _standupList.Add(this);
     }
+
+    public Standup() { }
+    
+    public static void LoadExtent(List<Standup>? list)
+    {
+        _standupList.Clear();
+        
+        if(list != null)
+            _standupList.AddRange(list);
+    }
+    
+    public static void ClearExtent()
+    {
+        _standupList.Clear();   
+    }
 }

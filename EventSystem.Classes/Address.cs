@@ -1,17 +1,20 @@
-﻿namespace EventSystem.Classes;
+﻿using System.Text.Json.Serialization;
+
+namespace EventSystem.Classes;
 
 public class Address
 {
     private static readonly List<Address> _addressList = [];
     public static IReadOnlyList<Address> AddressList => _addressList;
 
-    public string Country { get; }
-    public string City { get; }
-    public string Street { get; }
-    public string AppNumber { get; }
-    public string Index { get; }
-
-    public List<Staff> Staff { get; }
+    public string Country { get; set; }
+    public string City { get; set; }
+    public string Street { get; set; }
+    public string AppNumber { get; set; }
+    public string Index { get; set; }
+    
+    [JsonInclude]
+    public List<Staff> Staff { get; private set; }
     
     public Address(string country, string city, string street, string appNumber, string index, List<Staff> staff)
     {
@@ -41,5 +44,20 @@ public class Address
         Staff = staff;
         
         _addressList.Add(this);
+    }
+    
+    public Address() { }
+    
+    public static void LoadExtent(List<Address>? list)
+    {
+        _addressList.Clear();
+        
+        if(list != null) 
+            _addressList.AddRange(list);
+    }
+
+    public static void ClearExtent()
+    {
+        _addressList.Clear();
     }
 }

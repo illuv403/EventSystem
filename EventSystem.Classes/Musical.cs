@@ -11,4 +11,18 @@ public class Musical : Event
     {
         _musicalList.Add(this);
     }
+
+    public Musical() { }
+
+    public static void LoadExtent(List<Musical>? list)
+    {
+        _musicalList.Clear();
+        if(list != null)
+            _musicalList.AddRange(list);
+    }
+    
+    public static void ClearExtent()
+    {
+        _musicalList.Clear();   
+    }
 }

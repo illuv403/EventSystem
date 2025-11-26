@@ -1,12 +1,18 @@
-﻿namespace EventSystem.Classes;
+﻿using System.Text.Json.Serialization;
+using System.Xml.Serialization;
+
+namespace EventSystem.Classes;
 
 public abstract class Ticket
 {
-    public string GateNumber { get; }
-    public decimal Price { get; }
+    public string GateNumber { get; set; }
+    public decimal Price { get; set; }
     
-    public Event EventForTicket { get; }
-    public Order Order { get; }
+    [JsonInclude]
+    public Event EventForTicket { get; private set; }
+    
+    [JsonInclude]
+    public Order Order { get; private set; }
 
     public Ticket(string gateNumber, decimal price, Event eventForTicket, Order order)
     {
@@ -24,4 +30,7 @@ public abstract class Ticket
         EventForTicket = eventForTicket;
         Order = order;
     }
+
+    public Ticket() { } 
+    
 }

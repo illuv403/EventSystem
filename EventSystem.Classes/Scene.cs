@@ -10,4 +10,19 @@ public class Scene : Location
     {
         _sceneList.Add(this);
     }
+
+    public Scene() { }
+    
+    public static void LoadExtent(List<Scene>? list)
+    {
+        _sceneList.Clear();
+        
+        if(list != null)
+            _sceneList.AddRange(list);
+    }
+    
+    public static void ClearExtent()
+    {
+        _sceneList.Clear();   
+    }
 }

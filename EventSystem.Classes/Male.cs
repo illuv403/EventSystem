@@ -12,9 +12,24 @@ public class Male : Person
     {
         _maleList.Add(this);
     }
-    
+
+    public Male() { }
+
     public char GetSymbol()
     {
         return Symbol;
+    }
+    
+    public static void LoadExtent(List<Male>? list)
+    {
+        _maleList.Clear();
+        
+        if(list != null)
+            _maleList.AddRange(list);
+    }
+    
+    public static void ClearExtent()
+    {
+        _maleList.Clear();   
     }
 }
