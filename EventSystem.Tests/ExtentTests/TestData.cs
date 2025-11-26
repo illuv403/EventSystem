@@ -10,6 +10,13 @@ public class TestData
     private static Organizer? _cachedOrganizer;
     private static Event? _cachedEvent;
     private static Order? _cachedOrder;
+    private static Musical? _cachedMusical;
+    private static Sport? _cachedSport;
+    private static Standup? _cachedStandup;
+    private static Standard? _cachedStandard;
+    private static FanZone? _cachedFanZone;
+    private static Vip? _cachedVip;
+    
     public static void ClearCache()
     {
         _cachedAddress = null;
@@ -18,6 +25,12 @@ public class TestData
         _cachedOrganizer = null;
         _cachedEvent = null;
         _cachedOrder = null;
+        _cachedMusical = null;
+        _cachedSport = null;
+        _cachedStandup = null;
+        _cachedStandard = null;
+        _cachedFanZone = null;
+        _cachedVip = null;
     }
     
     // <<Additional>> //
@@ -74,13 +87,18 @@ public class TestData
     public static Order Order() 
     {
         if (_cachedOrder == null)
-            _cachedOrder = new(Customer(), new List<Ticket>());
+            _cachedOrder = new(new("Daniel", "Eroth", "d.eroth@gmail.com", PhoneNumber(), BirthDate(), new List<Order>()), new List<Ticket>());
         return _cachedOrder;
     }
 
     public static Club Club() => new(123, _Address(), new List<Event>());
     
-    public static FanZone FanZone() => new("G4", new decimal(163.35),Event(), Order());
+    public static FanZone FanZone()
+    {
+        if (_cachedFanZone == null)
+            _cachedFanZone = new("G4", new decimal(163.35),Event(), Order());
+        return _cachedFanZone;   
+    }
     
     public static Female Female() => new("Joanna", "Martendez", "j.mart@gmail.com", PhoneNumber(), BirthDate());
     
@@ -88,21 +106,45 @@ public class TestData
     
     public static Male Male() => new("Marcin", "Kowalski", "kow.mar@gmail.com", PhoneNumber(), BirthDate());
     
-    public static Musical Musical() => new Musical("Christmas Musical", StartDateTime(), EndDateTime(), Description(),new List<Organizer>(), new List<Staff>(), new List<Customer>(), Location(), new List<Ticket>());
+    public static Musical Musical(){
+        if (_cachedMusical == null)
+            _cachedMusical = new("Christmas Musical", StartDateTime(), EndDateTime(), Description(),new List<Organizer>(), new List<Staff>(), new List<Customer>(), Location(), new List<Ticket>());
+        return _cachedMusical;
+    }
     
     public static Other Other() => new("Mutor", "Figdi", "figdi@gmail.com", PhoneNumber(), BirthDate(), "YWO");
     
     public static Scene Scene() => new(455, _Address(), new List<Event>());
+
+    public static Sport Sport()
+    {
+        if (_cachedSport == null)
+            _cachedSport = new ("Sport Event #1", StartDateTime(), EndDateTime(), Description(), new List<Organizer>(),new List<Staff>(), new List<Customer>(), Location(), new List<Ticket>());
+        return _cachedSport;
+    }
     
-    public static Sport Sport() => new("Sport Event #1", StartDateTime(), EndDateTime(), Description(), new List<Organizer>(),new List<Staff>(), new List<Customer>(), Location(), new List<Ticket>());
-    
-    public static Stadium Stadium() => new Stadium(933, _Address(), new List<Event>());
+    public static Stadium Stadium() => new(933, _Address(), new List<Event>());
     
     public static Staff Staff() => new("Ivan", "Zareba", "zareba@gmail.com", PhoneNumber(), BirthDate(), StaffRole(), Address(), new decimal(2568.50), new List<Event>(), Organizer(), null, new List<Staff>());
+
+    public static Standard Standard()
+    {
+        if (_cachedStandard == null)
+            _cachedStandard = new("G16", new decimal(49.99), "L-4", Event(), Order());
+        return _cachedStandard;
+    } 
     
-    public static Standard Standard() => new("G16", new decimal(49.99), "L-4", Event(), Order());
-    
-    public static Standup Standup() => new("Standup #1", StartDateTime(), EndDateTime(), Description(),new List<Organizer>(),new List<Staff>(), new List<Customer>(), Location(), new List<Ticket>());
-    
-    public static Vip Vip() => new("M15", new decimal(89.99), "V-8", Event(), Order());
+    public static Standup Standup()
+    {
+        if(_cachedStandup == null)
+            _cachedStandup = new("Standup #1", StartDateTime(), EndDateTime(), Description(),new List<Organizer>(),new List<Staff>(), new List<Customer>(), Location(), new List<Ticket>());
+        return _cachedStandup;
+    }
+
+    public static Vip Vip()
+    {
+        if (_cachedVip == null)
+            _cachedVip = new("M15", new decimal(89.99), "V-8", Event(), Order());
+        return _cachedVip;
+    }
 }

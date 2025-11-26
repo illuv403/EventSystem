@@ -1,4 +1,4 @@
-﻿using System.Xml.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace EventSystem.Classes;
 
@@ -9,17 +9,15 @@ public class Order
     
     public bool IsFinalized { get; set; } = false;
     
-    [XmlIgnore]
     public decimal TotalPrice => TicketsInOrder.Sum(ticket => ticket.Price);
-
-    [XmlIgnore]
+    
     public static readonly int MaxTicketQuantity = 5;
 
     
     // Will be fixed later
-    [XmlIgnore]
+    [JsonIgnore]
     public List<Ticket> TicketsInOrder { get; }
-    [XmlIgnore]
+    [JsonIgnore]
     public Customer? CreatedByCustomer { get; }
     
     public Order(Customer createdByCustomer, List<Ticket> ticketsInOrder)
@@ -33,6 +31,7 @@ public class Order
     public Order()
     {
         TicketsInOrder = new List<Ticket>();
+        CreatedByCustomer = new Customer();
     }
     
     public static void LoadExtent(List<Order>? list)

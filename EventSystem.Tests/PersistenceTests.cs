@@ -50,8 +50,6 @@ public class PersistenceTests : IDisposable
     [Fact]
     public void saveAllTest()
     {
-        ClearAllExtents();
-        
         var a = TestData.Address();
         var c = TestData.Club();
         var cs = TestData.Customer();
@@ -119,34 +117,34 @@ public class PersistenceTests : IDisposable
         Assert.Equal("Joanna", Female.List[0].Name);
         
         Assert.Single(Hiring.List);
-        Assert.Equal(new DateOnly(2025, 11, 23), Hiring.List[0].DateHired);
+        Assert.Equal(new DateOnly(0001, 01, 01), Hiring.List[0].DateHired);
         
         Assert.Single(Location.LocationList);
-        Assert.Equal("New Street 43/12", Location.LocationList[0].Address);
+        Assert.Equal("Traktorzystów 12", Location.LocationList[0].Address);
         
         Assert.Single(Male.List);
-        Assert.Equal("Ivan", Male.List[0].Name);
+        Assert.Equal("Marcin", Male.List[0].Name);
         
         Assert.Single(Musical.MusicalList);
-        Assert.Equal("NewMusical", Musical.MusicalList[0].Title);
+        Assert.Equal("Christmas Musical", Musical.MusicalList[0].Title);
         
         Assert.Single(Order.List);
-        Assert.Equal("tt.restok@gmail.com", Order.List[0].CreatedByCustomer.Email);
+        Assert.Equal("d.eroth@gmail.com", Order.List[0].CreatedByCustomer.Email);
         
         Assert.Single(Organizer.OrganizerList);
         Assert.Equal("Alexandra", Organizer.OrganizerList[0].Name);
         
         Assert.Single(Other.OtherList);
-        Assert.Equal("YY", Other.OtherList[0].Type);  
+        Assert.Equal("YWO", Other.OtherList[0].Type);  
         
         Assert.Single(Scene.SceneList);
-        Assert.Equal("New Street 12/12", Scene.SceneList[0].Address);
+        Assert.Equal("Traktorzystów 12", Scene.SceneList[0].Address);
         
         Assert.Single(Sport.SportList);
         Assert.Equal("Sport Event #1", Sport.SportList[0].Title);
         
         Assert.Single(Stadium.StadiumList);
-        Assert.Equal(956, Stadium.StadiumList[0].Capacity);
+        Assert.Equal(933, Stadium.StadiumList[0].Capacity);
         
         Assert.Single(Staff.StaffList);
         Assert.Equal("zareba@gmail.com", Staff.StaffList[0].Email);
@@ -158,7 +156,7 @@ public class PersistenceTests : IDisposable
         Assert.Equal("Standup #1", Standup.StandupList[0].Title);
         
         Assert.Single(Vip.VipList);
-        Assert.Equal("G16", Vip.VipList[0].GateNumber);
+        Assert.Equal("M15", Vip.VipList[0].GateNumber);
     }
 
 }

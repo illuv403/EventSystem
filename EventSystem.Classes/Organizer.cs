@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.Text.Json.Serialization;
+using System.Xml.Serialization;
 
 namespace EventSystem.Classes;
 
@@ -9,10 +10,10 @@ public class Organizer : Person
     
     public decimal Profit { get; set; }
     
-    [XmlIgnore]
+    [JsonIgnore]
     public List<Staff> Staff { get; }
     
-    [XmlIgnore]
+    [JsonIgnore]
     public List<Event> Events { get; }
     
     public Organizer(string name, string surname, string email, string phoneNumber, DateOnly birthDate, decimal profit,  List<Staff> staff, List<Event> events) 

@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.Text.Json.Serialization;
+using System.Xml.Serialization;
 
 namespace EventSystem.Classes;
 
@@ -14,7 +15,6 @@ public class Customer : Person
         Deleted
     }
     
-    [XmlIgnore]
     public int Age => 
         DateTime.Now.Year - BirthDate.Year - (DateTime.Now.DayOfYear - BirthDate.DayOfYear < 0 ? 1 : 0);
 
@@ -22,6 +22,7 @@ public class Customer : Person
     
 
     // Will be fixed later (should be Map)
+    [JsonIgnore]
     public List<Order> Orders { get; set; }
     
     public Customer(string name, string surname, string email, 
@@ -35,6 +36,7 @@ public class Customer : Person
 
     public Customer() : base()
     {
+        Orders = new List<Order>();
     } 
 
     public static void LoadExtent(List<Customer>? list)

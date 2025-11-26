@@ -1,19 +1,17 @@
-﻿using System.Xml.Serialization;
+﻿using System.Text.Json.Serialization;
+using System.Xml.Serialization;
 
 namespace EventSystem.Classes;
 
-[XmlInclude(typeof(Standard))]
-[XmlInclude(typeof(FanZone))]
-[XmlInclude(typeof(Vip))]
 public abstract class Ticket
 {
     public string GateNumber { get; set; }
     public decimal Price { get; set; }
     
-    [XmlIgnore]
+    [JsonIgnore]
     public Event EventForTicket { get; }
     
-    [XmlIgnore]
+    [JsonIgnore]
     public Order Order { get; }
 
     public Ticket(string gateNumber, decimal price, Event eventForTicket, Order order)

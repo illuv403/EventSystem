@@ -1,10 +1,7 @@
-﻿using System.Xml.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace EventSystem.Classes;
 
-[XmlInclude(typeof(Club))]
-[XmlInclude(typeof(Stadium))]
-[XmlInclude(typeof(Scene))]
 public class Location
 {
     private static readonly List<Location> _locationList = [];
@@ -13,7 +10,7 @@ public class Location
     public int Capacity { get; set; }
     public string Address { get; set; }
 
-    [XmlIgnore]
+    [JsonIgnore]
     public List<Event> EventsAssigned { get; }
     
     public Location(int capacity, string address,  List<Event> eventsAssigned)

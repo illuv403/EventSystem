@@ -1,14 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Xml.Serialization;
+using System.Text.Json.Serialization;
 
 namespace EventSystem.Classes;
 
-[XmlInclude(typeof(Male))]
-[XmlInclude(typeof(Female))]
-[XmlInclude(typeof(Other))]
-[XmlInclude(typeof(Customer))]
-[XmlInclude(typeof(Organizer))]
-[XmlInclude(typeof(Staff))]
 public abstract class Person
 {
     public string Name {get; set; }

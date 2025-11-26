@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.Text.Json.Serialization;
+using System.Xml.Serialization;
 
 namespace EventSystem.Classes;
 
@@ -15,13 +16,14 @@ public class Event
     public DateTime EndDateAndTime { get; set; }
     public string Description { get; set; }
 
-    [XmlIgnore] public List<Organizer> Organizers { get; }
-    [XmlIgnore] public List<Staff> StaffAssigned { get; }
-    [XmlIgnore] public List<Customer> InWhoseWishList { get; }
-    [XmlIgnore] public Location Location { get; }
+    [JsonIgnore] public List<Organizer> Organizers { get; }
+    [JsonIgnore] public List<Staff> StaffAssigned { get; }
+    [JsonIgnore] public List<Customer> InWhoseWishList { get; }
+    [JsonIgnore] public Location Location { get; }
     
 
     // event ticket association list?
+    [JsonIgnore]
     public List<Ticket> TicketsForEvent { get; set; }
 
     public Event(string title, DateTime startDateAndTime, DateTime endDateAndTime, string description,

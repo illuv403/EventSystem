@@ -1,4 +1,4 @@
-﻿using System.Xml.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace EventSystem.Classes;
 
@@ -13,8 +13,8 @@ public class Address
     public string AppNumber { get; set; }
     public string Index { get; set; }
     
-    [XmlIgnore]
-    public List<Staff> Staff { get; }
+    [JsonIgnore]
+    public List<Staff> Staff { get; set; }
     
     public Address(string country, string city, string street, string appNumber, string index, List<Staff> staff)
     {

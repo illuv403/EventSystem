@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.Text.Json.Serialization;
+using System.Xml.Serialization;
 
 namespace EventSystem.Classes;
 
@@ -17,19 +18,19 @@ public class Staff : Person
         Manager
     }
     public StaffRole Role { get; set; }
-    [XmlIgnore]
+    [JsonIgnore]
     public Address Address { get; }
     public decimal Salary { get; set; }
     
-    [XmlIgnore]
+    [JsonIgnore]
     public Staff? Manager { get; }
     
-    [XmlIgnore]
+    [JsonIgnore]
     public List<Staff> Subordinates { get; }
     
-    [XmlIgnore]
+    [JsonIgnore]
     public List<Event> Events { get; }
-    [XmlIgnore]
+    [JsonIgnore]
     public Organizer Organizer { get; }
 
     public Staff(string name, string surname, string email, string phoneNumber, DateOnly birthDate, StaffRole role,
