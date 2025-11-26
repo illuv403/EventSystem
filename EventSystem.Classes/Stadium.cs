@@ -11,9 +11,7 @@ public class Stadium : Location
         _stadiumList.Add(this);
     }
 
-    public Stadium() : base()
-    {
-    }
+    public Stadium() { }
     
     public static void LoadExtent(List<Stadium>? list)
     {

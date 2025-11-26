@@ -12,9 +12,8 @@ public class Standup : Event
         _standupList.Add(this);
     }
 
-    public Standup() : base()
-    {
-    }
+    public Standup() { }
+    
     public static void LoadExtent(List<Standup>? list)
     {
         _standupList.Clear();

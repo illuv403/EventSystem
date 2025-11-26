@@ -10,11 +10,11 @@ public class Organizer : Person
     
     public decimal Profit { get; set; }
     
-    [JsonIgnore]
-    public List<Staff> Staff { get; }
+    [JsonInclude]
+    public List<Staff> Staff { get; private set; }
     
-    [JsonIgnore]
-    public List<Event> Events { get; }
+    [JsonInclude]
+    public List<Event> Events { get; private set; }
     
     public Organizer(string name, string surname, string email, string phoneNumber, DateOnly birthDate, decimal profit,  List<Staff> staff, List<Event> events) 
         :base(name, surname, email, phoneNumber, birthDate)

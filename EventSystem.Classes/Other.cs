@@ -16,9 +16,7 @@ public class Other : Person
         _otherList.Add(this);
     }
 
-    public Other() : base()
-    {
-    }
+    public Other() { }
 
     public static void LoadExtent(List<Other>? list)
     {

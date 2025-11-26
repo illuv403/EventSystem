@@ -12,9 +12,7 @@ public class Sport : Event
         _sportList.Add(this);
     }
 
-    public Sport() : base()
-    {
-    }
+    public Sport() { }
     
     public static void LoadExtent(List<Sport>? list)
     {

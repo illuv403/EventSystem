@@ -13,9 +13,7 @@ public class Male : Person
         _maleList.Add(this);
     }
 
-    public Male() : base()
-    {
-    }
+    public Male() { }
 
     public char GetSymbol()
     {

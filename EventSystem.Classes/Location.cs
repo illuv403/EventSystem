@@ -10,8 +10,8 @@ public class Location
     public int Capacity { get; set; }
     public string Address { get; set; }
 
-    [JsonIgnore]
-    public List<Event> EventsAssigned { get; }
+    [JsonInclude]
+    public List<Event> EventsAssigned { get; private set; }
     
     public Location(int capacity, string address,  List<Event> eventsAssigned)
     {
@@ -30,10 +30,7 @@ public class Location
         _locationList.Add(this);
     }
 
-    public Location()
-    {
-        EventsAssigned = new List<Event>();
-    }
+    public Location() { }
 
     public static void LoadExtent(List<Location>? list)
     {

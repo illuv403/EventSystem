@@ -8,9 +8,9 @@ public class Hiring
     private static readonly List<Hiring> _hiringList = [];
     public static IReadOnlyList<Hiring> List => _hiringList;
     
-    [JsonIgnore]
+    [JsonInclude]
     public Staff Staff;
-    [JsonIgnore]
+    [JsonInclude]
     public Organizer Organizer;
     public DateOnly DateHired;
     public DateOnly? DateFired;
@@ -25,7 +25,7 @@ public class Hiring
         _hiringList.Add(this);
     }
     
-    public Hiring() {}
+    public Hiring() { }
     
     public static void LoadExtent(List<Hiring>? list)
     {

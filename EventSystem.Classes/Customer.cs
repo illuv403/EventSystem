@@ -22,8 +22,8 @@ public class Customer : Person
     
 
     // Will be fixed later (should be Map)
-    [JsonIgnore]
-    public List<Order> Orders { get; set; }
+    [JsonInclude]
+    public List<Order> Orders { get; private set; }
     
     public Customer(string name, string surname, string email, 
         string phoneNumber, DateOnly birthDate, List<Order> orders) 
@@ -34,10 +34,7 @@ public class Customer : Person
         _customerList.Add(this);
     }
 
-    public Customer() : base()
-    {
-        Orders = new List<Order>();
-    } 
+    public Customer() { } 
 
     public static void LoadExtent(List<Customer>? list)
     {

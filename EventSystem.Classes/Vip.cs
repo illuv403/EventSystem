@@ -23,9 +23,7 @@ public class Vip : Ticket
             _vipList.AddRange(list);
     }
 
-    public Vip() : base()
-    {
-    }
+    public Vip() { }
 
     public static void ClearExtent()
     {

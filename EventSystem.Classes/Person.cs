@@ -44,7 +44,5 @@ public abstract class Person
         BirthDate = birthDate;
     }
 
-    public Person()
-    {
-    }
+    public Person() { }
 }

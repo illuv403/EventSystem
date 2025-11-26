@@ -8,11 +8,11 @@ public abstract class Ticket
     public string GateNumber { get; set; }
     public decimal Price { get; set; }
     
-    [JsonIgnore]
-    public Event EventForTicket { get; }
+    [JsonInclude]
+    public Event EventForTicket { get; private set; }
     
-    [JsonIgnore]
-    public Order Order { get; }
+    [JsonInclude]
+    public Order Order { get; private set; }
 
     public Ticket(string gateNumber, decimal price, Event eventForTicket, Order order)
     {
@@ -31,9 +31,6 @@ public abstract class Ticket
         Order = order;
     }
 
-    public Ticket()
-    {
-        
-    } 
+    public Ticket() { } 
     
 }

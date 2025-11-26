@@ -12,9 +12,7 @@ public class Musical : Event
         _musicalList.Add(this);
     }
 
-    public Musical() : base()
-    {
-    }
+    public Musical() { }
 
     public static void LoadExtent(List<Musical>? list)
     {

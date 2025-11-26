@@ -13,8 +13,8 @@ public class Address
     public string AppNumber { get; set; }
     public string Index { get; set; }
     
-    [JsonIgnore]
-    public List<Staff> Staff { get; set; }
+    [JsonInclude]
+    public List<Staff> Staff { get; private set; }
     
     public Address(string country, string city, string street, string appNumber, string index, List<Staff> staff)
     {
@@ -45,17 +45,14 @@ public class Address
         
         _addressList.Add(this);
     }
-
-    public Address()
-    {
-        Staff = new List<Staff>();
-    }
+    
+    public Address() { }
     
     public static void LoadExtent(List<Address>? list)
     {
         _addressList.Clear();
         
-        if(list != null)
+        if(list != null) 
             _addressList.AddRange(list);
     }
 

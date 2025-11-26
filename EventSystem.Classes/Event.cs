@@ -1,11 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using System.Xml.Serialization;
 
 namespace EventSystem.Classes;
 
-[XmlInclude(typeof(Sport))]
-[XmlInclude(typeof(Standup))]
-[XmlInclude(typeof(Musical))]
 public class Event
 {
     private static readonly List<Event> _eventList = [];
@@ -16,15 +12,11 @@ public class Event
     public DateTime EndDateAndTime { get; set; }
     public string Description { get; set; }
 
-    [JsonIgnore] public List<Organizer> Organizers { get; }
-    [JsonIgnore] public List<Staff> StaffAssigned { get; }
-    [JsonIgnore] public List<Customer> InWhoseWishList { get; }
-    [JsonIgnore] public Location Location { get; }
-    
-
-    // event ticket association list?
-    [JsonIgnore]
-    public List<Ticket> TicketsForEvent { get; set; }
+    [JsonInclude] public List<Organizer> Organizers { get; private set; }
+    [JsonInclude] public List<Staff> StaffAssigned { get; private set; }
+    [JsonInclude] public List<Customer> InWhoseWishList { get; private set; }
+    [JsonInclude] public Location Location { get; private set; }
+    [JsonInclude] public List<Ticket> TicketsForEvent { get; private set; }
 
     public Event(string title, DateTime startDateAndTime, DateTime endDateAndTime, string description,
         List<Organizer> organizers, List<Staff> staffAssigned,
@@ -59,13 +51,7 @@ public class Event
         _eventList.Add(this);
     }
 
-    public Event()
-    {
-        Organizers = new List<Organizer>();
-        StaffAssigned = new List<Staff>();
-        InWhoseWishList = new List<Customer>();
-        TicketsForEvent = new List<Ticket>();
-    } 
+    public Event() { } 
 
     public static void LoadExtent(List<Event>? list)
     {

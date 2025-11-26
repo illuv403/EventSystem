@@ -11,9 +11,7 @@ public class Scene : Location
         _sceneList.Add(this);
     }
 
-    public Scene() : base()
-    {
-    }
+    public Scene() { }
     
     public static void LoadExtent(List<Scene>? list)
     {

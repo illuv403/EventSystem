@@ -15,10 +15,10 @@ public class Order
 
     
     // Will be fixed later
-    [JsonIgnore]
-    public List<Ticket> TicketsInOrder { get; }
-    [JsonIgnore]
-    public Customer? CreatedByCustomer { get; }
+    [JsonInclude]
+    public List<Ticket> TicketsInOrder { get; private set; }
+    [JsonInclude]
+    public Customer? CreatedByCustomer { get; private set; }
     
     public Order(Customer createdByCustomer, List<Ticket> ticketsInOrder)
     {
@@ -28,11 +28,7 @@ public class Order
         _orderList.Add(this);
     }
 
-    public Order()
-    {
-        TicketsInOrder = new List<Ticket>();
-        CreatedByCustomer = new Customer();
-    }
+    public Order() { }
     
     public static void LoadExtent(List<Order>? list)
     {

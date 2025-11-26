@@ -18,20 +18,21 @@ public class Staff : Person
         Manager
     }
     public StaffRole Role { get; set; }
-    [JsonIgnore]
-    public Address Address { get; }
+    [JsonInclude]
+    public Address Address { get; private set; }
     public decimal Salary { get; set; }
     
-    [JsonIgnore]
-    public Staff? Manager { get; }
+    [JsonInclude]
+    public Staff? Manager { get; private set; }
     
-    [JsonIgnore]
-    public List<Staff> Subordinates { get; }
+    [JsonInclude]
+    public List<Staff> Subordinates { get; private set; }
     
-    [JsonIgnore]
-    public List<Event> Events { get; }
-    [JsonIgnore]
-    public Organizer Organizer { get; }
+    [JsonInclude]
+    public List<Event> Events { get; private set; }
+    
+    [JsonInclude]
+    public Organizer Organizer { get; private set; }
 
     public Staff(string name, string surname, string email, string phoneNumber, DateOnly birthDate, StaffRole role,
         Address address, decimal salary, List<Event> events, Organizer organizer, Staff? manager, List<Staff> subordinates)
@@ -52,9 +53,7 @@ public class Staff : Person
         _staffList.Add(this);
     }
 
-    public Staff() : base()
-    {
-    }
+    public Staff() { }
     
     public static void LoadExtent(List<Staff>? list)
     {

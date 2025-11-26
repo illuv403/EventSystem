@@ -15,9 +15,7 @@ public class Standard : Ticket
         _standardList.Add(this);
     }
 
-    public Standard() : base()
-    {
-    }
+    public Standard() { }
     
     public static void LoadExtent(List<Standard>? list)
     {
