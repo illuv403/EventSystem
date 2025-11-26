@@ -18,11 +18,11 @@ public class Customer : Person
     public int Age => 
         DateTime.Now.Year - BirthDate.Year - (DateTime.Now.DayOfYear - BirthDate.DayOfYear < 0 ? 1 : 0);
 
-    public CustomerStatus Status { get; } = CustomerStatus.Active;
+    public CustomerStatus Status { get; set; } = CustomerStatus.Active;
     
 
     // Will be fixed later (should be Map)
-    public List<Order> Orders { get; }
+    public List<Order> Orders { get; set; }
     
     public Customer(string name, string surname, string email, 
         string phoneNumber, DateOnly birthDate, List<Order> orders) 

@@ -7,11 +7,11 @@ public class Address
     private static readonly List<Address> _addressList = [];
     public static IReadOnlyList<Address> AddressList => _addressList;
 
-    public string Country { get; }
-    public string City { get; }
-    public string Street { get; }
-    public string AppNumber { get; }
-    public string Index { get; }
+    public string Country { get; set; }
+    public string City { get; set; }
+    public string Street { get; set; }
+    public string AppNumber { get; set; }
+    public string Index { get; set; }
     
     [XmlIgnore]
     public List<Staff> Staff { get; }

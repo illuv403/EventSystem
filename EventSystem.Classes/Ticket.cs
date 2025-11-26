@@ -7,8 +7,8 @@ namespace EventSystem.Classes;
 [XmlInclude(typeof(Vip))]
 public abstract class Ticket
 {
-    public string GateNumber { get; }
-    public decimal Price { get; }
+    public string GateNumber { get; set; }
+    public decimal Price { get; set; }
     
     [XmlIgnore]
     public Event EventForTicket { get; }

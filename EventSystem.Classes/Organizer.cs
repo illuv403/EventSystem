@@ -7,7 +7,7 @@ public class Organizer : Person
     private static readonly List<Organizer> _organizerList = [];
     public static IReadOnlyList<Organizer> OrganizerList => _organizerList;
     
-    public decimal Profit { get; }
+    public decimal Profit { get; set; }
     
     [XmlIgnore]
     public List<Staff> Staff { get; }

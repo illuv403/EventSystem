@@ -10,8 +10,8 @@ public class Location
     private static readonly List<Location> _locationList = [];
     public static IReadOnlyList<Location> LocationList => _locationList;
     
-    public int Capacity { get; }
-    public string Address { get; }
+    public int Capacity { get; set; }
+    public string Address { get; set; }
 
     [XmlIgnore]
     public List<Event> EventsAssigned { get; }

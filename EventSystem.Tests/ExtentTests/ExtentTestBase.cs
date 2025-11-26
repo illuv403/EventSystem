@@ -2,9 +2,21 @@
 
 namespace EventSystem.Tests.ExtentTests;
 
-public abstract class ExtentTestBase
+public abstract class ExtentTestBase : IDisposable
 {
     public ExtentTestBase()
+    {
+        ClearAllExtents();
+        TestData.ClearCache();
+    }
+
+    public void Dispose()
+    {
+        ClearAllExtents();
+        TestData.ClearCache();
+    }
+
+    private void ClearAllExtents()
     {
         Address.ClearExtent();
         Club.ClearExtent();

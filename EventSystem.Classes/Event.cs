@@ -10,18 +10,19 @@ public class Event
     private static readonly List<Event> _eventList = [];
     public static IReadOnlyList<Event> EventList => _eventList;
 
-    public string Title { get; }
-    public DateTime StartDateAndTime { get; }
-    public DateTime EndDateAndTime { get; }
-    public string Description { get; }
+    public string Title { get; set; }
+    public DateTime StartDateAndTime { get; set; }
+    public DateTime EndDateAndTime { get; set; }
+    public string Description { get; set; }
 
     [XmlIgnore] public List<Organizer> Organizers { get; }
     [XmlIgnore] public List<Staff> StaffAssigned { get; }
     [XmlIgnore] public List<Customer> InWhoseWishList { get; }
-    public Location Location { get; }
+    [XmlIgnore] public Location Location { get; }
+    
 
     // event ticket association list?
-    public List<Ticket> TicketsForEvent { get; }
+    public List<Ticket> TicketsForEvent { get; set; }
 
     public Event(string title, DateTime startDateAndTime, DateTime endDateAndTime, string description,
         List<Organizer> organizers, List<Staff> staffAssigned,

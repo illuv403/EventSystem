@@ -39,7 +39,7 @@ public static class Persistence
         
         Address.LoadExtent(Load<List<Address>>("addresses.xml") ?? new List<Address>());
         
-        Location.LoadExtent(Load<List<Location>>("Location.xml") ?? new List<Location>());
+        Location.LoadExtent(Load<List<Location>>("locations.xml") ?? new List<Location>());
         Club.LoadExtent(Load<List<Club>>("clubs.xml") ?? new List<Club>());
         Scene.LoadExtent(Load<List<Scene>>("scenes.xml") ?? new List<Scene>());
         Stadium.LoadExtent(Load<List<Stadium>>("stadiums.xml") ?? new List<Stadium>());

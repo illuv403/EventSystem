@@ -16,10 +16,10 @@ public class Staff : Person
         Cameramen,
         Manager
     }
-    public StaffRole Role { get; }
+    public StaffRole Role { get; set; }
     [XmlIgnore]
     public Address Address { get; }
-    public decimal Salary { get; }
+    public decimal Salary { get; set; }
     
     [XmlIgnore]
     public Staff? Manager { get; }

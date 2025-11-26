@@ -3,7 +3,7 @@ using EventSystem.Tests.ExtentTests;
 
 namespace EventSystem.Tests;
 
-public class PersistenceTests
+public class PersistenceTests : IDisposable
 {
     private readonly string testDir = "TestPersistence";
 
@@ -11,6 +11,15 @@ public class PersistenceTests
     {
         if (!Directory.Exists(testDir))
             Directory.CreateDirectory(testDir);
+        
+        ClearAllExtents();
+        TestData.ClearCache();
+    }
+    
+    public void Dispose()
+    {
+        ClearAllExtents();
+        TestData.ClearCache();
     }
 
     private void ClearAllExtents()
@@ -98,7 +107,7 @@ public class PersistenceTests
         Assert.Equal(123, Club.ClubList[0].Capacity);
         
         Assert.Single(Customer.CustomerList);
-        Assert.Equal("Name", Customer.CustomerList[0].Name);
+        Assert.Equal("Daniel", Customer.CustomerList[0].Name);
         
         Assert.Single(Event.EventList);
         Assert.Equal("TTL", Event.EventList[0].Title);
@@ -151,4 +160,5 @@ public class PersistenceTests
         Assert.Single(Vip.VipList);
         Assert.Equal("G16", Vip.VipList[0].GateNumber);
     }
+
 }
