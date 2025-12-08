@@ -18,6 +18,9 @@ public class Event
     [JsonInclude] public Location Location { get; private set; }
     [JsonInclude] public List<Ticket> TicketsForEvent { get; private set; }
 
+    private HashSet<Staff> _staffAssigned = new();
+    private HashSet<Customer> _inWhoseWishList = new();
+
     public Event(string title, DateTime startDateAndTime, DateTime endDateAndTime, string description,
         List<Organizer> organizers, List<Staff> staffAssigned,
         List<Customer> inWhoseWishList, Location location, List<Ticket> ticketsForEvent)
@@ -64,5 +67,60 @@ public class Event
     public static void ClearExtent()
     {
         _eventList.Clear();   
+    }
+
+    public HashSet<Staff> GetStaffAssigned()
+    {
+        return [.._staffAssigned];
+    }
+
+    public void AddStaffAssigned(Staff staffToAssign)
+    {
+        if (_staffAssigned.Contains(staffToAssign)) return;
+        
+        
+        _staffAssigned.Add(staffToAssign);
+        staffToAssign.AddAssignedEvent(this);
+    }
+
+    public void RemoveStaffAssigned(Staff staffToRemove)
+    {
+        if (!_staffAssigned.Contains(staffToRemove)) return;
+        
+        _staffAssigned.Remove(staffToRemove);
+        staffToRemove.RemoveAssignedEvent(this);
+    }
+
+    public void UpdateStaffAssigned(Staff staffToRemove, Staff staffToAssign)
+    {
+        RemoveStaffAssigned(staffToRemove);
+        AddStaffAssigned(staffToAssign);
+    }
+
+    public HashSet<Customer> GetInWhoseWishList()
+    {
+        return [.._inWhoseWishList];
+    }
+
+    public void AddInWishList(Customer customerToAdd)
+    {
+        if (_inWhoseWishList.Contains(customerToAdd))  return;
+        
+        _inWhoseWishList.Add(customerToAdd);
+        customerToAdd.AddWishForEvent(this);
+    }
+
+    public void RemoveInWishList(Customer customerToRemove)
+    {
+        if (!_inWhoseWishList.Contains(customerToRemove))  return;
+        
+        _inWhoseWishList.Remove(customerToRemove);
+        customerToRemove.RemoveWishForEvent(this);
+    }
+
+    public void UpdateInWishList(Customer customerToRemove, Customer customerToAdd)
+    {
+        RemoveInWishList(customerToRemove);
+        AddInWishList(customerToAdd);
     }
 }
