@@ -34,6 +34,8 @@ public class Staff : Person
     [JsonInclude]
     public Organizer Organizer { get; private set; }
 
+    private HashSet<Event> _assignedEvents = new();
+    
     public Staff(string name, string surname, string email, string phoneNumber, DateOnly birthDate, StaffRole role,
         Address address, decimal salary, List<Event> events, Organizer organizer, Staff? manager, List<Staff> subordinates)
         : base(name, surname, email, phoneNumber, birthDate)
@@ -66,5 +68,31 @@ public class Staff : Person
     public static void ClearExtent()
     {
         _staffList.Clear();   
+    }
+
+    public HashSet<Event> GetAssignedEvents()
+    {
+        return [.._assignedEvents];
+    }
+
+    public void AddAssignedEvent(Event eventToAssign)
+    {
+        if (_assignedEvents.Contains(eventToAssign)) return;
+        
+        _assignedEvents.Add(eventToAssign);
+        eventToAssign.AddStaffAssigned(this);
+    }
+
+    public void RemoveAssignedEvent(Event eventToRemove)
+    {
+        if (!_assignedEvents.Contains(eventToRemove)) return;
+        
+        _assignedEvents.Remove(eventToRemove);
+        eventToRemove.RemoveStaffAssigned(this);
+    }
+    
+    public void UpdateAssignedEvent(Event eventToRemove, Event eventToAssign) {
+        RemoveAssignedEvent(eventToRemove);
+        AddAssignedEvent(eventToAssign);
     }
 }

@@ -24,6 +24,8 @@ public class Customer : Person
     // Will be fixed later (should be Map)
     [JsonInclude]
     public List<Order> Orders { get; private set; }
+
+    private HashSet<Event> _wishesForEvent = new();
     
     public Customer(string name, string surname, string email, 
         string phoneNumber, DateOnly birthDate, List<Order> orders) 
@@ -47,5 +49,32 @@ public class Customer : Person
     public static void ClearExtent()
     {
         _customerList.Clear();
+    }
+
+    public HashSet<Event> WishesForEvent()
+    {
+        return [.._wishesForEvent];
+    }
+
+    public void AddWishForEvent(Event eventToAdd)
+    {
+        if (_wishesForEvent.Contains(eventToAdd)) return;
+        
+        _wishesForEvent.Add(eventToAdd);
+        eventToAdd.AddInWishList(this);
+    }
+
+    public void RemoveWishForEvent(Event eventToRemove)
+    {
+        if (!_wishesForEvent.Contains(eventToRemove)) return;
+        
+        _wishesForEvent.Remove(eventToRemove);
+        eventToRemove.RemoveInWishList(this);
+    }
+
+    public void UpdateWishesForEvent(Event eventToRemove, Event eventToAdd)
+    {
+        RemoveWishForEvent(eventToRemove);
+        AddWishForEvent(eventToAdd);
     }
 }
