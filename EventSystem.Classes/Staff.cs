@@ -56,10 +56,7 @@ public class Staff : Person
         Manager = manager;
         foreach (var subordinate in subordinates)
         {
-            if(subordinate != this || (Role == StaffRole.Manager && subordinate.Role != StaffRole.Manager))
-            {
-                    AddStaffInCharge(subordinate);
-            }
+            AddStaffInCharge(subordinate);
         }
         
         Subordinates = subordinates;

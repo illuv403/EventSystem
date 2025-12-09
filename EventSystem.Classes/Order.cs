@@ -60,13 +60,13 @@ public class Order
     {
         if (_ticketsInOrder.Contains(ticketToAdd))  return;
         
-        if (_ticketsInOrder.Count + 1 > MaxTicketQuantity) throw new ArgumentException("Order cant hold more than 5 tickets.") ;
+        if (_ticketsInOrder.Count == MaxTicketQuantity) throw new ArgumentException("Order cant hold more than 5 tickets.");
         
         _ticketsInOrder.Add(ticketToAdd);
 
     }
 
-    public void RemoveTicketsInOrder(Ticket ticketToRemove)
+    public void RemoveTicketFromOrder(Ticket ticketToRemove)
     {
         if (!_ticketsInOrder.Contains(ticketToRemove))  return;
         
@@ -79,13 +79,13 @@ public class Order
     {
         foreach (Ticket ticket in _ticketsInOrder)
         {
-            RemoveTicketsInOrder(ticket);
+            RemoveTicketFromOrder(ticket);
         }
     }
 
-    public void UpdateInResponsibleForEvent(Ticket ticketToRemove, Ticket ticketToAdd)
+    public void UpdateTicketsInOrder(Ticket ticketToRemove, Ticket ticketToAdd)
     {   
-        RemoveTicketsInOrder(ticketToAdd);
+        RemoveTicketFromOrder(ticketToAdd);
         AddTicketToOrder(ticketToRemove);
     }
 }
