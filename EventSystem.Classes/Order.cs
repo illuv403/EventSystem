@@ -85,7 +85,7 @@ public class Order
 
     public void UpdateTicketsInOrder(Ticket ticketToRemove, Ticket ticketToAdd)
     {   
-        RemoveTicketFromOrder(ticketToAdd);
-        AddTicketToOrder(ticketToRemove);
+        RemoveTicketFromOrder(ticketToRemove);
+        AddTicketToOrder(ticketToAdd);
     }
 }

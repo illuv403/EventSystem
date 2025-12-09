@@ -5,15 +5,11 @@ namespace EventSystem.Tests;
 public class StaffClassTests
 {
     private Staff _staff;
+    private Staff _staff2;
+    private Staff _staff3;
+    
     private Event _event1;
-    private Event _event2 = new Event("New Event 2",
-        new DateTime(2025, 12, 12), new DateTime(2025, 12, 23), "New event 2",
-        new List<Organizer> {new("Alice", "Black",
-            "test6546@gmail.com", "+48573073352",
-            new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())}, 
-        new List<Staff>(), new List<Customer>(),
-        new Location(10000, "Al. Wilanowska 12", new List<Event>()), 
-        new List<Ticket>());
+    private Event _event2;
 
     public StaffClassTests()
     {
@@ -25,8 +21,36 @@ public class StaffClassTests
                 "test@gmail.com", "+48573370352",
                 new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>()),
             null, new List<Staff>());
+        
+        _staff2 = new("Bob", "Grey",
+            "test5@gmail.com", "+48537370532", new DateOnly(1999, 12, 5),
+            Staff.StaffRole.Cameramen, new Address("Ukraine", "Kharkov",
+                "St. Plekhanovskaya 5", "11", "61001", new List<Staff>()), 599.99m, 
+            new List<Event>(), new Organizer("Alice", "Black",
+                "test6546@gmail.com", "+48573073352",
+                new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>()),
+            null, new List<Staff>());
+        
+        _staff3 = new("Tom", "Bobley",
+            "test3@gmail.com", "+48531170552", new DateOnly(2005, 02, 05),
+            Staff.StaffRole.Cameramen, new Address("Ukraine", "Lviv",
+                "ul. Horodotska 24", "111", "79007", new List<Staff>()), 799.99m, 
+            new List<Event>(), new Organizer("Alexandra", "White",
+                "test61234@gmail.com", "+48511778352",
+                new DateOnly(1991, 07, 01), 16999.99m, new List<Staff>(), new List<Event>()),
+            null, new List<Staff>());
+        
         _event1 = new Event("New Event",
             new DateTime(2025, 12, 12), new DateTime(2025, 12, 23), "New event",
+            new List<Organizer> {new("Alice", "Black",
+                "test6546@gmail.com", "+48573073352",
+                new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())}, 
+            new List<Staff>(), new List<Customer>(),
+            new Location(10000, "Al. Wilanowska 12", new List<Event>()), 
+            new List<Ticket>());
+        
+        _event2 = new Event("New Event 2",
+            new DateTime(2025, 12, 12), new DateTime(2025, 12, 23), "New event 2",
             new List<Organizer> {new("Alice", "Black",
                 "test6546@gmail.com", "+48573073352",
                 new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())}, 
@@ -102,5 +126,31 @@ public class StaffClassTests
         
         Assert.DoesNotContain(_staff, _event1.GetStaffAssigned());
         Assert.Contains(_staff, _event2.GetStaffAssigned());
+    }
+
+    [Fact]
+    public void AddStaffInChargeTest()
+    {
+        _staff.AddStaffInCharge(_staff2);
+        
+        Assert.Contains(_staff2, _staff.GetStaffInCharge());
+    }
+
+    [Fact]
+    public void RemoveStaffInChargeTest()
+    {
+        _staff.RemoveStaffInCharge(_staff2);
+        
+        Assert.DoesNotContain(_staff2, _staff.GetStaffInCharge());
+    }
+
+    [Fact]
+    public void UpdateStaffInChargeTest()
+    {
+        _staff.AddStaffInCharge(_staff2);
+        _staff.UpdateStaffInCharge(_staff2, _staff3);
+        
+        Assert.DoesNotContain(_staff2, _staff.GetStaffInCharge());
+        Assert.Contains(_staff3, _staff.GetStaffInCharge());
     }
 }
