@@ -20,9 +20,18 @@ public class Order
     [JsonInclude]
     public Customer? CreatedByCustomer { get; private set; }
     
+    private HashSet<Ticket> _ticketsInOrder = new();
     public Order(Customer createdByCustomer, List<Ticket> ticketsInOrder)
     {
         CreatedByCustomer = createdByCustomer;
+        
+        if (ticketsInOrder.Count != 0)
+        {
+            foreach (Ticket ticket in ticketsInOrder)
+            {
+                AddTicketsInOrder(ticket);
+            }
+        }
         TicketsInOrder = ticketsInOrder;
         
         _orderList.Add(this);
@@ -41,5 +50,44 @@ public class Order
     public static void ClearExtent()
     {
         _orderList.Clear();   
+    }
+    
+    public HashSet<Ticket> GetTicketsInOrder()
+    {
+        return [.._ticketsInOrder];
+    }
+
+    public void AddTicketsInOrder(Ticket ticketToAdd)
+    {
+        if (_ticketsInOrder.Contains(ticketToAdd))  return;
+        
+        if (_ticketsInOrder.Count == MaxTicketQuantity) return;
+        
+        _ticketsInOrder.Add(ticketToAdd);
+
+    }
+
+    public void RemoveTicketsInOrder(Ticket ticketToRemove)
+    {
+        if (!_ticketsInOrder.Contains(ticketToRemove))  return;
+        
+        _ticketsInOrder.Remove(ticketToRemove);
+        ticketToRemove.Dispose();
+    }
+
+    //Maybe should be fixed
+    public void DeleteOrderTickets()
+    {
+        foreach (Ticket ticket in _ticketsInOrder)
+        {
+            RemoveTicketsInOrder(ticket);
+            ticket.Dispose();
+        }
+    }
+
+    public void UpdateInResponsibleForEvent(Ticket ticketToRemove, Ticket ticketToAdd)
+    {   
+        RemoveTicketsInOrder(ticketToAdd);
+        AddTicketsInOrder(ticketToRemove);
     }
 }

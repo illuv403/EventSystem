@@ -20,7 +20,7 @@ public class Event
 
     private HashSet<Staff> _staffAssigned = new();
     private HashSet<Customer> _inWhoseWishList = new();
-
+    private HashSet<Organizer> _responsibleForEvent = new();
     public Event(string title, DateTime startDateAndTime, DateTime endDateAndTime, string description,
         List<Organizer> organizers, List<Staff> staffAssigned,
         List<Customer> inWhoseWishList, Location location, List<Ticket> ticketsForEvent)
@@ -43,9 +43,35 @@ public class Event
         StartDateAndTime = startDateAndTime;
         EndDateAndTime = endDateAndTime;
         Description = description;
+        
+        // insures that event will have at least 1 organizer
+        if (organizers.Count == 0)
+        {
+            throw new ArgumentException("Event must have at least one organizer.");
+        }
 
+        foreach (var organizer in organizers)
+        {
+            AddResponsibleForEvent(organizer);
+        }
         Organizers = organizers;
+        
+        if (staffAssigned.Count != 0)
+        {
+            foreach (var staff in staffAssigned)
+            {
+                AddStaffAssigned(staff);
+            }
+        }
         StaffAssigned = staffAssigned;
+        
+        if (inWhoseWishList.Count != 0)
+        {
+            foreach (var customer in inWhoseWishList)
+            {
+                AddInWishList(customer);
+            }
+        }
         InWhoseWishList = inWhoseWishList;
         Location = location;
 
@@ -122,5 +148,33 @@ public class Event
     {
         RemoveInWishList(customerToRemove);
         AddInWishList(customerToAdd);
+    }
+    
+    
+    public HashSet<Organizer> GetResponsibleForEvent()
+    {
+        return [.._responsibleForEvent];
+    }
+
+    public void AddResponsibleForEvent(Organizer organizerToAdd)
+    {
+        if (_responsibleForEvent.Contains(organizerToAdd))  return;
+        
+        _responsibleForEvent.Add(organizerToAdd);
+        organizerToAdd.AddToEventsResponsibleFor(this);
+    }
+
+    public void RemoveResponsibleForEvent(Organizer organizerToRemove)
+    {
+        if (!_responsibleForEvent.Contains(organizerToRemove))  return;
+        
+        _responsibleForEvent.Remove(organizerToRemove);
+        organizerToRemove.RemoveInEventsResponsibleFor(this);
+    }
+
+    public void UpdateInResponsibleForEvent(Organizer organizerToRemove, Organizer organizerToAdd)
+    {   
+        RemoveResponsibleForEvent(organizerToAdd);
+        AddResponsibleForEvent(organizerToRemove);
     }
 }
