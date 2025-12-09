@@ -20,9 +20,17 @@ public class Order
     [JsonInclude]
     public Customer? CreatedByCustomer { get; private set; }
     
+    private HashSet<Ticket> _ticketsInOrder = new();
     public Order(Customer createdByCustomer, List<Ticket> ticketsInOrder)
     {
         CreatedByCustomer = createdByCustomer;
+        
+        
+        foreach (Ticket ticket in ticketsInOrder)
+        {
+            AddTicketToOrder(ticket);
+        }
+        
         TicketsInOrder = ticketsInOrder;
         
         _orderList.Add(this);
@@ -41,5 +49,43 @@ public class Order
     public static void ClearExtent()
     {
         _orderList.Clear();   
+    }
+    
+    public HashSet<Ticket> GetTicketsInOrder()
+    {
+        return [.._ticketsInOrder];
+    }
+
+    public void AddTicketToOrder(Ticket ticketToAdd)
+    {
+        if (_ticketsInOrder.Contains(ticketToAdd))  return;
+        
+        if (_ticketsInOrder.Count == MaxTicketQuantity) throw new ArgumentException("Order cant hold more than 5 tickets.");
+        
+        _ticketsInOrder.Add(ticketToAdd);
+
+    }
+
+    public void RemoveTicketFromOrder(Ticket ticketToRemove)
+    {
+        if (!_ticketsInOrder.Contains(ticketToRemove))  return;
+        
+        _ticketsInOrder.Remove(ticketToRemove);
+        ticketToRemove.Dispose();
+    }
+
+    //Maybe should be fixed
+    public void DeleteOrderTickets()
+    {
+        foreach (Ticket ticket in _ticketsInOrder)
+        {
+            RemoveTicketFromOrder(ticket);
+        }
+    }
+
+    public void UpdateTicketsInOrder(Ticket ticketToRemove, Ticket ticketToAdd)
+    {   
+        RemoveTicketFromOrder(ticketToAdd);
+        AddTicketToOrder(ticketToRemove);
     }
 }

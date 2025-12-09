@@ -16,12 +16,19 @@ public class Organizer : Person
     [JsonInclude]
     public List<Event> Events { get; private set; }
     
+    private HashSet<Event> _assignedEvents = new();
     public Organizer(string name, string surname, string email, string phoneNumber, DateOnly birthDate, decimal profit,  List<Staff> staff, List<Event> events) 
         :base(name, surname, email, phoneNumber, birthDate)
     {
         Profit = profit;
         
         Staff = staff;
+        
+        foreach (var eventToAdd in events)
+        {
+            AddAssignedEvent(eventToAdd);
+        }
+        
         Events = events;
         
         _organizerList.Add(this);
@@ -40,5 +47,32 @@ public class Organizer : Person
     public static void ClearExtent()
     {
         _organizerList.Clear();   
+    }
+    
+    public HashSet<Event> GetAssignedEvents()
+    {
+        return [.._assignedEvents];
+    }
+
+    public void AddAssignedEvent(Event eventToAdd)
+    {
+        if (_assignedEvents.Contains(eventToAdd))  return;
+        
+        _assignedEvents.Add(eventToAdd);
+        eventToAdd.AddEventOrganizer(this);
+    }
+
+    public void RemoveAssignedEvent(Event eventToRemove)
+    {
+        if (!_assignedEvents.Contains(eventToRemove))  return;
+        
+        _assignedEvents.Remove(eventToRemove);
+        eventToRemove.RemoveEventOrganizer(this);
+    }
+
+    public void UpdateAssignedEvents(Event eventToRemove, Event eventToAdd)
+    {
+        RemoveAssignedEvent(eventToRemove);
+        AddAssignedEvent(eventToAdd);
     }
 }

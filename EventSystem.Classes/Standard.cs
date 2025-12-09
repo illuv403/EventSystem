@@ -29,4 +29,13 @@ public class Standard : Ticket
     {
         _standardList.Clear();   
     }
+    
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {   
+            base.Dispose(disposing);
+            _standardList.Remove(this);
+        }
+    }
 }

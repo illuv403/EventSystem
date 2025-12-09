@@ -3,8 +3,9 @@ using System.Xml.Serialization;
 
 namespace EventSystem.Classes;
 
-public abstract class Ticket
-{
+public abstract class Ticket : IDisposable
+{   
+    private bool _isDisposed;
     public string GateNumber { get; set; }
     public decimal Price { get; set; }
     
@@ -13,7 +14,7 @@ public abstract class Ticket
     
     [JsonInclude]
     public Order Order { get; private set; }
-
+    
     public Ticket(string gateNumber, decimal price, Event eventForTicket, Order order)
     {
         gateNumber = gateNumber.Trim();
@@ -29,8 +30,26 @@ public abstract class Ticket
         
         EventForTicket = eventForTicket;
         Order = order;
+        order.AddTicketToOrder(this);
     }
-
-    public Ticket() { } 
     
+    public Ticket() { }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+    
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_isDisposed) return;
+        _isDisposed = true;
+
+        if (disposing)
+        {
+            Order = null;
+            EventForTicket = null;
+        }
+    }
 }

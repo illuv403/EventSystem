@@ -35,21 +35,30 @@ public class Staff : Person
     public Organizer Organizer { get; private set; }
 
     private HashSet<Event> _assignedEvents = new();
+    private HashSet<Staff> _staffInCharge = new();
     
     public Staff(string name, string surname, string email, string phoneNumber, DateOnly birthDate, StaffRole role,
         Address address, decimal salary, List<Event> events, Organizer organizer, Staff? manager, List<Staff> subordinates)
         : base(name, surname, email, phoneNumber, birthDate)
     {
-        if (salary < 0)
-            throw new ArgumentException("Salary cannot be negative");
+        if (salary < 0) throw new ArgumentException("Salary cannot be negative");
         
         Role = role;
         Address = address;
         Salary = salary;
-
+        foreach (var eventToAdd in events) 
+        { 
+            AddAssignedEvent(eventToAdd);
+        }
+        
         Events = events;
         Organizer = organizer;
         Manager = manager;
+        foreach (var subordinate in subordinates)
+        {
+            AddStaffInCharge(subordinate);
+        }
+        
         Subordinates = subordinates;
         
         _staffList.Add(this);
@@ -79,6 +88,7 @@ public class Staff : Person
     {
         if (_assignedEvents.Contains(eventToAssign)) return;
         
+        
         _assignedEvents.Add(eventToAssign);
         eventToAssign.AddStaffAssigned(this);
     }
@@ -94,5 +104,42 @@ public class Staff : Person
     public void UpdateAssignedEvent(Event eventToRemove, Event eventToAssign) {
         RemoveAssignedEvent(eventToRemove);
         AddAssignedEvent(eventToAssign);
+    }
+    
+    
+    public HashSet<Staff> GetStaffInCharge()
+    {
+        return [.._staffInCharge];
+    }
+
+    public void AddStaffInCharge(Staff staffToAssign)
+    {
+        if (_staffInCharge.Contains(staffToAssign)) return;
+
+        if (staffToAssign == this)
+        {
+            throw new ArgumentException($"Staff can not be assigned to itself.");
+        }
+        if(Role == StaffRole.Manager && staffToAssign.Role == StaffRole.Manager)
+        {
+            throw new ArgumentException($"Manager can not be in charge of another manager.");
+        }
+        
+        _staffInCharge.Add(staffToAssign);
+        staffToAssign.Manager = this;
+    }
+
+    public void RemoveStaffInCharge(Staff staffToRemove)
+    {
+        if (!_staffInCharge.Contains(staffToRemove)) return;
+        
+        _staffInCharge.Remove(staffToRemove);
+        staffToRemove.Manager = null;
+    }
+    
+    
+    public void UpdateStaffInCharge(Staff staffToRemove, Staff staffToAssign) {
+        RemoveStaffInCharge(staffToRemove);
+        AddStaffInCharge(staffToAssign);
     }
 }

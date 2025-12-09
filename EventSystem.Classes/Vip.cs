@@ -29,4 +29,13 @@ public class Vip : Ticket
     {
         _vipList.Clear();   
     }
+    
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {   
+            base.Dispose(disposing);
+            _vipList.Remove(this);
+        }
+    }
 }
