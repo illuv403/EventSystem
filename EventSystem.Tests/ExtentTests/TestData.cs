@@ -71,7 +71,8 @@ public class TestData
     {
         if (_cachedEvent == null)
             _cachedEvent = new("TTL", StartDateTime(), EndDateTime(), Description(),
-                new List<Organizer>(), new List<Staff>(), new List<Customer>(), Location(), new List<Ticket>());
+                new List<Organizer>{Organizer()}, new List<Staff>(), 
+                new List<Customer>(), Location(), new List<Ticket>());
         return _cachedEvent;
     }
 
@@ -100,19 +101,25 @@ public class TestData
 
     public static Male Male() => new("Marcin", "Kowalski", "kow.mar@gmail.com", PhoneNumber(), BirthDate());
 
-    public static Musical Musical() => new("Christmas Musical", StartDateTime(), EndDateTime(), Description(), new List<Organizer>(), new List<Staff>(), new List<Customer>(), Location(), new List<Ticket>());
+    public static Musical Musical() => new("Christmas Musical", StartDateTime(), EndDateTime(), Description(), 
+        new List<Organizer>{Organizer()}, new List<Staff>(), new List<Customer>(), 
+        Location(), new List<Ticket>());
 
     public static Other Other() => new("Mutor", "Figdi", "figdi@gmail.com", PhoneNumber(), BirthDate(), "YWO");
 
     public static Scene Scene() => new(455, _Address(), new List<Event>());
 
-    public static Sport Sport() => new("Sport Event #1", StartDateTime(), EndDateTime(), Description(), new List<Organizer>(), new List<Staff>(), new List<Customer>(), Location(), new List<Ticket>());
+    public static Sport Sport() => new("Sport Event #1", StartDateTime(), EndDateTime(), Description(), 
+        new List<Organizer>{Organizer()}, new List<Staff>(), new List<Customer>(), 
+        Location(), new List<Ticket>());
 
     public static Stadium Stadium() => new(933, _Address(), new List<Event>());
     
     public static Standard Standard() => new("G16", new decimal(49.99), "L-4", Event(), Order());
     
-    public static Standup Standup() => new("Standup #1", StartDateTime(), EndDateTime(), Description(),new List<Organizer>(),new List<Staff>(), new List<Customer>(), Location(), new List<Ticket>());
+    public static Standup Standup() => new("Standup #1", StartDateTime(), EndDateTime(), Description(),
+        new List<Organizer>{Organizer()},new List<Staff>(), new List<Customer>(), 
+        Location(), new List<Ticket>());
 
     public static Vip Vip() => new("M15", new decimal(89.99), "V-8", Event(), Order());
 }

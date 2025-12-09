@@ -5,9 +5,13 @@ namespace EventSystem.Tests;
 public class MusicalClassTests
 {
     private Musical _musical = new Musical("Musical", new DateTime(2025, 12, 11), 
-        new DateTime(2025, 12, 23), "New musical", new List<Organizer>(), new List<Staff>(),
-        new List<Customer>(), new Location(10000, "Al. Wilanowska 12", new List<Event>()),
-        new List<Ticket>());
+        new DateTime(2025, 12, 23), "New musical", 
+        new List<Organizer>{new("Alice", "Black",
+            "test6546@gmail.com", "+48573073352",
+            new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())}, 
+        new List<Staff>(),
+        new List<Customer>(), new Location(10000, "Al. Wilanowska 12", 
+            new List<Event>()), new List<Ticket>());
     
     [Fact]
     public void MusicalCreationTest()
@@ -16,7 +20,7 @@ public class MusicalClassTests
         Assert.Equal(new DateTime(2025, 12, 11), _musical.StartDateAndTime);
         Assert.Equal(new DateTime(2025, 12, 23), _musical.EndDateAndTime);
         Assert.Equal("New musical", _musical.Description);
-        Assert.Equal(new List<Organizer>(), _musical.Organizers);
+        Assert.Single(_musical.Organizers);
         Assert.Equal(new List<Staff>(), _musical.StaffAssigned);
         Assert.Equal(new List<Customer>(), _musical.InWhoseWishList);
         Assert.Equal(10000, _musical.Location.Capacity);
