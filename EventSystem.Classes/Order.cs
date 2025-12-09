@@ -25,13 +25,12 @@ public class Order
     {
         CreatedByCustomer = createdByCustomer;
         
-        if (ticketsInOrder.Count != 0)
+        
+        foreach (Ticket ticket in ticketsInOrder)
         {
-            foreach (Ticket ticket in ticketsInOrder)
-            {
-                AddTicketsInOrder(ticket);
-            }
+            AddTicketToOrder(ticket);
         }
+        
         TicketsInOrder = ticketsInOrder;
         
         _orderList.Add(this);
@@ -57,11 +56,11 @@ public class Order
         return [.._ticketsInOrder];
     }
 
-    public void AddTicketsInOrder(Ticket ticketToAdd)
+    public void AddTicketToOrder(Ticket ticketToAdd)
     {
         if (_ticketsInOrder.Contains(ticketToAdd))  return;
         
-        if (_ticketsInOrder.Count == MaxTicketQuantity) return;
+        if (_ticketsInOrder.Count + 1 > MaxTicketQuantity) throw new ArgumentException("Order cant hold more than 5 tickets.") ;
         
         _ticketsInOrder.Add(ticketToAdd);
 
@@ -81,13 +80,12 @@ public class Order
         foreach (Ticket ticket in _ticketsInOrder)
         {
             RemoveTicketsInOrder(ticket);
-            ticket.Dispose();
         }
     }
 
     public void UpdateInResponsibleForEvent(Ticket ticketToRemove, Ticket ticketToAdd)
     {   
         RemoveTicketsInOrder(ticketToAdd);
-        AddTicketsInOrder(ticketToRemove);
+        AddTicketToOrder(ticketToRemove);
     }
 }

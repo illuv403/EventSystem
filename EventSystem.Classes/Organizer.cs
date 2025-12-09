@@ -16,7 +16,7 @@ public class Organizer : Person
     [JsonInclude]
     public List<Event> Events { get; private set; }
     
-    private HashSet<Event> _eventsResponsibleFor = new();
+    private HashSet<Event> _assignedEvents = new();
     public Organizer(string name, string surname, string email, string phoneNumber, DateOnly birthDate, decimal profit,  List<Staff> staff, List<Event> events) 
         :base(name, surname, email, phoneNumber, birthDate)
     {
@@ -24,13 +24,11 @@ public class Organizer : Person
         
         Staff = staff;
         
-        if (events.Count != 0)
+        foreach (var eventToAdd in events)
         {
-            foreach (var eventToAdd in events)
-            {
-                AddToEventsResponsibleFor(eventToAdd);
-            }
+            AddAssignedEvent(eventToAdd);
         }
+        
         Events = events;
         
         _organizerList.Add(this);
@@ -51,30 +49,30 @@ public class Organizer : Person
         _organizerList.Clear();   
     }
     
-    public HashSet<Event> GetEventsResponsibleFor()
+    public HashSet<Event> GetAssignedEvents()
     {
-        return [.._eventsResponsibleFor];
+        return [.._assignedEvents];
     }
 
-    public void AddToEventsResponsibleFor(Event eventToAdd)
+    public void AddAssignedEvent(Event eventToAdd)
     {
-        if (_eventsResponsibleFor.Contains(eventToAdd))  return;
+        if (_assignedEvents.Contains(eventToAdd))  return;
         
-        _eventsResponsibleFor.Add(eventToAdd);
-        eventToAdd.AddResponsibleForEvent(this);
+        _assignedEvents.Add(eventToAdd);
+        eventToAdd.AddEventOrganizer(this);
     }
 
-    public void RemoveInEventsResponsibleFor(Event eventToRemove)
+    public void RemoveAssignedEvent(Event eventToRemove)
     {
-        if (!_eventsResponsibleFor.Contains(eventToRemove))  return;
+        if (!_assignedEvents.Contains(eventToRemove))  return;
         
-        _eventsResponsibleFor.Remove(eventToRemove);
-        eventToRemove.RemoveResponsibleForEvent(this);
+        _assignedEvents.Remove(eventToRemove);
+        eventToRemove.RemoveEventOrganizer(this);
     }
 
-    public void UpdateInEventsResponsibleFor(Event eventToRemove, Event eventToAdd)
+    public void UpdateAssignedEvents(Event eventToRemove, Event eventToAdd)
     {
-        RemoveInEventsResponsibleFor(eventToRemove);
-        AddToEventsResponsibleFor(eventToAdd);
+        RemoveAssignedEvent(eventToRemove);
+        AddAssignedEvent(eventToAdd);
     }
 }

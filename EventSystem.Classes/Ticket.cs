@@ -30,7 +30,7 @@ public abstract class Ticket : IDisposable
         
         EventForTicket = eventForTicket;
         Order = order;
-        order.AddTicketsInOrder(this);
+        order.AddTicketToOrder(this);
     }
     
     public Ticket() { }

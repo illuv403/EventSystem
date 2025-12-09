@@ -25,4 +25,13 @@ public class FanZone : Ticket
     {
         _fanZoneList.Clear();   
     }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {   
+            base.Dispose(disposing);
+            _fanZoneList.Remove(this);
+        }
+    }
 }

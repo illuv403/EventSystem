@@ -20,7 +20,8 @@ public class Event
 
     private HashSet<Staff> _staffAssigned = new();
     private HashSet<Customer> _inWhoseWishList = new();
-    private HashSet<Organizer> _responsibleForEvent = new();
+    private HashSet<Organizer> _eventOrganizers = new();
+
     public Event(string title, DateTime startDateAndTime, DateTime endDateAndTime, string description,
         List<Organizer> organizers, List<Staff> staffAssigned,
         List<Customer> inWhoseWishList, Location location, List<Ticket> ticketsForEvent)
@@ -43,7 +44,7 @@ public class Event
         StartDateAndTime = startDateAndTime;
         EndDateAndTime = endDateAndTime;
         Description = description;
-        
+
         // insures that event will have at least 1 organizer
         if (organizers.Count == 0)
         {
@@ -52,25 +53,19 @@ public class Event
 
         foreach (var organizer in organizers)
         {
-            AddResponsibleForEvent(organizer);
+            AddEventOrganizer(organizer);
         }
         Organizers = organizers;
-        
-        if (staffAssigned.Count != 0)
+
+        foreach (var staff in staffAssigned)
         {
-            foreach (var staff in staffAssigned)
-            {
-                AddStaffAssigned(staff);
-            }
+            AddStaffAssigned(staff);
         }
         StaffAssigned = staffAssigned;
-        
-        if (inWhoseWishList.Count != 0)
+
+        foreach (var customer in inWhoseWishList)
         {
-            foreach (var customer in inWhoseWishList)
-            {
-                AddInWishList(customer);
-            }
+            AddInWishList(customer);
         }
         InWhoseWishList = inWhoseWishList;
         Location = location;
@@ -80,19 +75,21 @@ public class Event
         _eventList.Add(this);
     }
 
-    public Event() { } 
+    public Event()
+    {
+    }
 
     public static void LoadExtent(List<Event>? list)
     {
         _eventList.Clear();
-        
-        if(list != null)
+
+        if (list != null)
             _eventList.AddRange(list);
     }
-    
+
     public static void ClearExtent()
     {
-        _eventList.Clear();   
+        _eventList.Clear();
     }
 
     public HashSet<Staff> GetStaffAssigned()
@@ -103,8 +100,8 @@ public class Event
     public void AddStaffAssigned(Staff staffToAssign)
     {
         if (_staffAssigned.Contains(staffToAssign)) return;
-        
-        
+
+
         _staffAssigned.Add(staffToAssign);
         staffToAssign.AddAssignedEvent(this);
     }
@@ -112,7 +109,7 @@ public class Event
     public void RemoveStaffAssigned(Staff staffToRemove)
     {
         if (!_staffAssigned.Contains(staffToRemove)) return;
-        
+
         _staffAssigned.Remove(staffToRemove);
         staffToRemove.RemoveAssignedEvent(this);
     }
@@ -130,16 +127,16 @@ public class Event
 
     public void AddInWishList(Customer customerToAdd)
     {
-        if (_inWhoseWishList.Contains(customerToAdd))  return;
-        
+        if (_inWhoseWishList.Contains(customerToAdd)) return;
+
         _inWhoseWishList.Add(customerToAdd);
         customerToAdd.AddWishForEvent(this);
     }
 
     public void RemoveInWishList(Customer customerToRemove)
     {
-        if (!_inWhoseWishList.Contains(customerToRemove))  return;
-        
+        if (!_inWhoseWishList.Contains(customerToRemove)) return;
+
         _inWhoseWishList.Remove(customerToRemove);
         customerToRemove.RemoveWishForEvent(this);
     }
@@ -149,32 +146,32 @@ public class Event
         RemoveInWishList(customerToRemove);
         AddInWishList(customerToAdd);
     }
-    
-    
-    public HashSet<Organizer> GetResponsibleForEvent()
+
+
+    public HashSet<Organizer> GetEventOrganizers()
     {
-        return [.._responsibleForEvent];
+        return [.._eventOrganizers];
     }
 
-    public void AddResponsibleForEvent(Organizer organizerToAdd)
+    public void AddEventOrganizer(Organizer organizerToAdd)
     {
-        if (_responsibleForEvent.Contains(organizerToAdd))  return;
-        
-        _responsibleForEvent.Add(organizerToAdd);
-        organizerToAdd.AddToEventsResponsibleFor(this);
+        if (_eventOrganizers.Contains(organizerToAdd)) return;
+
+        _eventOrganizers.Add(organizerToAdd);
+        organizerToAdd.AddAssignedEvent(this);
     }
 
-    public void RemoveResponsibleForEvent(Organizer organizerToRemove)
+    public void RemoveEventOrganizer(Organizer organizerToRemove)
     {
-        if (!_responsibleForEvent.Contains(organizerToRemove))  return;
-        
-        _responsibleForEvent.Remove(organizerToRemove);
-        organizerToRemove.RemoveInEventsResponsibleFor(this);
+        if (!_eventOrganizers.Contains(organizerToRemove)) return;
+
+        _eventOrganizers.Remove(organizerToRemove);
+        organizerToRemove.RemoveAssignedEvent(this);
     }
 
-    public void UpdateInResponsibleForEvent(Organizer organizerToRemove, Organizer organizerToAdd)
-    {   
-        RemoveResponsibleForEvent(organizerToAdd);
-        AddResponsibleForEvent(organizerToRemove);
+    public void UpdateEventOrganizers(Organizer organizerToRemove, Organizer organizerToAdd)
+    {
+        RemoveEventOrganizer(organizerToAdd);
+        AddEventOrganizer(organizerToRemove);
     }
 }

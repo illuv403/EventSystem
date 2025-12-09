@@ -41,33 +41,27 @@ public class Staff : Person
         Address address, decimal salary, List<Event> events, Organizer organizer, Staff? manager, List<Staff> subordinates)
         : base(name, surname, email, phoneNumber, birthDate)
     {
-        if (salary < 0)
-            throw new ArgumentException("Salary cannot be negative");
+        if (salary < 0) throw new ArgumentException("Salary cannot be negative");
         
         Role = role;
         Address = address;
         Salary = salary;
-        
-        if (events.Count != 0)
-        {
-            foreach (var eventToAdd in events)
-            {
-                AddAssignedEvent(eventToAdd);
-            }
+        foreach (var eventToAdd in events) 
+        { 
+            AddAssignedEvent(eventToAdd);
         }
+        
         Events = events;
         Organizer = organizer;
         Manager = manager;
-        if (subordinates.Count != 0)
+        foreach (var subordinate in subordinates)
         {
-            foreach (var subordinate in subordinates)
+            if(subordinate != this || (Role == StaffRole.Manager && subordinate.Role != StaffRole.Manager))
             {
-                if(subordinate != this || (Role == StaffRole.Manager && subordinate.Role != StaffRole.Manager))
-                {
                     AddStaffInCharge(subordinate);
-                }
             }
         }
+        
         Subordinates = subordinates;
         
         _staffList.Add(this);
