@@ -171,7 +171,7 @@ public class Event
 
     public void UpdateEventOrganizers(Organizer organizerToRemove, Organizer organizerToAdd)
     {
-        RemoveEventOrganizer(organizerToAdd);
-        AddEventOrganizer(organizerToRemove);
+        RemoveEventOrganizer(organizerToRemove);
+        AddEventOrganizer(organizerToAdd);
     }
 }
