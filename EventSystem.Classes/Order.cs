@@ -7,6 +7,8 @@ public class Order
     private static readonly List<Order> _orderList = [];
     public static IReadOnlyList<Order> List => _orderList;
     
+    public string OrderId { get; private set; }
+    
     public bool IsFinalized { get; set; } = false;
     
     public decimal TotalPrice => TicketsInOrder.Sum(ticket => ticket.Price);
@@ -21,10 +23,14 @@ public class Order
     public Customer? CreatedByCustomer { get; private set; }
     
     private HashSet<Ticket> _ticketsInOrder = new();
-    public Order(Customer createdByCustomer, List<Ticket> ticketsInOrder)
+    private Customer? _createdByCustomer;
+    
+    public Order(string orderId, Customer createdByCustomer, List<Ticket> ticketsInOrder)
     {
-        CreatedByCustomer = createdByCustomer;
+        OrderId = orderId;
         
+        CreatedByCustomer = createdByCustomer;
+        _createdByCustomer = createdByCustomer;
         
         foreach (Ticket ticket in ticketsInOrder)
         {
@@ -87,5 +93,40 @@ public class Order
     {   
         RemoveTicketFromOrder(ticketToRemove);
         AddTicketToOrder(ticketToAdd);
+    }
+
+    public Customer? GetCreatedByCustomer()
+    {
+        return _createdByCustomer;
+    }
+    
+    public void AddToCustomer(Customer customer)
+    {
+        if (_createdByCustomer == customer)
+            return;
+        
+        _createdByCustomer = customer;
+        customer.AddCustomerOrder(this);
+    }
+
+    public void RemoveFromCustomer()
+    {
+        if  (_createdByCustomer == null)
+            return;
+        
+        var customer = _createdByCustomer;
+        _createdByCustomer = null;
+        customer.RemoveCustomerOrder(this);
+    }
+
+    public void UpdateCustomerOrder(string newOrderId)
+    {
+        if (_createdByCustomer == null)
+            throw new Exception("You cannot update customer orders when there is no customer assigned.");
+
+        string orderId = OrderId;
+        OrderId = newOrderId;
+        
+        _createdByCustomer.UpdateCustomerOrder(orderId, newOrderId, this);
     }
 }
