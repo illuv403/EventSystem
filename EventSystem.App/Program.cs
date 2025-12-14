@@ -5,26 +5,23 @@ namespace EventSystem.App;
 class Program
 {
     static void Main(string[] args)
-    {   
+    {
+        Address oldAddr = new Address("Poland", "Warsaw",
+            "Al. Wilanowska 12", "125", "02-123", new List<Staff>());
+        
         Organizer organizer = new Organizer("Anne", "Grey",
             "test@gmail.com", "+48573370352",
             new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>());
         
-        var ev = new Event("New Event",
-            new DateTime(2025, 12, 12), new DateTime(2025, 12, 23), "New event",
-            new List<Organizer>(){organizer}, new List<Staff>(), new List<Customer>(),
-            new Location(10000, "Al. Wilanowska 12", new List<Event>()), new List<Ticket>());
-        var st = new Staff("Henry", "Grey",
+        Staff staff = new Staff("Henry", "Grey",
             "test@gmail.com", "+48573370352", new DateOnly(2000, 1, 1),
-            Staff.StaffRole.Bartender, new Address("Poland", "Warsaw",
-                "Al. Wilanowska 12", "125", "02-123", new List<Staff>()), 599.99m, new List<Event>(),
-            new Organizer("Anne", "Grey",
-                "test@gmail.com", "+48573370352",
-                new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>()),
+            Staff.StaffRole.Bartender , oldAddr, 599.99m, new List<Event>(),
+            organizer,
             null, new List<Staff>());
-
-        st.AddAssignedEvent(ev);
-        st.GetAssignedEvents();
-        st.RemoveAssignedEvent(ev);
+        
+        
+        
+        organizer.AddHiredStaff(staff, new DateOnly(2001, 1, 1), null);
+        organizer.RemoveHiredStaff(staff, new DateOnly(2001, 1, 2));
     }
 }

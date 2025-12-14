@@ -15,6 +15,8 @@ public class Address
     
     [JsonInclude]
     public List<Staff> Staff { get; private set; }
+
+    public HashSet<Staff> _staffLivingHere = new();
     
     public Address(string country, string city, string street, string appNumber, string index, List<Staff> staff)
     {
@@ -42,6 +44,10 @@ public class Address
         Index = index;
         
         Staff = staff;
+        foreach (Staff staffMember in staff)
+        {
+            _staffLivingHere.Add(staffMember);
+        }
         
         _addressList.Add(this);
     }
@@ -60,4 +66,22 @@ public class Address
     {
         _addressList.Clear();
     }
+    
+    //Should be changed if Address in Staff CAN be null
+    public void AddStaffLivingHere(Staff staffToAdd)
+    {
+        if (_staffLivingHere.Contains(staffToAdd)) return;
+        _staffLivingHere.Add(staffToAdd);
+        staffToAdd.AddAccommodationAddress(this);
+    }
+
+    public void RemoveStaffLivingHere(Staff staffToRemove,Address newAccommodationAddress)
+    {
+        if (!(_staffLivingHere.Contains(staffToRemove))) return;
+        _staffLivingHere.Remove(staffToRemove);
+        staffToRemove.UpdateAccommodationAddress(this, newAccommodationAddress);
+    }
+    
+    
+   
 }
