@@ -26,12 +26,18 @@ public class Customer : Person
     public List<Order> Orders { get; private set; }
 
     private HashSet<Event> _wishesForEvent = new();
+    private Dictionary<string, Order> _customerOrders = new();
     
     public Customer(string name, string surname, string email, 
         string phoneNumber, DateOnly birthDate, List<Order> orders) 
         : base(name, surname, email, phoneNumber, birthDate)
     {
         Orders = orders;
+
+        foreach (var order in orders)
+        {
+            AddCustomerOrder(order);
+        }
         
         _customerList.Add(this);
     }
@@ -76,5 +82,34 @@ public class Customer : Person
     {
         RemoveWishForEvent(eventToRemove);
         AddWishForEvent(eventToAdd);
+    }
+
+    public List<Order> GetCustomerOrders()
+    {
+        return [.._customerOrders.Values];
+    }
+
+    public void AddCustomerOrder(Order order)
+    {
+        if (_customerOrders.ContainsKey(order.OrderId))
+            return;
+        
+        _customerOrders.Add(order.OrderId, order);
+        order.AddToCustomer(this);
+    }
+
+    public void RemoveCustomerOrder(Order order)
+    {
+        if (!_customerOrders.ContainsKey(order.OrderId))
+            return;
+        
+        _customerOrders.Remove(order.OrderId);
+        order.RemoveFromCustomer();
+    }
+    
+    public void UpdateCustomerOrder(string oldOrderId, string newOrderId, Order order)
+    {
+        _customerOrders.Remove(oldOrderId);
+        _customerOrders.Add(newOrderId, order);
     }
 }
