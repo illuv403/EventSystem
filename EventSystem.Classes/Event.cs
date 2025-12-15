@@ -21,6 +21,8 @@ public class Event
     private HashSet<Staff> _staffAssigned = new();
     private HashSet<Customer> _inWhoseWishList = new();
     private HashSet<Organizer> _eventOrganizers = new();
+    private HashSet<Ticket> _ticketsForEvent = new();
+    private Location _location;
 
     public Event(string title, DateTime startDateAndTime, DateTime endDateAndTime, string description,
         List<Organizer> organizers, List<Staff> staffAssigned,
@@ -67,9 +69,17 @@ public class Event
         {
             AddInWishList(customer);
         }
+
+        foreach (var ticket in ticketsForEvent)
+        {
+            AddTicket(ticket);
+        }
+        
         InWhoseWishList = inWhoseWishList;
         Location = location;
-
+        _location = location;
+        _location.AddEvent(this);
+        
         TicketsForEvent = ticketsForEvent;
 
         _eventList.Add(this);
@@ -173,5 +183,45 @@ public class Event
     {
         RemoveEventOrganizer(organizerToRemove);
         AddEventOrganizer(organizerToAdd);
+    }
+
+    public HashSet<Ticket> GetTicketsForEvent()
+    {
+        return [.._ticketsForEvent];
+    }
+
+    public void AddTicket(Ticket ticketToAdd)
+    {
+        if (_ticketsForEvent.Contains(ticketToAdd)) return;
+        
+        _ticketsForEvent.Add(ticketToAdd);
+    }
+
+    public void RemoveTicket(Ticket ticketToRemove)
+    {
+        if (!_ticketsForEvent.Contains(ticketToRemove)) return;
+        
+        _ticketsForEvent.Remove(ticketToRemove);
+    }    
+    
+    public void UpdateTicket(Ticket ticketToUpdate)
+    {
+        if (ticketToUpdate.GetEventForTicket() == this)
+            return;
+
+        var oldEvent = ticketToUpdate.GetEventForTicket();
+        
+        oldEvent.RemoveTicket(ticketToUpdate);
+        AddTicket(ticketToUpdate);
+    }
+    
+    public Location GetLocation()
+    {
+        return _location;
+    }
+    
+    public void UpdateLocation(Location locationToUpdate)
+    {
+        locationToUpdate.UpdateEvent(this);
     }
 }

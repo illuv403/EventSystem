@@ -14,7 +14,8 @@ public abstract class Ticket : IDisposable
     
     [JsonInclude]
     public Order Order { get; private set; }
-    
+
+    private Event _createdForEvent;
     public Ticket(string gateNumber, decimal price, Event eventForTicket, Order order)
     {
         gateNumber = gateNumber.Trim();
@@ -29,6 +30,8 @@ public abstract class Ticket : IDisposable
         Price = price;
         
         EventForTicket = eventForTicket;
+        _createdForEvent = eventForTicket;
+        _createdForEvent.AddTicket(this);
         Order = order;
         order.AddTicketToOrder(this);
     }
@@ -51,5 +54,15 @@ public abstract class Ticket : IDisposable
             Order = null;
             EventForTicket = null;
         }
+    }
+
+    public Event GetEventForTicket()
+    {
+        return _createdForEvent;
+    }
+
+    public void UpdateEvent(Event newEvent)
+    {
+        newEvent.UpdateTicket(this);
     }
 }

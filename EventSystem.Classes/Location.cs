@@ -13,6 +13,8 @@ public class Location
     [JsonInclude]
     public List<Event> EventsAssigned { get; private set; }
     
+    private HashSet<Event> _eventsAssigned = new();
+    
     public Location(int capacity, string address,  List<Event> eventsAssigned)
     {
         if (capacity < 1)
@@ -26,6 +28,11 @@ public class Location
         Capacity = capacity;
         Address = address;
         EventsAssigned = eventsAssigned;
+
+        foreach (var eventAssigned in _eventsAssigned)
+        {
+            AddEvent(eventAssigned);
+        }
         
         _locationList.Add(this);
     }
@@ -44,4 +51,35 @@ public class Location
     {
         _locationList.Clear();   
     }
+
+    public HashSet<Event> GetEventsAssigned()
+    {
+        return [.._eventsAssigned];
+    }
+
+    public void AddEvent(Event newEvent)
+    {
+        if (_eventsAssigned.Contains(newEvent)) return;
+        
+        _eventsAssigned.Add(newEvent);
+    }
+
+    public void RemoveEvent(Event newEvent)
+    {
+        if (!_eventsAssigned.Contains(newEvent)) return;
+        
+        _eventsAssigned.Remove(newEvent);
+    }
+    
+    public void UpdateEvent(Event newEvent)
+    {
+        if (newEvent.GetLocation() == this)
+            return;
+
+        var location = newEvent.GetLocation();
+        
+        location.RemoveEvent(newEvent);
+        AddEvent(newEvent);
+    }
+    
 }
