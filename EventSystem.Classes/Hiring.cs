@@ -15,12 +15,18 @@ public class Hiring
     public DateOnly DateHired;
     public DateOnly? DateFired;
     
+    private Staff _staff;
+    private Organizer _organizer;
+    
     public Hiring(Staff staff, Organizer organizer, DateOnly dateHired, DateOnly? dateFired)
     {
         Staff = staff;
         Organizer = organizer;
         DateHired = dateHired;
         DateFired = dateFired;
+        
+        _staff = staff;
+        _organizer = organizer;
         
         _hiringList.Add(this);
     }

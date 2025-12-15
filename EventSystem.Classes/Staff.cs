@@ -36,6 +36,10 @@ public class Staff : Person
 
     private HashSet<Event> _assignedEvents = new();
     private HashSet<Staff> _staffInCharge = new();
+    private HashSet<Hiring> _hiringHistory = new();
+    private Address _accommodationAddress;
+    private Organizer _hiredByWho;
+    
     
     public Staff(string name, string surname, string email, string phoneNumber, DateOnly birthDate, StaffRole role,
         Address address, decimal salary, List<Event> events, Organizer organizer, Staff? manager, List<Staff> subordinates)
@@ -60,6 +64,10 @@ public class Staff : Person
         }
         
         Subordinates = subordinates;
+
+        _accommodationAddress = address;
+        address.AddStaffLivingHere(this);
+        _hiredByWho = organizer;
         
         _staffList.Add(this);
     }
@@ -142,4 +150,72 @@ public class Staff : Person
         RemoveStaffInCharge(staffToRemove);
         AddStaffInCharge(staffToAssign);
     }
+    
+    
+    //Should be changed if Address in Staff CAN be null
+
+    public void AddAccommodationAddress(Address newAccommodationAddress)
+    {
+        if (_accommodationAddress.Equals(newAccommodationAddress)) return;
+        
+        _accommodationAddress = newAccommodationAddress;
+        newAccommodationAddress.AddStaffLivingHere(this);
+    }
+
+    public void UpdateAccommodationAddress(Address oldAccommodationAddress, Address newAccommodationAddress)
+    {
+        if (_accommodationAddress.Equals(newAccommodationAddress)) return;
+        
+        oldAccommodationAddress.RemoveStaffLivingHere(this, newAccommodationAddress);
+        newAccommodationAddress.AddStaffLivingHere(this);
+    }
+    
+    
+    public void UpdateHiredByWho(Organizer hirerToAdd,  DateOnly dateHired, DateOnly? dateFired)
+    {
+        if (_hiredByWho.Equals(hirerToAdd)) return;
+        
+        _hiredByWho.AddHiredStaff(this, dateHired, dateFired);
+        _hiredByWho = hirerToAdd;
+    }
+
+    public void RemoveHiredByWho(Organizer hirerToRemove, DateOnly dateFired)
+    {
+        if (!_hiredByWho.Equals(hirerToRemove)) return;
+        
+        _hiredByWho.RemoveHiredStaff(this, dateFired);
+        _hiredByWho = null;
+    }
+
+    public void AddNewHiringToHiringHistory(Hiring newHiring)
+    {
+        if (_hiringHistory.Contains(newHiring)) return;
+        _hiringHistory.Add(newHiring);
+    }
+    
+    public void UpdateFireDateInHiringHistory(Organizer organizerToEdit, Staff staffToEdit, DateOnly dateFired)
+    {
+        foreach (Hiring hiring in _hiringHistory)
+        {
+            if (dateFired.Equals(hiring.DateFired))
+            {
+                return;
+            }
+            if (hiring.Organizer.Equals(organizerToEdit) && hiring.Staff.Equals(staffToEdit))
+            {
+                hiring.DateFired = dateFired;
+            }
+        }
+        organizerToEdit.UpdateFireDateInHiringHistory(organizerToEdit, staffToEdit, dateFired);
+    }
+    
+    //Probably Will be needed later
+    /*
+    public void RemoveFromHiringHistory(Hiring hiringToRemove)
+    {
+        if (!(_hiringHistory.Contains(hiringToRemove))) return;
+
+        _hiringHistory.Remove(hiringToRemove);
+    }*/
+
 }
