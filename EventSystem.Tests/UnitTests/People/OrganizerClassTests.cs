@@ -16,7 +16,7 @@ public class OrganizerClassTests
             "test@gmail.com", "+48573370352",
             new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>());
         
-        _event1 = new Event("New Event", new DateTime(2025, 12, 12), new DateTime(2025, 12, 23), "New event",
+        _event1 = new Event("New Event", new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "New event",
             new List<Organizer> {new("Alice", "Black",
                 "test6546@gmail.com", "+48573073352",
                 new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())}, 

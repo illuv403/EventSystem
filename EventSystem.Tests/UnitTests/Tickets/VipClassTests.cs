@@ -5,13 +5,13 @@ namespace EventSystem.Tests;
 public class VipClassTests
 {
     private Vip _vip = new Vip("A12", 49.99m, "3",new Event("New Event",
-            new DateTime(2025, 12, 12), new DateTime(2025, 12, 23), "New event", 
+            new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "New event", 
             new List<Organizer>{new("Alice", "Black",
                 "test6546@gmail.com", "+48573073352",
                 new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())}, 
             new List<Staff>(), new List<Customer>(), 
             new Location(10000, "Al. Wilanowska 12", new List<Event>()), 
-            new List<Ticket>()), new Order(new Customer("Henry",
+            new List<Ticket>()), new Order("ID1", new Customer("Henry",
             "Grey", "test@gmail.com", "+48573370352",
             new DateOnly(2000, 1, 1), new List<Order>()
         ), new List<Ticket>()));
@@ -23,8 +23,8 @@ public class VipClassTests
         Assert.Equal(49.99m, _vip.Price);
         Assert.Equal("3", _vip.LoungeNumber);
         Assert.Equal("New Event", _vip.EventForTicket.Title);
-        Assert.Equal(new DateTime(2025, 12, 12), _vip.EventForTicket.StartDateAndTime);
-        Assert.Equal(new DateTime(2025, 12, 23), _vip.EventForTicket.EndDateAndTime);
+        Assert.Equal(new DateTime(2025, 12, 27), _vip.EventForTicket.StartDateAndTime);
+        Assert.Equal(new DateTime(2025, 12, 30), _vip.EventForTicket.EndDateAndTime);
         Assert.Equal("New event", _vip.EventForTicket.Description);
         Assert.Equal(10000, _vip.EventForTicket.Location.Capacity);
         Assert.Equal("Al. Wilanowska 12", _vip.EventForTicket.Location.Address);
@@ -39,14 +39,14 @@ public class VipClassTests
     public void VipGateNumberNotGivenTest()
     {
         var ex = Assert.Throws<ArgumentException>(() => new Vip("", 49.99m, "3", new Event("New Event",
-                new DateTime(2025, 12, 12), new DateTime(2025, 12, 23), "New event",
+                new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "New event",
                 new List<Organizer>{new("Alice", "Black",
                     "test6546@gmail.com", "+48573073352",
                     new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), 
                     new List<Event>())}, new List<Staff>(), new List<Customer>(),
                 new Location(10000, "Al. Wilanowska 12", new List<Event>()), 
                 new List<Ticket>()),
-            new Order(new Customer("Henry",
+            new Order("ID1", new Customer("Henry",
                 "Grey", "test@gmail.com", "+48573370352",
                 new DateOnly(2000, 1, 1), new List<Order>()
             ), new List<Ticket>())));
@@ -57,13 +57,13 @@ public class VipClassTests
     public void VipNegativePriceGivenTest()
     {
         var ex = Assert.Throws<ArgumentException>(() => new Vip("A12", -10m, "3", new Event("New Event",
-                new DateTime(2025, 12, 12), new DateTime(2025, 12, 23), "New event",
+                new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "New event",
                 new List<Organizer>{new("Alice", "Black",
                     "test6546@gmail.com", "+48573073352",
                     new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())},
                 new List<Staff>(), new List<Customer>(),
                 new Location(10000, "Al. Wilanowska 12", new List<Event>()), 
-                new List<Ticket>()), new Order(new Customer("Henry",
+                new List<Ticket>()), new Order("ID1", new Customer("Henry",
                 "Grey", "test@gmail.com", "+48573370352",
                 new DateOnly(2000, 1, 1), new List<Order>()
             ), new List<Ticket>())));

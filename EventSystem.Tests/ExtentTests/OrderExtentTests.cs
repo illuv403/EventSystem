@@ -21,7 +21,7 @@ public class OrderExtentTests : ExtentTestBase
         
         var newList = new List<Order>
         {
-            new(new Customer(order.CreatedByCustomer.Name, order.CreatedByCustomer.Surname,
+            new("ID1", new Customer(order.CreatedByCustomer.Name, order.CreatedByCustomer.Surname,
                 "mm.mari@gmail.com", order.CreatedByCustomer.PhoneNumber, order.CreatedByCustomer.BirthDate, order.CreatedByCustomer.Orders), order.TicketsInOrder)
         };
         

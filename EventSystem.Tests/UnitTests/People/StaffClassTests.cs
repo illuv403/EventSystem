@@ -41,7 +41,7 @@ public class StaffClassTests
             null, new List<Staff>());
         
         _event1 = new Event("New Event",
-            new DateTime(2025, 12, 12), new DateTime(2025, 12, 23), "New event",
+            new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "New event",
             new List<Organizer> {new("Alice", "Black",
                 "test6546@gmail.com", "+48573073352",
                 new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())}, 
@@ -50,7 +50,7 @@ public class StaffClassTests
             new List<Ticket>());
         
         _event2 = new Event("New Event 2",
-            new DateTime(2025, 12, 12), new DateTime(2025, 12, 23), "New event 2",
+            new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "New event 2",
             new List<Organizer> {new("Alice", "Black",
                 "test6546@gmail.com", "+48573073352",
                 new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())}, 
