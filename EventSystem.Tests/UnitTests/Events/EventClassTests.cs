@@ -13,11 +13,15 @@ public class EventClassTests
 
     private Organizer _organizer1;
     private Organizer _organizer2;
+
+    private Ticket _ticket1;
+
+    private Location _location;
     
     public EventClassTests()
     {
         _event = new Event("New Event",
-            new DateTime(2025, 12, 12), new DateTime(2025, 12, 23), "New event",
+            new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "New event",
             new List<Organizer> {new("Alice", "Black",
                 "test6546@gmail.com", "+48573073352",
                 new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())}, 
@@ -50,14 +54,18 @@ public class EventClassTests
             2290.0m, new List<Staff>(), new List<Event>());
         _organizer2 = new("Alex", "Mikolajewski", "mikiaxi@gmail.com", "+48378198856", new DateOnly(1978, 06, 12),
             1910.99m, new List<Staff>(), new List<Event>());
+
+        _ticket1 = new Standard("G-21", 199.39m, "S203", _event, new Order("ID1", _customer1, new List<Ticket>()));
+        
+        _location = new Location(10000, "Al. Wilanowska 12", new List<Event>());
     }
     
     [Fact]
     public void EventCreationTest()
     {
         Assert.Equal("New Event", _event.Title);
-        Assert.Equal(new DateTime(2025, 12, 12), _event.StartDateAndTime);
-        Assert.Equal(new DateTime(2025, 12, 23), _event.EndDateAndTime);
+        Assert.Equal(new DateTime(2025, 12, 27), _event.StartDateAndTime);
+        Assert.Equal(new DateTime(2025, 12, 30), _event.EndDateAndTime);
         Assert.Equal("New event", _event.Description);
         Assert.Single(_event.Organizers);
         Assert.Equal(new List<Staff>(), _event.StaffAssigned);
@@ -72,7 +80,7 @@ public class EventClassTests
     public void EventTitleNotGivenTest()
     {
         var ex = Assert.Throws<ArgumentException>(() => new Event("",
-            new DateTime(2025, 12, 12), new DateTime(2025, 12, 23), "New event",
+            new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "New event",
             new List<Organizer>(), new List<Staff>(), new List<Customer>(),
             new Location(10000, "Al. Wilanowska 12", new List<Event>()), new List<Ticket>()));
         Assert.Equal("Title cannot be empty.", ex.Message);
@@ -82,7 +90,7 @@ public class EventClassTests
     public void EventDescriptionNotGivenTest()
     {
         var ex = Assert.Throws<ArgumentException>(() => new Event("New Event",
-            new DateTime(2025, 12, 12), new DateTime(2025, 12, 23), "",
+            new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "",
             new List<Organizer>(), new List<Staff>(), new List<Customer>(),
             new Location(10000, "Al. Wilanowska 12", new List<Event>()), new List<Ticket>()));
         Assert.Equal("Description cannot be empty.", ex.Message);
@@ -92,7 +100,7 @@ public class EventClassTests
     public void EventStartDateEndDateWrongTest()
     {
         var ex = Assert.Throws<ArgumentException>(() => new Event("New Event",
-            new DateTime(2025, 12, 23), new DateTime(2025, 12, 12), "New event",
+            new DateTime(2025, 12, 30), new DateTime(2025, 12, 27), "New event",
             new List<Organizer>(), new List<Staff>(), new List<Customer>(),
             new Location(10000, "Al. Wilanowska 12", new List<Event>()), new List<Ticket>()));
         Assert.Equal("End date cannot be before start date.", ex.Message);
@@ -202,5 +210,42 @@ public class EventClassTests
         
         Assert.DoesNotContain(_event, _organizer1.GetAssignedEvents());
         Assert.Contains(_event, _organizer2.GetAssignedEvents());
+    }
+    
+    // Ticket // 
+    [Fact]
+    public void AddTicketToEventTest()
+    {
+        _event.AddTicket(_ticket1);
+
+        Assert.Contains(_ticket1, _event.GetTicketsForEvent());
+        Assert.Equal(_event, _ticket1.GetEventForTicket());
+    }
+
+    [Fact]
+    public void RemoveTicketFromEventTest()
+    {
+        _event.RemoveTicket(_ticket1);
+        
+        Assert.DoesNotContain(_ticket1, _event.GetTicketsForEvent());
+    }
+
+    [Fact]
+    public void UpdateTicketOfEventTest()
+    {
+        _event.AddTicket(_ticket1);
+        _event.UpdateTicket(_ticket1);
+
+        Assert.Contains(_ticket1, _event.GetTicketsForEvent());
+        Assert.Equal(_event, _ticket1.GetEventForTicket());
+    }
+    
+    // Location //
+    [Fact]
+    public void UpdateLocationOfEventTest()
+    {
+        _event.UpdateLocation(_location);
+        
+        Assert.Contains(_event, _location.GetEventsAssigned());
     }
 }

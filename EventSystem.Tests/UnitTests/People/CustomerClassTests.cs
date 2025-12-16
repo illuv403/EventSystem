@@ -1,5 +1,6 @@
 using System.Dynamic;
 using EventSystem.Classes;
+using NuGet.Frameworks;
 
 namespace EventSystem.Tests;
 
@@ -10,6 +11,8 @@ public class CustomerClassTests
     private Event _event1;
     private Event _event2;
 
+    private Order _order;
+
     public CustomerClassTests()
     {
         _customer = new Customer("Henry",
@@ -17,7 +20,7 @@ public class CustomerClassTests
             new DateOnly(2000, 1, 1), new List<Order>()
         );
         
-        _event1 = new Event("New Event", new DateTime(2025, 12, 12), new DateTime(2025, 12, 23), "New event",
+        _event1 = new Event("New Event", new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "New event",
             new List<Organizer> {new("Alice", "Black",
                 "test6546@gmail.com", "+48573073352",
                 new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())}, 
@@ -32,6 +35,8 @@ public class CustomerClassTests
             new List<Staff>(), new List<Customer>(),
             new Location(16000, "ul. Poznańska 13", new List<Event>()), 
             new List<Ticket>());
+
+        _order = new("SomeOrderId", _customer, new List<Ticket>());
     }
     
     [Fact]
@@ -146,5 +151,33 @@ public class CustomerClassTests
         
         Assert.DoesNotContain(_customer, _event1.GetInWhoseWishList());
         Assert.Contains(_customer, _event2.GetInWhoseWishList());
+    }
+    
+    // Order //
+    [Fact]
+    public void AddOrderTest()
+    {
+        _customer.AddCustomerOrder(_order);
+        
+        Assert.Contains(_order, _customer.GetCustomerOrders());
+        Assert.Equal(_customer, _order.GetCreatedByCustomer()); 
+    }
+
+    [Fact]
+    public void RemoveOrderTest()
+    {
+        _customer.RemoveCustomerOrder(_order);
+        
+        Assert.DoesNotContain(_order, _customer.GetCustomerOrders());
+    }
+
+    [Fact]
+    public void UpdateOrderTest()
+    {
+        _customer.UpdateCustomerOrder("SomeOrderId", "NewOrderId", _order);
+        
+        Assert.Contains(_customer.GetCustomerOrders(), 
+            order => order.OrderId.Equals(_order.OrderId));
+                
     }
 }
