@@ -3,8 +3,10 @@ using System.Xml.Serialization;
 
 namespace EventSystem.Classes;
 
-public class Hiring
+public class Hiring : IDisposable
 {
+    private bool _isDisposed;
+    
     private static readonly List<Hiring> _hiringList = [];
     public static IReadOnlyList<Hiring> List => _hiringList;
     
@@ -15,23 +17,45 @@ public class Hiring
     public DateOnly DateHired;
     public DateOnly? DateFired;
     
-    private Staff _staff;
-    private Organizer _organizer;
-    
-    public Hiring(Staff staff, Organizer organizer, DateOnly dateHired, DateOnly? dateFired)
+    public Hiring(Staff staff, Organizer organizer, DateOnly dateHired, DateOnly? dateFired = null)
     {
         Staff = staff;
         Organizer = organizer;
         DateHired = dateHired;
         DateFired = dateFired;
         
-        _staff = staff;
-        _organizer = organizer;
-        
         _hiringList.Add(this);
     }
     
     public Hiring() { }
+
+    public void Fire(DateOnly dateFired)
+    {
+        if (DateFired is not null)
+            throw new InvalidOperationException("Has already been fired.");
+        
+        DateFired = dateFired;
+    }
+    
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+    
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_isDisposed) return;
+        _isDisposed = true;
+
+        if (disposing)
+        {
+            Organizer.RemoveHiring(this);
+            Staff.RemoveHiring(this);
+
+            _hiringList.Remove(this);
+        }
+    }
     
     public static void LoadExtent(List<Hiring>? list)
     {
