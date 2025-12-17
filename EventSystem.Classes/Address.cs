@@ -71,17 +71,16 @@ public class Address
     public void AddStaffLivingHere(Staff staffToAdd)
     {
         if (_staffLivingHere.Contains(staffToAdd)) return;
+        
         _staffLivingHere.Add(staffToAdd);
         staffToAdd.AddAccommodationAddress(this);
     }
 
-    public void RemoveStaffLivingHere(Staff staffToRemove,Address newAccommodationAddress)
+    public void RemoveStaffLivingHere(Staff staffToRemove, Address newAccommodationAddress)
     {
-        if (!(_staffLivingHere.Contains(staffToRemove))) return;
+        if (!_staffLivingHere.Contains(staffToRemove)) return;
+        
         _staffLivingHere.Remove(staffToRemove);
-        staffToRemove.UpdateAccommodationAddress(this, newAccommodationAddress);
+        staffToRemove.UpdateAccommodationAddress(newAccommodationAddress);
     }
-    
-    
-   
 }

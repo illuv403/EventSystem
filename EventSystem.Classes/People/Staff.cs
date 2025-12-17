@@ -38,11 +38,11 @@ public class Staff : Person
     private HashSet<Staff> _staffInCharge = new();
     private HashSet<Hiring> _hiringHistory = new();
     private Address _accommodationAddress;
-    private Organizer _hiredByWho;
     
     
     public Staff(string name, string surname, string email, string phoneNumber, DateOnly birthDate, StaffRole role,
-        Address address, decimal salary, List<Event> events, Organizer organizer, Staff? manager, List<Staff> subordinates)
+        Address address, decimal salary, List<Event> events, Organizer organizer, DateOnly hireDate, Staff? manager, 
+        List<Staff> subordinates)
         : base(name, surname, email, phoneNumber, birthDate)
     {
         if (salary < 0) throw new ArgumentException("Salary cannot be negative");
@@ -67,7 +67,7 @@ public class Staff : Person
 
         _accommodationAddress = address;
         address.AddStaffLivingHere(this);
-        _hiredByWho = organizer;
+        AddHiring(organizer, hireDate);
         
         _staffList.Add(this);
     }
@@ -85,6 +85,30 @@ public class Staff : Person
     public static void ClearExtent()
     {
         _staffList.Clear();   
+    }
+
+    public HashSet<Hiring> GetHiringHistory() => [.._hiringHistory];
+    
+    public void AddHiring(Organizer organizer, DateOnly hireDate)
+    {
+        var hiring = _hiringHistory.Count == 0 ? null : _hiringHistory.Last();
+        
+        if (hiring is not null && hiring.DateFired is not null)
+            throw new Exception("Cannot add hiring: last hiring has no fire date.");
+        if (hiring is not null && hiring.Organizer == organizer)
+            throw new Exception("Staff cannot be hired from different organizer.");
+        
+        hiring = new Hiring(this, organizer, hireDate);
+        _hiringHistory.Add(hiring);
+        organizer.AddHiring(hiring);
+    }
+    
+    public void RemoveHiring(Hiring hiring)
+    {
+        if (!_hiringHistory.Contains(hiring)) return;
+        
+        _hiringHistory.Remove(hiring);
+        hiring.Dispose();
     }
 
     public HashSet<Event> GetAssignedEvents()
@@ -113,7 +137,6 @@ public class Staff : Person
         RemoveAssignedEvent(eventToRemove);
         AddAssignedEvent(eventToAssign);
     }
-    
     
     public HashSet<Staff> GetStaffInCharge()
     {
@@ -153,7 +176,6 @@ public class Staff : Person
     
     
     //Should be changed if Address in Staff CAN be null
-
     public void AddAccommodationAddress(Address newAccommodationAddress)
     {
         if (_accommodationAddress.Equals(newAccommodationAddress)) return;
@@ -162,60 +184,12 @@ public class Staff : Person
         newAccommodationAddress.AddStaffLivingHere(this);
     }
 
-    public void UpdateAccommodationAddress(Address oldAccommodationAddress, Address newAccommodationAddress)
+    public void UpdateAccommodationAddress(Address newAccommodationAddress)
     {
         if (_accommodationAddress.Equals(newAccommodationAddress)) return;
         
-        oldAccommodationAddress.RemoveStaffLivingHere(this, newAccommodationAddress);
+        _accommodationAddress.RemoveStaffLivingHere(this, newAccommodationAddress);
         newAccommodationAddress.AddStaffLivingHere(this);
     }
-    
-    
-    public void UpdateHiredByWho(Organizer hirerToAdd,  DateOnly dateHired, DateOnly? dateFired)
-    {
-        if (_hiredByWho.Equals(hirerToAdd)) return;
-        
-        _hiredByWho.AddHiredStaff(this, dateHired, dateFired);
-        _hiredByWho = hirerToAdd;
-    }
-
-    public void RemoveHiredByWho(Organizer hirerToRemove, DateOnly dateFired)
-    {
-        if (!_hiredByWho.Equals(hirerToRemove)) return;
-        
-        _hiredByWho.RemoveHiredStaff(this, dateFired);
-        _hiredByWho = null;
-    }
-
-    public void AddNewHiringToHiringHistory(Hiring newHiring)
-    {
-        if (_hiringHistory.Contains(newHiring)) return;
-        _hiringHistory.Add(newHiring);
-    }
-    
-    public void UpdateFireDateInHiringHistory(Organizer organizerToEdit, Staff staffToEdit, DateOnly dateFired)
-    {
-        foreach (Hiring hiring in _hiringHistory)
-        {
-            if (dateFired.Equals(hiring.DateFired))
-            {
-                return;
-            }
-            if (hiring.Organizer.Equals(organizerToEdit) && hiring.Staff.Equals(staffToEdit))
-            {
-                hiring.DateFired = dateFired;
-            }
-        }
-        organizerToEdit.UpdateFireDateInHiringHistory(organizerToEdit, staffToEdit, dateFired);
-    }
-    
-    //Probably Will be needed later
-    /*
-    public void RemoveFromHiringHistory(Hiring hiringToRemove)
-    {
-        if (!(_hiringHistory.Contains(hiringToRemove))) return;
-
-        _hiringHistory.Remove(hiringToRemove);
-    }*/
 
 }
