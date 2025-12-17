@@ -10,7 +10,7 @@ public class HiringClassTests
             "Al. Wilanowska 12", "125", "02-123", new List<Staff>()), 599.99m, new List<Event>(),
         new Organizer("Anne", "Grey",
             "test@gmail.com", "+48573370352",
-            new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>()),
+            new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>()), new DateOnly(2000, 2, 1),
         null, new List<Staff>()), new Organizer("Anne", "Grey",
         "test@gmail.com", "+48573370352",
         new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>()), 
@@ -42,5 +42,12 @@ public class HiringClassTests
         Assert.Equal(19999.99m, _hiring.Organizer.Profit);
         Assert.Equal(new DateOnly(2025, 1, 1), _hiring.DateHired);
         Assert.Null(_hiring.DateFired);
+    }
+    
+    [Fact]
+    public void FireFunctionTest()
+    {
+        _hiring.Fire(new DateOnly(2025, 9, 10));
+        Assert.Equal(new DateOnly(2025, 9, 10), _hiring.DateFired);
     }
 }

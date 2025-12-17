@@ -16,7 +16,7 @@ public class Address
     [JsonInclude]
     public List<Staff> Staff { get; private set; }
 
-    public HashSet<Staff> _staffLivingHere = new();
+    private HashSet<Staff> _staffLivingHere = new();
     
     public Address(string country, string city, string street, string appNumber, string index, List<Staff> staff)
     {
@@ -73,7 +73,7 @@ public class Address
         if (_staffLivingHere.Contains(staffToAdd)) return;
         
         _staffLivingHere.Add(staffToAdd);
-        staffToAdd.AddAccommodationAddress(this);
+        staffToAdd.UpdateAccommodationAddress(this);
     }
 
     public void RemoveStaffLivingHere(Staff staffToRemove, Address newAccommodationAddress)
@@ -82,5 +82,10 @@ public class Address
         
         _staffLivingHere.Remove(staffToRemove);
         staffToRemove.UpdateAccommodationAddress(newAccommodationAddress);
+    }
+    
+    public HashSet<Staff> GetStaffLivingHere()
+    {
+        return [.._staffLivingHere];
     }
 }

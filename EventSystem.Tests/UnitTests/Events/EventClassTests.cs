@@ -35,7 +35,7 @@ public class EventClassTests
                 "Al. Wilanowska 12", "125", "02-123", new List<Staff>()), 599.99m, 
             new List<Event>(), new Organizer("Anne", "Grey",
                 "test@gmail.com", "+48573370352",
-                new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>()),
+                new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>()), new DateOnly(2000, 2, 1),
             null, new List<Staff>());
         
         _staff2 = new("Bob", "Grey",
@@ -44,7 +44,7 @@ public class EventClassTests
                 "St. Plekhanovskaya 5", "11", "61001", new List<Staff>()), 599.99m, 
             new List<Event>(), new Organizer("Alice", "Black",
                 "test6546@gmail.com", "+48573073352",
-                new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>()),
+                new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>()), new DateOnly(2000, 2, 1),
             null, new List<Staff>());
         
         _customer1 = new("Daniel", "Eroth", "d.eroth@gmail.com", "+48578998756", new DateOnly(2005, 07, 01), new List<Order>());

@@ -93,10 +93,10 @@ public class Staff : Person
     {
         var hiring = _hiringHistory.Count == 0 ? null : _hiringHistory.Last();
         
-        if (hiring is not null && hiring.DateFired is not null)
+        if (hiring is not null && hiring.DateFired is null)
             throw new Exception("Cannot add hiring: last hiring has no fire date.");
         if (hiring is not null && hiring.Organizer == organizer)
-            throw new Exception("Staff cannot be hired from different organizer.");
+            throw new Exception("Staff cannot be hired by same organizer.");
         
         hiring = new Hiring(this, organizer, hireDate);
         _hiringHistory.Add(hiring);
@@ -142,6 +142,12 @@ public class Staff : Person
     {
         return [.._staffInCharge];
     }
+    
+    public Address GetAccommodationAddress()
+    {
+        return _accommodationAddress;
+    }
+    
 
     public void AddStaffInCharge(Staff staffToAssign)
     {
@@ -174,21 +180,12 @@ public class Staff : Person
         AddStaffInCharge(staffToAssign);
     }
     
-    
-    //Should be changed if Address in Staff CAN be null
-    public void AddAccommodationAddress(Address newAccommodationAddress)
-    {
-        if (_accommodationAddress.Equals(newAccommodationAddress)) return;
-        
-        _accommodationAddress = newAccommodationAddress;
-        newAccommodationAddress.AddStaffLivingHere(this);
-    }
-
     public void UpdateAccommodationAddress(Address newAccommodationAddress)
     {
         if (_accommodationAddress.Equals(newAccommodationAddress)) return;
         
         _accommodationAddress.RemoveStaffLivingHere(this, newAccommodationAddress);
+        _accommodationAddress =  newAccommodationAddress;
         newAccommodationAddress.AddStaffLivingHere(this);
     }
 

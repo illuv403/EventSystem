@@ -7,19 +7,36 @@ public class StaffClassTests
     private Staff _staff;
     private Staff _staff2;
     private Staff _staff3;
+    private Staff _staff4;
+    private Staff _staff5;
     
     private Event _event1;
     private Event _event2;
+    
+    private Address _address1;
+    private Address _address2;
+    
+    private Organizer _organizer1;
+    private Organizer _organizer2;
 
     public StaffClassTests()
     {
+        
+        _organizer1 = new Organizer("Anne", "Grey",
+            "test@gmail.com", "+48573370352",
+            new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>());
+        
+        _organizer2 = new Organizer("Anne", "Grey",
+            "test@gmail.com", "+48573370352",
+            new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>());
+        
         _staff = new Staff("Henry", "Grey",
             "test@gmail.com", "+48573370352", new DateOnly(2000, 1, 1),
             Staff.StaffRole.Bartender, new Address("Poland", "Warsaw",
                 "Al. Wilanowska 12", "125", "02-123", new List<Staff>()), 599.99m, new List<Event>(),
             new Organizer("Anne", "Grey",
                 "test@gmail.com", "+48573370352",
-                new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>()),
+                new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>()), new DateOnly(2000, 2, 1),
             null, new List<Staff>());
         
         _staff2 = new("Bob", "Grey",
@@ -28,7 +45,7 @@ public class StaffClassTests
                 "St. Plekhanovskaya 5", "11", "61001", new List<Staff>()), 599.99m, 
             new List<Event>(), new Organizer("Alice", "Black",
                 "test6546@gmail.com", "+48573073352",
-                new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>()),
+                new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>()), new DateOnly(2000, 2, 1),
             null, new List<Staff>());
         
         _staff3 = new("Tom", "Bobley",
@@ -37,7 +54,23 @@ public class StaffClassTests
                 "ul. Horodotska 24", "111", "79007", new List<Staff>()), 799.99m, 
             new List<Event>(), new Organizer("Alexandra", "White",
                 "test61234@gmail.com", "+48511778352",
-                new DateOnly(1991, 07, 01), 16999.99m, new List<Staff>(), new List<Event>()),
+                new DateOnly(1991, 07, 01), 16999.99m, new List<Staff>(), new List<Event>()), new DateOnly(2000, 2, 1),
+            null, new List<Staff>());
+        
+        _staff4 = new Staff("Henry", "Grey",
+            "test@gmail.com", "+48573370352", new DateOnly(2000, 1, 1),
+            Staff.StaffRole.Bartender, new Address("Ukraine", "Kharkov",
+                "St. Plekhanovskaya 5", "11", "61001", new List<Staff>()), 599.99m, new List<Event>(),
+            new Organizer("Anne", "Grey",
+                "test@gmail.com", "+48573370352",
+                new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>()), new DateOnly(2000, 2, 1),
+            null, new List<Staff>());
+        
+        _staff5 = new Staff("Henry", "Grey",
+            "test@gmail.com", "+48573370352", new DateOnly(2000, 1, 1),
+            Staff.StaffRole.Bartender, new Address("Ukraine", "Kharkov",
+                "St. Plekhanovskaya 5", "11", "61001", new List<Staff>()), 599.99m, new List<Event>(),
+            _organizer1, new DateOnly(2000, 2, 1),
             null, new List<Staff>());
         
         _event1 = new Event("New Event",
@@ -57,6 +90,15 @@ public class StaffClassTests
             new List<Staff>(), new List<Customer>(),
             new Location(10000, "Al. Wilanowska 12", new List<Event>()), 
             new List<Ticket>());
+
+        _address1 = new Address("Ukraine", "Kyiv",
+            "St. Centralna 5", "11", "6001", new List<Staff>());
+        
+        _address2 = new Address("Poland", "Warsaw",
+            "St. Wolska 5", "1", "611", new List<Staff>());
+
+  
+
     }
     
     [Fact]
@@ -91,7 +133,7 @@ public class StaffClassTests
                 "Al. Wilanowska 12", "125", "02-123", new List<Staff>()), -10m, new List<Event>(),
             new Organizer("Anne", "Grey",
                 "test@gmail.com", "+48573370352",
-                new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>()),
+                new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>()), new DateOnly(2000, 2, 1),
             null, new List<Staff>()));
         Assert.Equal("Salary cannot be negative", ex.Message);
     }
@@ -153,4 +195,68 @@ public class StaffClassTests
         Assert.DoesNotContain(_staff2, _staff.GetStaffInCharge());
         Assert.Contains(_staff3, _staff.GetStaffInCharge());
     }
+    
+    
+    [Fact]
+    public void UpdateAccommodationAddressTest()
+    {
+        _staff4.UpdateAccommodationAddress(_address1);
+        
+        Assert.Equal(_address1, _staff4.GetAccommodationAddress());
+        Assert.Contains(_staff4, _address1.GetStaffLivingHere());
+        
+        _staff4.UpdateAccommodationAddress(_address2);
+        
+        Assert.Equal(_address2, _staff4.GetAccommodationAddress());
+        Assert.Contains(_staff4, _address2.GetStaffLivingHere());
+        Assert.DoesNotContain(_staff4, _address1.GetStaffLivingHere());
+    }
+    
+    [Fact]
+    public void StaffNoFireDateTest()
+    {
+        var ex = Assert.Throws<Exception>(() => _staff5.AddHiring(_organizer1,new DateOnly(2025, 10, 12))); 
+        Assert.Equal("Cannot add hiring: last hiring has no fire date.", ex.Message);
+    }
+    
+    [Fact]
+    public void StaffSameOrganizerTest()
+    {
+        var hiringLast = _staff5.GetHiringHistory().Last();
+        hiringLast.Fire( new DateOnly(2025, 10, 12));
+        var ex = Assert.Throws<Exception>(() => _staff5.AddHiring(_organizer1,new DateOnly(2025, 10, 12))); 
+        Assert.Equal("Staff cannot be hired by same organizer.", ex.Message);
+    }
+    
+    [Fact]
+    public void AddHiringTest()
+    {
+        var hiringLast = _staff5.GetHiringHistory().Last();
+        hiringLast.Fire( new DateOnly(2025, 10, 12));
+        
+        _staff5.AddHiring(_organizer2, new DateOnly(2025, 10, 15));
+        var hiring = _staff5.GetHiringHistory().Last();
+        
+        Assert.Equal(_staff5, hiring.Staff);
+        Assert.Equal(_organizer2, hiring.Organizer);
+        Assert.Equal(new DateOnly(2025, 10, 15), hiring.DateHired);
+        Assert.Null(hiring.DateFired);
+    }
+    
+    [Fact]
+    public void RemoveHiringTest()
+    {
+        var hiringLast = _staff5.GetHiringHistory().Last();
+        hiringLast.Fire( new DateOnly(2025, 10, 12));
+        _staff5.AddHiring(_organizer2, new DateOnly(2025, 10, 15));
+
+        var currentHiring = _staff5.GetHiringHistory().Last();
+
+        _staff5.RemoveHiring(currentHiring);
+
+        var hiring = _staff5.GetHiringHistory();
+        Assert.Single(hiring);       
+        Assert.Equal(new DateOnly(2025, 10, 12), hiring.Single().DateFired);
+    }
+    
 }

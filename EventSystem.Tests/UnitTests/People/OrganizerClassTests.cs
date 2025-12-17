@@ -6,15 +6,25 @@ namespace EventSystem.Tests;
 public class OrganizerClassTests
 {
     private Organizer _organizer;
+    private Organizer _organizer2;
 
     private Event _event1;
     private Event _event2;
+    
+    private Staff _staff5;
+    
+    private Hiring _hiring1;
+    private Hiring _hiring2;
 
     public OrganizerClassTests()
     {
         _organizer = new Organizer("Anne", "Grey",
             "test@gmail.com", "+48573370352",
             new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>());
+        
+        _organizer2 = new Organizer("Ann", "Brown",
+            "test@gmail.com", "+48573370352",
+            new DateOnly(2001, 1, 1), 19999.99m, new List<Staff>(), new List<Event>());
         
         _event1 = new Event("New Event", new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "New event",
             new List<Organizer> {new("Alice", "Black",
@@ -31,6 +41,17 @@ public class OrganizerClassTests
             new List<Staff>(), new List<Customer>(),
             new Location(16000, "ul. Poznańska 13", new List<Event>()), 
             new List<Ticket>());
+        
+        _staff5 = new Staff("Henry", "Grey",
+            "test@gmail.com", "+48573370352", new DateOnly(2000, 1, 1),
+            Staff.StaffRole.Bartender, new Address("Ukraine", "Kharkov",
+                "St. Plekhanovskaya 5", "11", "61001", new List<Staff>()), 599.99m, new List<Event>(),
+            _organizer,  new DateOnly(2024, 2, 1),
+            null, new List<Staff>());
+        
+        
+        _hiring1 = new Hiring(_staff5, _organizer, new DateOnly(2024, 2, 1));
+        _hiring2 = new Hiring(_staff5, _organizer2, new DateOnly(2025, 10, 12));
     }
     
     [Fact]
@@ -75,5 +96,41 @@ public class OrganizerClassTests
         
         Assert.DoesNotContain(_organizer, _event1.GetEventOrganizers());
         Assert.Contains(_organizer, _event2.GetEventOrganizers());
+    }
+    
+    [Fact]
+    public void AddHiringTest()
+    {
+        _organizer.AddHiring(_hiring1);
+        Assert.Equal(_hiring1 ,_organizer.GetHiringHistory().Last());
+        
+        var hiring = _staff5.GetHiringHistory().Last();
+        
+        Assert.Equal(_staff5, hiring.Staff);
+        Assert.Equal(_organizer, hiring.Organizer);
+        Assert.Equal( new DateOnly(2024, 2, 1), hiring.DateHired);
+        Assert.Null(hiring.DateFired);
+    }
+    
+    [Fact]
+    public void RemoveHiringTest()
+    {
+        var hiringHistory = _organizer.GetHiringHistory();
+        Assert.Single(hiringHistory);
+        
+        
+        hiringHistory.Last().Fire(new DateOnly(2025, 10, 12));
+        
+        _organizer.AddHiring(_hiring2);
+        hiringHistory = _organizer.GetHiringHistory();
+        
+        Assert.Equal(2, hiringHistory.Count);
+        
+        _organizer.RemoveHiring(hiringHistory.Last());
+        
+        hiringHistory = _organizer.GetHiringHistory();
+        Assert.Single(hiringHistory);
+        
+        Assert.Equal(new DateOnly(2025, 10, 12), hiringHistory.Single().DateFired);
     }
 }

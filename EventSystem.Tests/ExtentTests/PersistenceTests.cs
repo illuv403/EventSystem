@@ -116,7 +116,7 @@ public class PersistenceTests : IDisposable
         Assert.Single(Female.List);
         Assert.Equal("Joanna", Female.List[0].Name);
         
-        Assert.Single(Hiring.List);
+        Assert.Equal(2, Hiring.List.Count);
         Assert.Equal(new DateOnly(0001, 01, 01), Hiring.List[0].DateHired);
         
         Assert.Single(Location.LocationList);
