@@ -49,6 +49,8 @@ public class Organizer : Person
     {
         _organizerList.Clear();   
     }
+    
+    public HashSet<Hiring> GetHiringHistory() => [.._hiringHistory];
 
     public void AddHiring(Hiring hiring)
     {

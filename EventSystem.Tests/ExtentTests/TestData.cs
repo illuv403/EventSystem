@@ -87,7 +87,7 @@ public class TestData
     public static Staff Staff()
     {
         if (_cachedStaff == null)
-            _cachedStaff = new("Ivan", "Zareba", "zareba@gmail.com", PhoneNumber(), BirthDate(), StaffRole(), Address(), new decimal(2568.50), new List<Event>(), Organizer(), null, new List<Staff>());
+            _cachedStaff = new("Ivan", "Zareba", "zareba@gmail.com", PhoneNumber(), BirthDate(), StaffRole(), Address(), new decimal(2568.50), new List<Event>(), Organizer(), HiredDate(), null, new List<Staff>());
         return _cachedStaff;
     }
 
@@ -98,7 +98,7 @@ public class TestData
     public static Female Female() => new("Joanna", "Martendez", "j.mart@gmail.com", PhoneNumber(), BirthDate());
 
     public static Hiring Hiring() => new(Staff(), Organizer(), HiredDate(), FiredDate());
-
+    
     public static Male Male() => new("Marcin", "Kowalski", "kow.mar@gmail.com", PhoneNumber(), BirthDate());
 
     public static Musical Musical() => new("Christmas Musical", StartDateTime(), EndDateTime(), Description(), 

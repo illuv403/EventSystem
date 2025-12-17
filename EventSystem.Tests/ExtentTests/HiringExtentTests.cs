@@ -8,9 +8,9 @@ public class HiringExtentTests : ExtentTestBase
     public void AddingToExtentTest()
     {
         var hiring = TestData.Hiring();
-
-        Assert.Single(Hiring.List);
-        Assert.Equal(hiring, Hiring.List[0]);
+        
+        Assert.Equal(2, Hiring.List.Count);
+        Assert.Equal(hiring, Hiring.List[1]);
     }
     
     [Fact]

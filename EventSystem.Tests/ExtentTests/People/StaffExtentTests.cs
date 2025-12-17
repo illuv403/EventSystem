@@ -20,7 +20,7 @@ public class StaffExtentTests : ExtentTestBase
         
         var newList = new List<Staff>
         {
-            new(staff.Name, staff.Surname, "alecai.m@gmail.com", staff.PhoneNumber, staff.BirthDate, staff.Role, staff.Address, new decimal(2578.0), staff.Events, staff.Organizer, staff.Manager, staff.Subordinates)
+            new(staff.Name, staff.Surname, "alecai.m@gmail.com", staff.PhoneNumber, staff.BirthDate, staff.Role, staff.Address, new decimal(2578.0), staff.Events, staff.Organizer, staff.GetHiringHistory().Last().DateHired, staff.Manager, staff.Subordinates)
         };
         
         Staff.LoadExtent(newList);
