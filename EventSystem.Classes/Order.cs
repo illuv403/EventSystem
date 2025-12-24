@@ -80,13 +80,19 @@ public class Order
         ticketToRemove.Dispose();
     }
 
-    //Maybe should be fixed
     public void DeleteOrderTickets()
     {
-        foreach (Ticket ticket in _ticketsInOrder)
+        foreach (var ticket in GetTicketsInOrder())
         {
             RemoveTicketFromOrder(ticket);
         }
+    }
+
+    public void RemoveOrder()
+    {
+        DeleteOrderTickets();
+        RemoveFromCustomer();
+        _orderList.Remove(this);
     }
 
     public void UpdateTicketsInOrder(Ticket ticketToRemove, Ticket ticketToAdd)
