@@ -24,10 +24,26 @@ public class Event
     private HashSet<Ticket> _ticketsForEvent = new();
     private Location _location;
 
+
+    private Musical? _musicalEventInstance;
+    private Sport? _sportInstance;
+    private Standup? _standupInstance;
+    
+    
+    // parameters for EventTypes provided in base Event constructor
     public Event(string title, DateTime startDateAndTime, DateTime endDateAndTime, string description,
         List<Organizer> organizers, List<Staff> staffAssigned,
-        List<Customer> inWhoseWishList, Location location, List<Ticket> ticketsForEvent)
+        List<Customer> inWhoseWishList, Location location, List<Ticket> ticketsForEvent, bool isMusical, bool isSport, bool isStandup)
     {
+        if(!isMusical && !isSport && !isStandup) throw new ArgumentException("Event should be at list one of the following: Musical, Sport, Standup");
+        
+        _musicalEventInstance = isMusical ? new Musical() : null;
+        _sportInstance = isSport ? new Sport() : null;
+        _standupInstance = isStandup ? new Standup() : null;
+        
+        //How this instantiation works
+        //_musicalEventInstance.GetBand();
+        
         title = title.Trim();
         description = description.Trim();
 

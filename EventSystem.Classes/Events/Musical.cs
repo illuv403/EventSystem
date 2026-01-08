@@ -1,18 +1,18 @@
 ﻿namespace EventSystem.Classes;
 
-public class Musical : Event
+public class Musical
 {
+    // Just a variable for example , no need to add to diagram
+    private string band = String.Empty;
+    
     private static readonly List<Musical> _musicalList = [];
     public static IReadOnlyList<Musical> MusicalList => _musicalList;
     
-    public Musical(string title, DateTime startDateAndTime, DateTime endDateAndTime, string description,
-        List<Organizer> organizers, List<Staff> staffAssigned, List<Customer> inWhoseWishList, Location location, List<Ticket> ticketsForEvent)
-        : base(title, startDateAndTime, endDateAndTime, description, organizers, staffAssigned, inWhoseWishList, location, ticketsForEvent)
+    public Musical()
+    
     {
         _musicalList.Add(this);
     }
-
-    public Musical() { }
 
     public static void LoadExtent(List<Musical>? list)
     {
@@ -24,5 +24,11 @@ public class Musical : Event
     public static void ClearExtent()
     {
         _musicalList.Clear();   
+    }
+
+    // method to get parameter
+    public string GetBand()
+    {
+        return band;
     }
 }
