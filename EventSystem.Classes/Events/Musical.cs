@@ -2,17 +2,25 @@
 
 public class Musical
 {
-    // Just a variable for example , no need to add to diagram
-    private string band = String.Empty;
-    
     private static readonly List<Musical> _musicalList = [];
     public static IReadOnlyList<Musical> MusicalList => _musicalList;
     
-    public Musical()
+    public string Artist { get; set; }
+    public string Genre { get; set; }
     
+    public Musical()
     {
+    }
+
+    public Musical(string Artist, string Genre)
+    {
+        this.Artist = Artist;
+        this.Genre = Genre;
         _musicalList.Add(this);
     }
+    
+    public bool isGenre(string genre) => Genre == genre;
+    public bool isArtist(string artist) => Artist == artist;
 
     public static void LoadExtent(List<Musical>? list)
     {
@@ -24,11 +32,5 @@ public class Musical
     public static void ClearExtent()
     {
         _musicalList.Clear();   
-    }
-
-    // method to get parameter
-    public string GetBand()
-    {
-        return band;
     }
 }

@@ -10,11 +10,11 @@ public class LocationClassTests
     public LocationClassTests()
     {
         _location = new(10000, "Al. Wilanowska 12", new List<Event>());
-        _event = new("TestEvent", new DateTime(2025, 12, 29, 15, 00, 00), 
-            new DateTime(2026, 01, 01, 19, 00, 00), 
+        _event = new("TestEvent", new DateTime(2026, 03, 01, 15, 00, 00), 
+            new DateTime(2026, 03, 01, 19, 00, 00), 
             "Some event description", new List<Organizer>(){new Organizer("Johns", "Suron", 
                 "jsuron@gmail.com", "+48956765432", new DateOnly(2005, 01, 01), 2978.69m, new List<Staff>(), new List<Event>())}, new List<Staff>(),
-                new List<Customer>(), _location, new List<Ticket>());
+                new List<Customer>(), _location, new List<Ticket>(), true, false, false);
     }
     
     [Fact]

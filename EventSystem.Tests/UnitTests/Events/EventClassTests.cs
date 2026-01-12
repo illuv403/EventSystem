@@ -21,13 +21,13 @@ public class EventClassTests
     public EventClassTests()
     {
         _event = new Event("New Event",
-            new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "New event",
+            new DateTime(2026, 02, 10), new DateTime(2026, 02, 14), "New event",
             new List<Organizer> {new("Alice", "Black",
                 "test6546@gmail.com", "+48573073352",
                 new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())}, 
             new List<Staff>(), new List<Customer>(),
             new Location(10000, "Al. Wilanowska 12", new List<Event>()), 
-            new List<Ticket>());
+            new List<Ticket>(), true, false, false);
     
         _staff1 = new Staff("Henry", "Grey",
             "test@gmail.com", "+48573370352", new DateOnly(2000, 1, 1),
@@ -64,8 +64,8 @@ public class EventClassTests
     public void EventCreationTest()
     {
         Assert.Equal("New Event", _event.Title);
-        Assert.Equal(new DateTime(2025, 12, 27), _event.StartDateAndTime);
-        Assert.Equal(new DateTime(2025, 12, 30), _event.EndDateAndTime);
+        Assert.Equal(new DateTime(2026, 02, 10), _event.StartDateAndTime);
+        Assert.Equal(new DateTime(2026, 02, 14), _event.EndDateAndTime);
         Assert.Equal("New event", _event.Description);
         Assert.Single(_event.Organizers);
         Assert.Equal(new List<Staff>(), _event.StaffAssigned);
@@ -82,7 +82,7 @@ public class EventClassTests
         var ex = Assert.Throws<ArgumentException>(() => new Event("",
             new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "New event",
             new List<Organizer>(), new List<Staff>(), new List<Customer>(),
-            new Location(10000, "Al. Wilanowska 12", new List<Event>()), new List<Ticket>()));
+            new Location(10000, "Al. Wilanowska 12", new List<Event>()), new List<Ticket>(), true, false, false));
         Assert.Equal("Title cannot be empty.", ex.Message);
     }
     
@@ -92,7 +92,7 @@ public class EventClassTests
         var ex = Assert.Throws<ArgumentException>(() => new Event("New Event",
             new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "",
             new List<Organizer>(), new List<Staff>(), new List<Customer>(),
-            new Location(10000, "Al. Wilanowska 12", new List<Event>()), new List<Ticket>()));
+            new Location(10000, "Al. Wilanowska 12", new List<Event>()), new List<Ticket>(), true, false, false));
         Assert.Equal("Description cannot be empty.", ex.Message);
     }
 
@@ -102,7 +102,7 @@ public class EventClassTests
         var ex = Assert.Throws<ArgumentException>(() => new Event("New Event",
             new DateTime(2025, 12, 30), new DateTime(2025, 12, 27), "New event",
             new List<Organizer>(), new List<Staff>(), new List<Customer>(),
-            new Location(10000, "Al. Wilanowska 12", new List<Event>()), new List<Ticket>()));
+            new Location(10000, "Al. Wilanowska 12", new List<Event>()), new List<Ticket>(), true, false, false));
         Assert.Equal("End date cannot be before start date.", ex.Message);
     }
 
@@ -112,7 +112,7 @@ public class EventClassTests
         var ex = Assert.Throws<ArgumentException>(() => new Event("New Event",
             new DateTime(2025, 10, 10), new DateTime(2025, 12, 23), "New event",
             new List<Organizer>(), new List<Staff>(), new List<Customer>(),
-            new Location(10000, "Al. Wilanowska 12", new List<Event>()), new List<Ticket>()));
+            new Location(10000, "Al. Wilanowska 12", new List<Event>()), new List<Ticket>(), true, false, false));
         Assert.Equal("Start date cannot be before current date.", ex.Message);
     }
 

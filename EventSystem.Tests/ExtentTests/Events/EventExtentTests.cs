@@ -21,7 +21,7 @@ public class EventExtentTests : ExtentTestBase
         var newList = new List<Event>
         {
             new(_event.Title, new DateTime(2026, 06, 14), new DateTime(2026, 06, 24),
-                _event.Description, _event.Organizers, _event.StaffAssigned, _event.InWhoseWishList, _event.Location, _event.TicketsForEvent)
+                _event.Description, _event.Organizers, _event.StaffAssigned, _event.InWhoseWishList, _event.Location, _event.TicketsForEvent, true, false, false)
         };
         
         Event.LoadExtent(newList);

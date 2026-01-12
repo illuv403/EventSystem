@@ -1,6 +1,7 @@
 using System.Dynamic;
 using EventSystem.Classes;
 using NuGet.Frameworks;
+using Xunit.Sdk;
 
 namespace EventSystem.Tests;
 
@@ -20,21 +21,21 @@ public class CustomerClassTests
             new DateOnly(2000, 1, 1), new List<Order>()
         );
         
-        _event1 = new Event("New Event", new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "New event",
+        _event1 = new Event("New Event", new DateTime(2026, 03, 01), new DateTime(2026, 03, 03), "New event",
             new List<Organizer> {new("Alice", "Black",
                 "test6546@gmail.com", "+48573073352",
                 new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())}, 
             new List<Staff>(), new List<Customer>(),
             new Location(10000, "Al. Wilanowska 12", new List<Event>()), 
-            new List<Ticket>());
+            new List<Ticket>(), true, false, false);
         
-        _event2 = new Event("My Event", new DateTime(2026, 01, 12), new DateTime(2026, 01, 14), "My event",
+        _event2 = new Event("My Event", new DateTime(2026, 02, 12), new DateTime(2026, 02, 14), "My event",
             new List<Organizer> {new("Mial", "Iwonas",
                 "test6546@gmail.com", "+48565251352",
                 new DateOnly(1981, 4, 14), 19999.99m, new List<Staff>(), new List<Event>())}, 
             new List<Staff>(), new List<Customer>(),
             new Location(16000, "ul. Poznańska 13", new List<Event>()), 
-            new List<Ticket>());
+            new List<Ticket>(), true, false, false);
 
         _order = new("SomeOrderId", _customer, new List<Ticket>());
     }
@@ -48,7 +49,7 @@ public class CustomerClassTests
         Assert.Equal("+48573370352", _customer.PhoneNumber);
         Assert.Equal(new DateOnly(2000, 1, 1), _customer.BirthDate);
         Assert.Equal(new List<Order>(),  _customer.Orders);
-        Assert.Equal(25, _customer.Age);
+        Assert.Equal(26, _customer.Age);
         Assert.Equal(Customer.CustomerStatus.Active, _customer.Status);
     }
     
@@ -179,5 +180,67 @@ public class CustomerClassTests
         Assert.Contains(_customer.GetCustomerOrders(), 
             order => order.OrderId.Equals(_order.OrderId));
                 
+    }
+
+    [Fact]
+    public void ChangeToStaffTest()
+    {
+        Staff expectedStaff = new("Henry", "Grey",
+            "test@gmail.com", "+48573370352", new DateOnly(2000, 1, 1),
+            Staff.StaffRole.Bartender, new Address("Poland", "Warsaw", "Al. Wilanowska 12", "125", "02-123", new List<Staff>()),
+            599.99m, new List<Event>(),
+            new Organizer("Anne", "Grey","test@gmail.com", "+48573370352", new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>()), 
+            new DateOnly(2000, 2, 1),
+            null, new List<Staff>());
+
+        Staff customerToStaff = _customer.ChangeToStaff(Staff.StaffRole.Bartender, new Address("Poland", "Warsaw",
+                "Al. Wilanowska 12", "125", "02-123", new List<Staff>()), 599.99m, new List<Event>(),
+            new Organizer("Anne", "Grey",
+                "test@gmail.com", "+48573370352",
+                new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>()),
+            new DateOnly(2000, 2, 1),
+            null, new List<Staff>());
+
+        Assert.Equal(expectedStaff.Name, customerToStaff.Name);
+        Assert.Equal(expectedStaff.Surname, customerToStaff.Surname);
+        Assert.Equal(expectedStaff.Email, customerToStaff.Email);
+        Assert.Equal(expectedStaff.PhoneNumber, customerToStaff.PhoneNumber);
+        Assert.Equal(expectedStaff.Address.Country, customerToStaff.Address.Country);
+        Assert.Equal(expectedStaff.Address.City, customerToStaff.Address.City);
+        Assert.Equal(expectedStaff.Address.Street, customerToStaff.Address.Street);
+        Assert.Equal(expectedStaff.Address.AppNumber, customerToStaff.Address.AppNumber);
+        Assert.Equal(expectedStaff.Address.Index, customerToStaff.Address.Index);
+        Assert.Equal(expectedStaff.Address.Staff, customerToStaff.Address.Staff);
+        Assert.Equal(expectedStaff.Salary, customerToStaff.Salary);
+        Assert.Equal(expectedStaff.Events, customerToStaff.Events);
+        Assert.Equal(expectedStaff.Organizer?.Name, customerToStaff.Organizer.Name);
+        Assert.Equal(expectedStaff.Organizer?.Surname, customerToStaff.Organizer.Surname);
+        Assert.Equal(expectedStaff.Organizer?.Email, customerToStaff.Organizer.Email);
+        Assert.Equal(expectedStaff.Organizer?.PhoneNumber, customerToStaff.Organizer.PhoneNumber);
+        Assert.Equal(expectedStaff.Organizer?.BirthDate, customerToStaff.Organizer.BirthDate);
+        Assert.Equal(expectedStaff.Organizer?.Profit, customerToStaff.Organizer.Profit);
+        Assert.Equal(expectedStaff.Organizer?.Staff, customerToStaff.Organizer.Staff);
+        Assert.Equal(expectedStaff.Organizer?.Events, customerToStaff.Organizer.Events);
+        Assert.Equal(expectedStaff.BirthDate, customerToStaff.BirthDate);
+        Assert.Equal(expectedStaff.Manager, customerToStaff.Manager);
+        Assert.Equal(expectedStaff.Subordinates, customerToStaff.Subordinates);
+    }
+
+    [Fact]
+    public void ChangeToOrganiserTest()
+    {
+        Organizer expectedOrganizer = new("Henry", "Grey",
+            "test@gmail.com", "+48573370352", new DateOnly(2000, 1, 1),
+            599.99m, new List<Staff>(), new List<Event>());
+
+        Organizer customerToOrganizer = _customer.ChangeToOrganiser(599.99m, new List<Staff>(), new List<Event>());
+        Assert.Equal(expectedOrganizer.Name, customerToOrganizer.Name);
+        Assert.Equal(expectedOrganizer.Surname, customerToOrganizer.Surname);
+        Assert.Equal(expectedOrganizer.Email, customerToOrganizer.Email);
+        Assert.Equal(expectedOrganizer.PhoneNumber, customerToOrganizer.PhoneNumber);
+        Assert.Equal(expectedOrganizer.BirthDate, customerToOrganizer.BirthDate);
+        Assert.Equal(expectedOrganizer.Profit, customerToOrganizer.Profit);
+        Assert.Equal(expectedOrganizer.Staff, customerToOrganizer.Staff);
+        Assert.Equal(expectedOrganizer.Events, customerToOrganizer.Events);
     }
 }

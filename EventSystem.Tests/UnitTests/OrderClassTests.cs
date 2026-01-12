@@ -20,13 +20,13 @@ public class OrderClassTests
         
         _ticketStandard = new Vip("G4", 199.99m, "L-2", 
             new Event("New Event",
-                new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "New event",
+                new DateTime(2026, 04, 10), new DateTime(2026, 04, 17), "New event",
                 new List<Organizer> {new("Alice", "Black",
                     "test6546@gmail.com", "+48573073352",
                     new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())}, 
                 new List<Staff>(), new List<Customer>(),
                 new Location(10000, "Al. Wilanowska 12", new List<Event>()), 
-                new List<Ticket>()), 
+                new List<Ticket>(), true, false, false), 
             new Order("ID1", new Customer("Henry",
                 "Grey", "test@gmail.com", "+48573370352",
                 new DateOnly(2000, 1, 1), new List<Order>()
@@ -34,13 +34,13 @@ public class OrderClassTests
         
         _ticketVip = new Vip("G4", 199.99m, "L-2", 
             new Event("New Event",
-                new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "New event",
+                new DateTime(2027, 12, 27), new DateTime(2027, 12, 30), "New event",
                 new List<Organizer> {new("Alice", "Black",
                     "test6546@gmail.com", "+48573073352",
                     new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())}, 
                 new List<Staff>(), new List<Customer>(),
                 new Location(10000, "Al. Wilanowska 12", new List<Event>()), 
-                new List<Ticket>()), 
+                new List<Ticket>(), true, false, false), 
             new Order("ID1", new Customer("Henry",
                 "Grey", "test@gmail.com", "+48573370352",
                 new DateOnly(2000, 1, 1), new List<Order>()

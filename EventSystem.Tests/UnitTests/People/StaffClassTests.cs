@@ -74,22 +74,22 @@ public class StaffClassTests
             null, new List<Staff>());
         
         _event1 = new Event("New Event",
-            new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "New event",
+            new DateTime(2026, 03, 01), new DateTime(2026, 03, 03), "New event",
             new List<Organizer> {new("Alice", "Black",
                 "test6546@gmail.com", "+48573073352",
                 new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())}, 
             new List<Staff>(), new List<Customer>(),
             new Location(10000, "Al. Wilanowska 12", new List<Event>()), 
-            new List<Ticket>());
+            new List<Ticket>(), true, false, false);
         
         _event2 = new Event("New Event 2",
-            new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "New event 2",
+            new DateTime(2026, 02, 01), new DateTime(2026, 02, 03), "New event 2",
             new List<Organizer> {new("Alice", "Black",
                 "test6546@gmail.com", "+48573073352",
                 new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())}, 
             new List<Staff>(), new List<Customer>(),
             new Location(10000, "Al. Wilanowska 12", new List<Event>()), 
-            new List<Ticket>());
+            new List<Ticket>(), true, false, false);
 
         _address1 = new Address("Ukraine", "Kyiv",
             "St. Centralna 5", "11", "6001", new List<Staff>());
@@ -259,4 +259,38 @@ public class StaffClassTests
         Assert.Equal(new DateOnly(2025, 10, 12), hiring.Single().DateFired);
     }
     
+    [Fact]
+    public void ChangeToOrganizerTest()
+    {
+        Organizer expectedOrganizer = new("Henry", "Grey",
+            "test@gmail.com", "+48573370352", new DateOnly(2000, 1, 1),
+            599.99m, new List<Staff>(), new List<Event>());
+
+        Organizer staffToOrganizer = _staff.ChangeToOrganiser(599.99m, new List<Staff>(), new List<Event>());
+        Assert.Equal(expectedOrganizer.Name, staffToOrganizer.Name);
+        Assert.Equal(expectedOrganizer.Surname, staffToOrganizer.Surname);
+        Assert.Equal(expectedOrganizer.Email, staffToOrganizer.Email);
+        Assert.Equal(expectedOrganizer.PhoneNumber, staffToOrganizer.PhoneNumber);
+        Assert.Equal(expectedOrganizer.BirthDate, staffToOrganizer.BirthDate);
+        Assert.Equal(expectedOrganizer.Profit, staffToOrganizer.Profit);
+        Assert.Equal(expectedOrganizer.Staff, staffToOrganizer.Staff);
+        Assert.Equal(expectedOrganizer.Events, staffToOrganizer.Events);
+    }
+
+    [Fact]
+    public void ChangeToCustomerTest()
+    {
+        Customer expectedCustomer = new Customer("Henry",
+            "Grey", "test@gmail.com", "+48573370352",
+            new DateOnly(2000, 1, 1), new List<Order>());
+        
+        Customer staffToCustomer = _staff.ChangeToCustomer(new List<Order>());
+        
+        Assert.Equal(expectedCustomer.Name, staffToCustomer.Name);
+        Assert.Equal(expectedCustomer.Surname, staffToCustomer.Surname);
+        Assert.Equal(expectedCustomer.Email, staffToCustomer.Email);
+        Assert.Equal(expectedCustomer.PhoneNumber, staffToCustomer.PhoneNumber);
+        Assert.Equal(expectedCustomer.BirthDate, staffToCustomer.BirthDate);
+        Assert.Equal(expectedCustomer.Orders, staffToCustomer.Orders);
+    }
 }

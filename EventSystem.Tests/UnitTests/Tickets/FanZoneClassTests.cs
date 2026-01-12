@@ -5,13 +5,13 @@ namespace EventSystem.Tests;
 public class FanZoneClassTests
 {
     private FanZone _fanZone = new FanZone("A12", 49.99m, new Event("New Event",
-        new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "New event", 
+        new DateTime(2026, 02, 19), new DateTime(2026, 02, 22), "New event", 
         new List<Organizer>{new("Alice", "Black",
             "test6546@gmail.com", "+48573073352",
             new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())}, 
         new List<Staff>(), new List<Customer>(), 
         new Location(10000, "Al. Wilanowska 12", 
-            new List<Event>()), new List<Ticket>()), 
+            new List<Event>()), new List<Ticket>(), true ,false ,false), 
         new Order("ID1", new Customer("Henry",
             "Grey", "test@gmail.com", "+48573370352",
             new DateOnly(2000, 1, 1), new List<Order>()
@@ -23,8 +23,8 @@ public class FanZoneClassTests
         Assert.Equal("A12", _fanZone.GateNumber);
         Assert.Equal(49.99m, _fanZone.Price);
         Assert.Equal("New Event", _fanZone.EventForTicket.Title);
-        Assert.Equal(new DateTime(2025, 12, 27), _fanZone.EventForTicket.StartDateAndTime);
-        Assert.Equal(new DateTime(2025, 12, 30), _fanZone.EventForTicket.EndDateAndTime);
+        Assert.Equal(new DateTime(2026, 02, 19), _fanZone.EventForTicket.StartDateAndTime);
+        Assert.Equal(new DateTime(2026, 02, 22), _fanZone.EventForTicket.EndDateAndTime);
         Assert.Equal("New event", _fanZone.EventForTicket.Description);
         Assert.Equal(10000, _fanZone.EventForTicket.Location.Capacity);
         Assert.Equal("Al. Wilanowska 12", _fanZone.EventForTicket.Location.Address);

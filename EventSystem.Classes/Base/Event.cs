@@ -41,9 +41,6 @@ public class Event
         _sportInstance = isSport ? new Sport() : null;
         _standupInstance = isStandup ? new Standup() : null;
         
-        //How this instantiation works
-        //_musicalEventInstance.GetBand();
-        
         title = title.Trim();
         description = description.Trim();
 

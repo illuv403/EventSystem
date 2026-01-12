@@ -10,6 +10,9 @@ public class TestData
     private static Customer? _cachedCustomer;
     private static Organizer? _cachedOrganizer;
     private static Event? _cachedEvent;
+    private static Musical? _cachedMusical;
+    private static Sport? _cachedSport;
+    private static Standup? _cachedStandup;
     private static Order? _cachedOrder;
     private static Staff? _cachedStaff;
 
@@ -20,6 +23,9 @@ public class TestData
         _cachedCustomer = null;
         _cachedOrganizer = null;
         _cachedEvent = null;
+        _cachedMusical = null;
+        _cachedSport = null;
+        _cachedStandup = null;
         _cachedOrder = null;
         _cachedStaff = null;
     }
@@ -72,7 +78,7 @@ public class TestData
         if (_cachedEvent == null)
             _cachedEvent = new("TTL", StartDateTime(), EndDateTime(), Description(),
                 new List<Organizer>{Organizer()}, new List<Staff>(), 
-                new List<Customer>(), Location(), new List<Ticket>());
+                new List<Customer>(), Location(), new List<Ticket>(), false, true, false);
         return _cachedEvent;
     }
 
@@ -100,26 +106,35 @@ public class TestData
     public static Hiring Hiring() => new(Staff(), Organizer(), HiredDate(), FiredDate());
     
     public static Male Male() => new("Marcin", "Kowalski", "kow.mar@gmail.com", PhoneNumber(), BirthDate());
-
-    public static Musical Musical() => new("Christmas Musical", StartDateTime(), EndDateTime(), Description(), 
-        new List<Organizer>{Organizer()}, new List<Staff>(), new List<Customer>(), 
-        Location(), new List<Ticket>());
+    
+    public static Musical Musical()
+    {
+        if (_cachedMusical == null)
+            _cachedMusical = new("John Polow", "Pop Musical");
+        return _cachedMusical;
+    }
 
     public static Other Other() => new("Mutor", "Figdi", "figdi@gmail.com", PhoneNumber(), BirthDate(), "YWO");
 
     public static Scene Scene() => new(455, _Address(), new List<Event>());
 
-    public static Sport Sport() => new("Sport Event #1", StartDateTime(), EndDateTime(), Description(), 
-        new List<Organizer>{Organizer()}, new List<Staff>(), new List<Customer>(), 
-        Location(), new List<Ticket>());
+    public static Sport Sport() 
+    {
+        if (_cachedSport == null)
+            _cachedSport = new("Arsenal", "Liverpool", "Premier League", "Football");
+        return _cachedSport;
+    } 
 
     public static Stadium Stadium() => new(933, _Address(), new List<Event>());
     
     public static Standard Standard() => new("G16", new decimal(49.99), "L-4", Event(), Order());
     
-    public static Standup Standup() => new("Standup #1", StartDateTime(), EndDateTime(), Description(),
-        new List<Organizer>{Organizer()},new List<Staff>(), new List<Customer>(), 
-        Location(), new List<Ticket>());
+    public static Standup Standup() 
+    {
+        if (_cachedStandup == null)
+            _cachedStandup = new("Rory Scovel", "Unpredictability", true, 18);
+        return _cachedStandup;
+    }  
 
     public static Vip Vip() => new("M15", new decimal(89.99), "V-8", Event(), Order());
 }

@@ -20,12 +20,12 @@ public class SportExtentTests : ExtentTestBase
         
         var newList = new List<Sport>
         {
-            new("Sport Event #2", sport.StartDateAndTime, sport.EndDateAndTime, sport.Description, sport.Organizers, sport.StaffAssigned, sport.InWhoseWishList, sport.Location, sport.TicketsForEvent)
+            new("Arsenal", "Liverpool", "Premier League", "Football")
         };
         
         Sport.LoadExtent(newList);
         
         Assert.Single(Sport.SportList);
-        Assert.Equal("Sport Event #2", Sport.SportList[0].Title);
+        Assert.Equal("Premier League", Sport.SportList[0].League);
     }
 }
