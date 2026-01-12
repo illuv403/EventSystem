@@ -3,8 +3,10 @@ using System.Xml.Serialization;
 
 namespace EventSystem.Classes;
 
-public class Customer : Person
+public class Customer : Person , IDisposable
 {
+    private bool _isDisposed;
+    
     private static readonly List<Customer> _customerList = [];
     public static IReadOnlyList<Customer> CustomerList => _customerList;
     
@@ -111,5 +113,53 @@ public class Customer : Person
     {
         _customerOrders.Remove(oldOrderId);
         _customerOrders.Add(newOrderId, order);
+    }
+    
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+    
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_isDisposed) return;
+        _isDisposed = true;
+
+        if (disposing)
+        {
+            _customerList.Remove(this);
+            
+            foreach (var eventInWish in _wishesForEvent)
+            {
+                RemoveWishForEvent(eventInWish);
+                eventInWish.InWhoseWishList.Remove(this);
+            }
+            foreach (var order in _customerOrders)
+            {
+                RemoveCustomerOrder(order.Value);
+                order.Value.CreatedByCustomer = null;
+                order.Value.RemoveFromCustomer();
+            }
+        }
+    }
+
+
+    public Staff ChangeToStaff( Staff.StaffRole role,
+        Address address, decimal salary, List<Event> events, Organizer organizer, DateOnly hireDate, Staff? manager, 
+        List<Staff> subordinates)
+    {
+       
+        Staff changedStaff = new Staff(Name,  Surname, Email, PhoneNumber, BirthDate, role, address, salary, events, organizer,
+            hireDate, manager, subordinates);
+        Dispose();
+        return changedStaff;
+    }
+    
+    public Organizer ChangeToOrganiser(decimal profit,  List<Staff> staff, List<Event> events)
+    {
+        Organizer changedOrganiser = new Organizer(Name, Surname, Email, PhoneNumber, BirthDate, profit, staff, events);
+        Dispose();
+        return changedOrganiser;
     }
 }

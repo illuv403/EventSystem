@@ -11,7 +11,6 @@ public abstract class Person
     public string PhoneNumber {get; set; }
     public DateOnly BirthDate {get; set; }
     
-
     public Person(string name, string surname, string email, string phoneNumber, DateOnly birthDate)
     {
         name = name.Trim();
@@ -43,6 +42,6 @@ public abstract class Person
         PhoneNumber = phoneNumber;
         BirthDate = birthDate;
     }
-
+    
     public Person() { }
 }
