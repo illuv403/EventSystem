@@ -25,22 +25,25 @@ public class OrganizerClassTests
         _organizer2 = new Organizer("Ann", "Brown",
             "test@gmail.com", "+48573370352",
             new DateOnly(2001, 1, 1), 19999.99m, new List<Staff>(), new List<Event>());
-        
-        _event1 = new Event("New Event", new DateTime(2025, 12, 27), new DateTime(2025, 12, 30), "New event",
-            new List<Organizer> {new("Alice", "Black",
-                "test6546@gmail.com", "+48573073352",
-                new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())}, 
+
+        _event1 = new Event("New Event", new DateTime(2026, 02, 14), new DateTime(2026, 02, 17), "New event",
+            new List<Organizer>
+            {
+                new("Alice", "Black",
+                    "test6546@gmail.com", "+48573073352",
+                    new DateOnly(1995, 5, 4), 19999.99m, new List<Staff>(), new List<Event>())
+            },
             new List<Staff>(), new List<Customer>(),
-            new Location(10000, "Al. Wilanowska 12", new List<Event>()), 
-            new List<Ticket>());
+            new Location(10000, "Al. Wilanowska 12", new List<Event>()),
+            new List<Ticket>(), true, false, false);
         
-        _event2 = new Event("My Event", new DateTime(2026, 01, 12), new DateTime(2026, 01, 14), "My event",
+        _event2 = new Event("My Event", new DateTime(2026, 03, 01), new DateTime(2026, 03, 03), "My event",
             new List<Organizer> {new("Mial", "Iwonas",
                 "test6546@gmail.com", "+48565251352",
                 new DateOnly(1981, 4, 14), 19999.99m, new List<Staff>(), new List<Event>())}, 
             new List<Staff>(), new List<Customer>(),
             new Location(16000, "ul. Poznańska 13", new List<Event>()), 
-            new List<Ticket>());
+            new List<Ticket>(), true, false, false);
         
         _staff5 = new Staff("Henry", "Grey",
             "test@gmail.com", "+48573370352", new DateOnly(2000, 1, 1),
@@ -132,5 +135,67 @@ public class OrganizerClassTests
         Assert.Single(hiringHistory);
         
         Assert.Equal(new DateOnly(2025, 10, 12), hiringHistory.Single().DateFired);
+    }
+    
+    
+    [Fact]
+    public void ChangeToStaffTest()
+    {
+        Staff expectedStaff = new("Anne", "Grey",
+            "test@gmail.com", "+48573370352", new DateOnly(2000, 1, 1),
+            Staff.StaffRole.Bartender, new Address("Poland", "Warsaw", "Al. Wilanowska 12", "125", "02-123", new List<Staff>()),
+            19999.99m, new List<Event>(),
+            new Organizer("Ben", "White","test@gmail.com", "+48572512352", new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>()), 
+            new DateOnly(2000, 2, 1),
+            null, new List<Staff>());
+
+        Staff organizerToStaff = _organizer.ChangeToStaff(Staff.StaffRole.Bartender, new Address("Poland", "Warsaw",
+                "Al. Wilanowska 12", "125", "02-123", new List<Staff>()), 19999.99m, new List<Event>(),
+            new Organizer("Ben", "White",
+                "test@gmail.com", "+48572512352",
+                new DateOnly(2000, 1, 1), 19999.99m, new List<Staff>(), new List<Event>()),
+            new DateOnly(2000, 2, 1),
+            null, new List<Staff>());
+
+        Assert.Equal(expectedStaff.Name, organizerToStaff.Name);
+        Assert.Equal(expectedStaff.Surname, organizerToStaff.Surname);
+        Assert.Equal(expectedStaff.Email, organizerToStaff.Email);
+        Assert.Equal(expectedStaff.PhoneNumber, organizerToStaff.PhoneNumber);
+        Assert.Equal(expectedStaff.Address.Country, organizerToStaff.Address.Country);
+        Assert.Equal(expectedStaff.Address.City, organizerToStaff.Address.City);
+        Assert.Equal(expectedStaff.Address.Street, organizerToStaff.Address.Street);
+        Assert.Equal(expectedStaff.Address.AppNumber, organizerToStaff.Address.AppNumber);
+        Assert.Equal(expectedStaff.Address.Index, organizerToStaff.Address.Index);
+        Assert.Equal(expectedStaff.Address.Staff, organizerToStaff.Address.Staff);
+        Assert.Equal(expectedStaff.Salary, organizerToStaff.Salary);
+        Assert.Equal(expectedStaff.Events, organizerToStaff.Events);
+        Assert.Equal(expectedStaff.Organizer?.Name, organizerToStaff.Organizer.Name);
+        Assert.Equal(expectedStaff.Organizer?.Surname, organizerToStaff.Organizer.Surname);
+        Assert.Equal(expectedStaff.Organizer?.Email, organizerToStaff.Organizer.Email);
+        Assert.Equal(expectedStaff.Organizer?.PhoneNumber, organizerToStaff.Organizer.PhoneNumber);
+        Assert.Equal(expectedStaff.Organizer?.BirthDate, organizerToStaff.Organizer.BirthDate);
+        Assert.Equal(expectedStaff.Organizer?.Profit, organizerToStaff.Organizer.Profit);
+        Assert.Equal(expectedStaff.Organizer?.Staff, organizerToStaff.Organizer.Staff);
+        Assert.Equal(expectedStaff.Organizer?.Events, organizerToStaff.Organizer.Events);
+        Assert.Equal(expectedStaff.BirthDate, organizerToStaff.BirthDate);
+        Assert.Equal(expectedStaff.Manager, organizerToStaff.Manager);
+        Assert.Equal(expectedStaff.Subordinates, organizerToStaff.Subordinates);
+    }
+
+    [Fact]
+    public void ChangeToCustomerTest()
+    {
+        Customer expectedCustomer = new Customer("Anne",
+            "Grey", "test@gmail.com", "+48573370352",
+            new DateOnly(2000, 1, 1), new List<Order>());
+        
+        Customer organizerToCustomer = _organizer.ChangeToCustomer(new List<Order>());
+        
+        Assert.Equal(expectedCustomer.Name, organizerToCustomer.Name);
+        Assert.Equal(expectedCustomer.Surname, organizerToCustomer.Surname);
+        Assert.Equal(expectedCustomer.Email, organizerToCustomer.Email);
+        Assert.Equal(expectedCustomer.PhoneNumber, organizerToCustomer.PhoneNumber);
+        Assert.Equal(expectedCustomer.BirthDate, organizerToCustomer.BirthDate);
+        Assert.Equal(expectedCustomer.Orders, organizerToCustomer.Orders);
     }
 }

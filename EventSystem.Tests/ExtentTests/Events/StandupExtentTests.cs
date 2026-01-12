@@ -20,12 +20,12 @@ public class StandupExtentTests : ExtentTestBase
 
         var newList = new List<Standup>
         {
-            new("Standup #2", standup.StartDateAndTime, standup.EndDateAndTime, standup.Description, standup.Organizers, standup.StaffAssigned, standup.InWhoseWishList, standup.Location, standup.TicketsForEvent)
+            new("Rory Scovel", "Unpredictability", true, 18)
         };
         
         Standup.LoadExtent(newList);
         
         Assert.Single(Standup.StandupList);
-        Assert.Equal("Standup #2", Standup.StandupList[0].Title);
+        Assert.Equal("Unpredictability", Standup.StandupList[0].ComedyStyle);
     }
 }

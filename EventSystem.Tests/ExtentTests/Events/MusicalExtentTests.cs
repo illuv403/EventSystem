@@ -20,12 +20,12 @@ public class MusicalExtentTests : ExtentTestBase
         
         var newList = new List<Musical>
         {
-            new("MyMusical", musical.StartDateAndTime, musical.EndDateAndTime, musical.Description, musical.Organizers, musical.StaffAssigned, musical.InWhoseWishList, musical.Location, musical.TicketsForEvent)
+            new("John Polow", "Pop Musical")
         };
         
         Musical.LoadExtent(newList);
 
         Assert.Single(Musical.MusicalList);
-        Assert.Equal("MyMusical", Musical.MusicalList[0].Title);
+        Assert.Equal("John Polow", Musical.MusicalList[0].Artist);
     }
 }

@@ -126,7 +126,7 @@ public class PersistenceTests : IDisposable
         Assert.Equal("Marcin", Male.List[0].Name);
         
         Assert.Single(Musical.MusicalList);
-        Assert.Equal("Christmas Musical", Musical.MusicalList[0].Title);
+        Assert.Equal("John Polow", Musical.MusicalList[0].Artist);
         
         Assert.Single(Order.List);
         Assert.Equal("d.eroth@gmail.com", Order.List[0].CreatedByCustomer.Email);
@@ -141,7 +141,7 @@ public class PersistenceTests : IDisposable
         Assert.Equal("Traktorzystów 12", Scene.SceneList[0].Address);
         
         Assert.Single(Sport.SportList);
-        Assert.Equal("Sport Event #1", Sport.SportList[0].Title);
+        Assert.Equal("Football", Sport.SportList[0].SportType);
         
         Assert.Single(Stadium.StadiumList);
         Assert.Equal(933, Stadium.StadiumList[0].Capacity);
@@ -153,7 +153,7 @@ public class PersistenceTests : IDisposable
         Assert.Equal("L-4", Standard.StandardList[0].SeatNumber);
         
         Assert.Single(Standup.StandupList);
-        Assert.Equal("Standup #1", Standup.StandupList[0].Title);
+        Assert.Equal("Rory Scovel", Standup.StandupList[0].Comedian);
         
         Assert.Single(Vip.VipList);
         Assert.Equal("M15", Vip.VipList[0].GateNumber);
