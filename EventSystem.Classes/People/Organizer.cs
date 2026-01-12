@@ -3,8 +3,11 @@ using System.Xml.Serialization;
 
 namespace EventSystem.Classes;
 
-public class Organizer : Person
+public class Organizer : Person , IDisposable
 {
+    
+    private bool _isDisposed;
+    
     private static readonly List<Organizer> _organizerList = [];
     public static IReadOnlyList<Organizer> OrganizerList => _organizerList;
     
@@ -93,6 +96,67 @@ public class Organizer : Person
     {
         RemoveAssignedEvent(eventToRemove);
         AddAssignedEvent(eventToAdd);
+    }
+    
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+    
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_isDisposed) return;
+        _isDisposed = true;
+
+        if (disposing)
+        {
+            _organizerList.Remove(this);
+            foreach (var staff  in Staff)
+            {
+                Staff.Remove(staff);
+                staff.Organizer = null;
+            }
+
+            foreach (var eventInSet in Events)
+            {
+                RemoveAssignedEvent(eventInSet);
+                eventInSet.RemoveEventOrganizer(this);
+                eventInSet.Organizers.Remove(this);
+            }
+
+            foreach (var eventInSet in _assignedEvents)
+            {
+                RemoveAssignedEvent(eventInSet);
+                eventInSet.RemoveEventOrganizer(this);
+                eventInSet.Organizers.Remove(this);
+            }
+
+            foreach (var hiring in _hiringHistory)
+            {
+                hiring.Organizer.RemoveHiring(hiring);
+                hiring.Staff.Organizer = null;
+                _hiringHistory.Remove(hiring);
+            }
+        }
+    }
+    
+    public Staff ChangeToStaff(Staff.StaffRole role,
+        Address address, decimal salary, List<Event> events, Organizer organizer, DateOnly hireDate, Staff? manager, 
+        List<Staff> subordinates)
+    {
+        
+        Staff changedStaff = new Staff(Name,  Surname, Email, PhoneNumber, BirthDate, role, address, salary, events, organizer,
+            hireDate, manager, subordinates);
+        Dispose();
+        return changedStaff;
+    }
+
+    public Customer ChangeToCustomer(List<Order> orders)
+    {
+        Customer changedCustomer = new Customer(Name,  Surname, Email, PhoneNumber, BirthDate, orders);
+        Dispose();
+        return changedCustomer;
     }
     
 }

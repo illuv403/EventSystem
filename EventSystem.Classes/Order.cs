@@ -20,7 +20,7 @@ public class Order
     [JsonInclude]
     public List<Ticket> TicketsInOrder { get; private set; }
     [JsonInclude]
-    public Customer? CreatedByCustomer { get; private set; }
+    public Customer? CreatedByCustomer { get; set; }
     
     private HashSet<Ticket> _ticketsInOrder = new();
     private Customer? _createdByCustomer;

@@ -3,8 +3,10 @@ using System.Xml.Serialization;
 
 namespace EventSystem.Classes;
 
-public class Staff : Person
+public class Staff : Person , IDisposable
 {
+    private bool _isDisposed;
+    
     private static readonly List<Staff> _staffList = [];
     public static IReadOnlyList<Staff> StaffList => _staffList;
     
@@ -32,7 +34,7 @@ public class Staff : Person
     public List<Event> Events { get; private set; }
     
     [JsonInclude]
-    public Organizer Organizer { get; private set; }
+    public Organizer? Organizer { get; set; }
 
     private HashSet<Event> _assignedEvents = new();
     private HashSet<Staff> _staffInCharge = new();
@@ -188,5 +190,70 @@ public class Staff : Person
         _accommodationAddress =  newAccommodationAddress;
         newAccommodationAddress.AddStaffLivingHere(this);
     }
+    
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+    
+    protected virtual void Dispose(bool disposing)
+    {
+        if (_isDisposed) return;
+        _isDisposed = true;
 
+        if (disposing)
+        {
+            _staffList.Remove(this);
+            foreach (var subordinate in Subordinates)
+            {
+                Subordinates.Remove(subordinate);
+                subordinate.Manager = null;
+            }
+            foreach (var eventInSet in Events)
+            {
+                Events.Remove(eventInSet);
+                eventInSet.StaffAssigned.Remove(this);
+                eventInSet.RemoveStaffAssigned(this);
+            }
+            foreach (var staffMember in _staffInCharge)
+            {
+                RemoveStaffInCharge(staffMember);
+            }
+            if (Manager != null)
+                Manager.RemoveStaffInCharge(this);
+        
+            foreach (var hiring in _hiringHistory)
+            {
+                hiring.Organizer.RemoveHiring(hiring);
+                hiring.Organizer.Staff.Remove(this);
+                _hiringHistory.Remove(hiring);
+            }
+
+            foreach (var assignedEvent in _assignedEvents)
+            {
+                assignedEvent.RemoveStaffAssigned(this);
+                assignedEvent.StaffAssigned.Remove(this);
+                _assignedEvents.Remove(assignedEvent);
+            }
+            _accommodationAddress.RemoveStaffLivingHere(this, _accommodationAddress);
+            Organizer = null;
+        }
+    }
+    
+    
+    public Organizer ChangeToOrganiser(decimal profit,  List<Staff> staff, List<Event> events)
+    {
+        Organizer changedOrganiser = new Organizer(Name, Surname, Email, PhoneNumber, BirthDate, profit, staff, events);
+        Dispose();
+        return changedOrganiser;
+    }
+    
+    
+    public Customer ChangeToCustomer(List<Order> orders)
+    {
+        Customer changedCustomer = new Customer(Name,  Surname, Email, PhoneNumber, BirthDate, orders);
+        Dispose();
+        return changedCustomer;
+    }
 }
